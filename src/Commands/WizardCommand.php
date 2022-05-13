@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Spatie\Wizard\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class WizardCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-livewire-wizard';
 
     public $description = 'My command';
 
