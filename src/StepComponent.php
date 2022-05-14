@@ -8,7 +8,7 @@ use Livewire\Livewire;
 
 abstract class StepComponent extends Component
 {
-    public array $wizardState = [];
+    public array $allStepsState = [];
 
     public function previousStep()
     {
@@ -29,7 +29,7 @@ abstract class StepComponent extends Component
     {
         $stepName = Livewire::getAlias(static::class);
 
-        return array_merge($this->wizardState, [$stepName => $this->currentStepState()]);
+        return array_merge($this->allStepsState, [$stepName => $this->currentStepState()]);
     }
 
     public function stateForStep(string $stepName): array

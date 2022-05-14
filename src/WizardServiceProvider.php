@@ -10,6 +10,7 @@ class WizardServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('laravel-livewire-wizard');
+            ->name('laravel-livewire-wizard')
+            ->hasViews();
     }
 }

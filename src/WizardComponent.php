@@ -12,10 +12,8 @@ use Spatie\LivewireWizard\Exceptions\NoStepsReturned;
 
 abstract class WizardComponent extends Component
 {
-    public string $currentStep;
-    public array $currentStepState = [];
-
-    public array $stepState = [];
+    public array $allStepState = [];
+    public string $currentStepName;
 
     protected $listeners = [
         'previousStep',
@@ -28,7 +26,7 @@ abstract class WizardComponent extends Component
 
     public function mount()
     {
-        $this->currentStep = $this->stepNames()->first();
+        $this->currentStepName = $this->stepNames()->first();
     }
 
     public function stepNames(): Collection
@@ -59,10 +57,10 @@ abstract class WizardComponent extends Component
     public function previousStep(array $currentStepState)
     {
         $previousStep = collect($this->stepNames())
-            ->before(fn (string $step) => $step === $this->currentStep);
+            ->before(fn (string $step) => $step === $this->currentStepName);
 
         if (! $previousStep) {
-            throw NoPreviousStep::make(self::class, $this->currentStep);
+            throw NoPreviousStep::make(self::class, $this->currentStepName);
         }
 
         $this->activateStep($previousStep, $currentStepState);
@@ -71,10 +69,10 @@ abstract class WizardComponent extends Component
     public function nextStep(array $currentStepState)
     {
         $nextStep = collect($this->stepNames())
-            ->after(fn (string $step) => $step === $this->currentStep);
+            ->after(fn (string $step) => $step === $this->currentStepName);
 
         if (! $nextStep) {
-            throw NoNextStep::make(self::class, $this->currentStep);
+            throw NoNextStep::make(self::class, $this->currentStepName);
         }
 
         $this->activateStep($nextStep, $currentStepState);
@@ -82,21 +80,18 @@ abstract class WizardComponent extends Component
 
     public function activateStep($toStepName, array $currentStepState)
     {
-        $this->stepState[$this->currentStep] = $currentStepState;
+        $this->allStepState[$this->currentStepName] = $currentStepState;
 
-        $this->currentStep = $toStepName;
+        $this->currentStepName = $toStepName;
     }
 
     public function render()
     {
-        $this->currentStepState = $this->stepState[$this->currentStep] ?? [];
+        $currentStepState = array_merge(
+            $this->allStepState[$this->currentStepName] ?? [],
+            ['allStepsState' => $this->allStepState],
+        );
 
-        $this->currentStepState['wizardState'] = $this->stepState;
-
-        return <<<'blade'
-            <div>
-                @livewire($activeStep, $activeStepState, key($activeStep))
-            </div>
-blade;
+        return view('livewire-wizard::wizard', compact('currentStepState'));
     }
 }
