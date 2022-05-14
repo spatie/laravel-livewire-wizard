@@ -55,7 +55,7 @@ php artisan vendor:publish --tag="laravel-livewire-wizard-views"
 ## Usage
 
 ```php
-$wizard = new Spatie\Wizard();
+$wizard = new Spatie\LivewireWizard();
 echo $wizard->echoPhrase('Hello, Spatie!');
 ```
 
@@ -80,6 +80,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Freek Van der Herten](https://github.com/freekmurze)
+- [Rias Van der Veken](https://github.com/riasvdv)
 - [All Contributors](../../contributors)
 
 ## License

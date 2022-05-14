@@ -13,12 +13,19 @@
             "name": "Freek Van der Herten",
             "email": "freek@spatie.be",
             "role": "Developer"
+        },
+        {
+            "name": "Rias Van der Veken",
+            "email": "rias@spatie.be",
+            "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
-        "spatie/laravel-package-tools": "^1.9.2",
-        "illuminate/contracts": "^9.0"
+        "illuminate/contracts": "^9.0",
+        "livewire/livewire": "^2.10",
+        "spatie/laravel-collection-macros": "^7.11",
+        "spatie/laravel-package-tools": "^1.9.2"
     },
     "require-dev": {
         "nunomaduro/collision": "^6.0",
@@ -30,13 +37,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Wizard\\": "src",
-            "Spatie\\Wizard\\Database\\Factories\\": "database/factories"
+            "Spatie\\LivewireWizard\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Wizard\\Tests\\": "tests"
+            "Spatie\\LivewireWizard\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -50,11 +56,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Wizard\\WizardServiceProvider"
-            ],
-            "aliases": {
-                "Wizard": "Spatie\\Wizard\\Facades\\Wizard"
-            }
+                "Spatie\\LivewireWizard\\WizardServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
