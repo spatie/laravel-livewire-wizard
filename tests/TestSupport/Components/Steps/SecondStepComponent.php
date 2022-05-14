@@ -6,5 +6,4 @@ use Spatie\LivewireWizard\StepComponent;
 
 class SecondStepComponent extends StepComponent
 {
-
 }

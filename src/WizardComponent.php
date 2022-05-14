@@ -29,7 +29,7 @@ abstract class WizardComponent extends Component
     public function stepNames(): Collection
     {
         $steps = collect($this->steps())
-            ->each(function(string $stepClassName) {
+            ->each(function (string $stepClassName) {
                 if (! is_a($stepClassName, StepComponent::class, true)) {
                     throw InvalidStepComponent::doesNotExtendStepComponent(static::class, $stepClassName);
                 }
@@ -39,7 +39,6 @@ abstract class WizardComponent extends Component
 
                 if (is_null($alias)) {
                     throw InvalidStepComponent::notRegisteredWithLivewire(static::class, $stepClassName);
-
                 }
 
                 return $alias;
@@ -62,7 +61,7 @@ abstract class WizardComponent extends Component
         $this->stepState[$this->activeStep] = $stepState;
 
         $previousStep = collect($this->stepNames())
-            ->before(fn(string $step) => $step === $this->activeStep);
+            ->before(fn (string $step) => $step === $this->activeStep);
 
         if (! $previousStep) {
             throw NoPreviousStep::make(self::class, $this->activeStep);
@@ -76,7 +75,7 @@ abstract class WizardComponent extends Component
         $this->stepState[$this->activeStep] = $stepState;
 
         $nextStep = collect($this->stepNames())
-            ->after(fn(string $step) => $step === $this->activeStep);
+            ->after(fn (string $step) => $step === $this->activeStep);
 
         if (! $nextStep) {
             throw NoNextStep::make(self::class, $this->activeStep);
