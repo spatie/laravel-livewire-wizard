@@ -1,6 +1,6 @@
 ---
 title: v1
-slogan: Monitor the health of a Laravel application
+slogan: Headless Livewire components to build wizards
 githubUrl: https://github.com/spatie/laravel-livewire-wizard
 branch: main
 ---
