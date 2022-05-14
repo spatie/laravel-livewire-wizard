@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LivewireWizard;
+namespace Spatie\LivewireWizard\Components;
 
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -89,7 +89,10 @@ abstract class WizardComponent extends Component
     {
         $currentStepState = array_merge(
             $this->allStepState[$this->currentStepName] ?? [],
-            ['allStepsState' => $this->allStepState],
+            [
+                'allStepNames' => $this->stepNames()->toArray(),
+                'allStepsState' => $this->allStepState
+            ],
         );
 
         return view('livewire-wizard::wizard', compact('currentStepState'));

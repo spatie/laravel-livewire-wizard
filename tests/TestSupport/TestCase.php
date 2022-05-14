@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\View;
 use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\LivewireWizard\Components\WizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
-use Spatie\LivewireWizard\WizardComponent;
 use Spatie\LivewireWizard\WizardServiceProvider;
 
 class TestCase extends Orchestra

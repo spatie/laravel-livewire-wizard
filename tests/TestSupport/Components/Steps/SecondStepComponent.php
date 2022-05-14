@@ -2,7 +2,7 @@
 
 namespace Spatie\LivewireWizard\Tests\TestSupport\Components\Steps;
 
-use Spatie\LivewireWizard\StepComponent;
+use Spatie\LivewireWizard\Components\StepComponent;
 
 class SecondStepComponent extends StepComponent
 {

@@ -1,14 +1,18 @@
 <?php
 
-namespace Spatie\LivewireWizard;
+namespace Spatie\LivewireWizard\Components;
 
 use Illuminate\Support\Arr;
 use Livewire\Component;
 use Livewire\Livewire;
+use Spatie\LivewireWizard\Components\Concerns\StepAware;
 
 abstract class StepComponent extends Component
 {
-    public array $allStepsState = [];
+    use StepAware;
+
+    public array $allStepNames = [];
+    public array $steps = [];
 
     public function previousStep()
     {
@@ -42,5 +46,10 @@ abstract class StepComponent extends Component
     protected function currentStepState(): array
     {
         return Arr::except($this->all(), 'allStepsState');
+    }
+
+    public function stepInfo(): array
+    {
+        return [];
     }
 }
