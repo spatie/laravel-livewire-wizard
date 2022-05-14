@@ -23,7 +23,6 @@ class TestCase extends Orchestra
         View::addNamespace('test', __DIR__ . '/resources/views');
 
         $this->registerLivewireComponents();
-
     }
 
     protected function getPackageProviders($app)

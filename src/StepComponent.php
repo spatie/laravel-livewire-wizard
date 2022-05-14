@@ -17,7 +17,7 @@ abstract class StepComponent extends Component
 
     public function nextStep()
     {
-        $this->emitUp('nextStep',$this->currentStepState());
+        $this->emitUp('nextStep', $this->currentStepState());
     }
 
     public function activateStep(string $stepName)
