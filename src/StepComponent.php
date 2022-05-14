@@ -34,11 +34,13 @@ abstract class StepComponent extends Component
 
     public function stateForStep(string $stepName): array
     {
-        return $this->allStepsState()[$stepName] ?? [];
+        $state =  $this->allStepsState()[$stepName] ?? [];
+
+        return Arr::except($state, 'allStepsState');
     }
 
     protected function currentStepState(): array
     {
-        return Arr::except($this->all(), 'wizardState');
+        return Arr::except($this->all(), 'allStepsState');
     }
 }
