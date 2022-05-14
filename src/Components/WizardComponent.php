@@ -91,7 +91,7 @@ abstract class WizardComponent extends Component
             $this->allStepState[$this->currentStepName] ?? [],
             [
                 'allStepNames' => $this->stepNames()->toArray(),
-                'allStepsState' => $this->allStepState
+                'allStepsState' => $this->allStepState,
             ],
         );
 
