@@ -34,7 +34,7 @@ abstract class StepComponent extends Component
 
     public function stateForStep(string $stepName): array
     {
-        $state =  $this->allStepsState()[$stepName] ?? [];
+        $state = $this->allStepsState()[$stepName] ?? [];
 
         return Arr::except($state, 'allStepsState');
     }
