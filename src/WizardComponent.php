@@ -12,8 +12,8 @@ use Spatie\LivewireWizard\Exceptions\NoStepsReturned;
 
 abstract class WizardComponent extends Component
 {
-    public string $activeStep;
-    public array $activeStepState;
+    public string $currentStep;
+    public array $currentStepState = [];
 
     public array $stepState = [];
 
@@ -25,6 +25,11 @@ abstract class WizardComponent extends Component
 
     /** @return <int, class-string<StepComponent> */
     abstract public function steps(): array;
+
+    public function mount()
+    {
+        $this->currentStep = $this->stepNames()->first();
+    }
 
     public function stepNames(): Collection
     {
@@ -51,52 +56,42 @@ abstract class WizardComponent extends Component
         return $steps;
     }
 
-    public function mount()
+    public function previousStep(array $currentStepState)
     {
-        $this->activeStep = $this->stepNames()->first();
-    }
-
-    public function previousStep(array $stepState)
-    {
-        $this->stepState[$this->activeStep] = $stepState;
-
         $previousStep = collect($this->stepNames())
-            ->before(fn (string $step) => $step === $this->activeStep);
+            ->before(fn (string $step) => $step === $this->currentStep);
 
         if (! $previousStep) {
-            throw NoPreviousStep::make(self::class, $this->activeStep);
+            throw NoPreviousStep::make(self::class, $this->currentStep);
         }
 
-        $this->activeStep = $previousStep;
+        $this->activateStep($previousStep, $currentStepState);
     }
 
-    public function nextStep(array $stepState)
+    public function nextStep(array $currentStepState)
     {
-        $this->stepState[$this->activeStep] = $stepState;
-
         $nextStep = collect($this->stepNames())
-            ->after(fn (string $step) => $step === $this->activeStep);
+            ->after(fn (string $step) => $step === $this->currentStep);
 
         if (! $nextStep) {
-            throw NoNextStep::make(self::class, $this->activeStep);
+            throw NoNextStep::make(self::class, $this->currentStep);
         }
 
-        $this->activeStep = $nextStep;
+        $this->activateStep($nextStep, $currentStepState);
     }
 
-    public function activateStep($parameters)
+    public function activateStep($toStepName, array $currentStepState)
     {
-        dump($parameters);
-        //to implement
+        $this->stepState[$this->currentStep] = $currentStepState;
 
-        //throw StepDoesNotExist::make(self::class);
+        $this->currentStep = $toStepName;
     }
 
     public function render()
     {
-        $this->activeStepState = $this->stepState[$this->activeStep] ?? [];
+        $this->currentStepState = $this->stepState[$this->currentStep] ?? [];
 
-        $this->activeStepState['wizardState'] = $this->stepState;
+        $this->currentStepState['wizardState'] = $this->stepState;
 
         return <<<'blade'
             <div>
