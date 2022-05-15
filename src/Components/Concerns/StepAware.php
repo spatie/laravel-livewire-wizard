@@ -11,6 +11,11 @@ trait StepAware
     {
         $currentFound = false;
 
+        if (method_exists($this, 'shouldSkip') && $this->shouldSkip()) {
+            $this->nextStep();
+            return;
+        }
+
         $currentStepName = Livewire::getAlias(static::class);
 
         $this->steps = collect($this->allStepNames)

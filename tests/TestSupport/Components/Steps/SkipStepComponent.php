@@ -4,13 +4,18 @@ namespace Spatie\LivewireWizard\Tests\TestSupport\Components\Steps;
 
 use Spatie\LivewireWizard\Components\StepComponent;
 
-class SecondStepComponent extends StepComponent
+class SkipStepComponent extends StepComponent
 {
+    public function shouldSkip()
+    {
+        return true;
+    }
+
     public function render()
     {
         return <<<'blade'
             <div>
-            Second step.
+            Skip this step.
             </div>
         blade;
     }

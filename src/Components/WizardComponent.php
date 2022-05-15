@@ -16,6 +16,7 @@ abstract class WizardComponent extends Component
     public string $currentStepName;
 
     protected $listeners = [
+        'skipNextStep',
         'previousStep',
         'nextStep',
         'showStep',
@@ -76,6 +77,14 @@ abstract class WizardComponent extends Component
         }
 
         $this->showStep($nextStep, $currentStepState);
+    }
+
+    public function skipNextStep(array $currentStepState)
+    {
+        $this->currentStepName = collect($this->stepNames())
+            ->after(fn (string $step) => $step === $this->currentStepName);
+
+        $this->nextStep($currentStepState);
     }
 
     public function showStep($toStepName, array $currentStepState)
