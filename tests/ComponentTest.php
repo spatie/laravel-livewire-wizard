@@ -13,12 +13,6 @@ it('can render a step component', function () {
     Livewire::test(FirstStepComponent::class)->assertSuccessful();
 });
 
-it('can skip the next step', function () {
-    Livewire::test(MyWizardComponent::class)
-        ->call('skipNextStep', [])
-        ->assertSet('currentStepName', 'third-step');
-});
-
 it('skips current step', function () {
    Livewire::test(SkipStepComponent::class)
        ->assertEmittedUp('nextStep');
