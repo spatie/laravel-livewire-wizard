@@ -28,9 +28,9 @@ class Step
         return $this->status === 'next';
     }
 
-    public function activate(): string
+    public function show(): string
     {
-        return "activateStep('{$this->stepName}')";
+        return "showStep('{$this->stepName}')";
     }
 
     public function __get(string $key): mixed

@@ -18,7 +18,7 @@ abstract class WizardComponent extends Component
     protected $listeners = [
         'previousStep',
         'nextStep',
-        'activateStep',
+        'showStep',
     ];
 
     /** @return <int, class-string<StepComponent> */
@@ -63,7 +63,7 @@ abstract class WizardComponent extends Component
             throw NoPreviousStep::make(self::class, $this->currentStepName);
         }
 
-        $this->activateStep($previousStep, $currentStepState);
+        $this->showStep($previousStep, $currentStepState);
     }
 
     public function nextStep(array $currentStepState)
@@ -75,10 +75,10 @@ abstract class WizardComponent extends Component
             throw NoNextStep::make(self::class, $this->currentStepName);
         }
 
-        $this->activateStep($nextStep, $currentStepState);
+        $this->showStep($nextStep, $currentStepState);
     }
 
-    public function activateStep($toStepName, array $currentStepState)
+    public function showStep($toStepName, array $currentStepState)
     {
         $this->allStepState[$this->currentStepName] = $currentStepState;
 
