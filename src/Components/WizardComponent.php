@@ -89,6 +89,8 @@ abstract class WizardComponent extends Component
             throw new SkippedStepDoesNotExist(self::class, $this->currentStepName);
         }
 
+        $this->currentStepName = $skipStep;
+
         $this->nextStep($currentStepState);
     }
 
