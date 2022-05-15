@@ -8,7 +8,43 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-livewire-wizard/Check%20&%20fix%20styling?label=code%20style)](https://github.com/spatie/laravel-livewire-wizard/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-livewire-wizard.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-livewire-wizard)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package offers lightweight Livewire components that allow you to easily build a wizard. With "wizard" we mean a multi-step process in which each step has its own screen.
+
+Here's how a wizard component could look like.
+
+```php
+use Spatie\LivewireWizard\Components\WizardComponent
+
+class CheckoutWizardComponent extends WizardComponent
+{
+    public function steps() : array
+    {
+        return [
+            CartStepComponent::class,
+            DeliveryAddressStepComponent::class,
+            ConfirmOrderStepComponent::class,
+        ];       
+    }
+}
+```
+
+A step is class that extends `StepComponent` (which in its turn extends `Livewire\Component`). You can do anything in here that you can do with a regular Livewire component.
+
+```php
+namespace App\Components;
+
+class CartStepComponent extends StepComponent
+{
+    // add any Livewire powered method you want
+
+    public function render()
+    {
+        return view('checkout-wizard.steps.cart');
+    }
+}
+```
+
+You can easily [control which step is displayed](https://spatie.be/docs/laravel-livewire-wizard/v1/usage/navigating-steps), [access state of other steps](https://spatie.be/docs/laravel-livewire-wizard/v1/usage/accessing-state), and [build any navigation](https://spatie.be/docs/laravel-livewire-wizard/v1/usage/rendering-navigation) you desire.
 
 ## Support us
 
@@ -18,46 +54,9 @@ We invest a lot of resources into creating [best in class open source packages](
 
 We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
-## Installation
+## Documentation
 
-You can install the package via composer:
-
-```bash
-composer require spatie/laravel-livewire-wizard
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-livewire-wizard-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-livewire-wizard-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-livewire-wizard-views"
-```
-
-## Usage
-
-```php
-$wizard = new Spatie\LivewireWizard();
-echo $wizard->echoPhrase('Hello, Spatie!');
-```
+All documentation is available [on our documentation site](https://spatie.be/docs/laravel-livewire-wizard).
 
 ## Testing
 
