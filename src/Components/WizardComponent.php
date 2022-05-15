@@ -9,6 +9,7 @@ use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\NoStepsReturned;
+use Spatie\LivewireWizard\Exceptions\SkippedStepDoesNotExist;
 
 abstract class WizardComponent extends Component
 {
@@ -81,8 +82,12 @@ abstract class WizardComponent extends Component
 
     public function skipNextStep(array $currentStepState)
     {
-        $this->currentStepName = collect($this->stepNames())
+        $skipStep = collect($this->stepNames())
             ->after(fn (string $step) => $step === $this->currentStepName);
+
+        if (! $skipStep) {
+            throw new SkippedStepDoesNotExist(self::class, $this->currentStepName);
+        }
 
         $this->nextStep($currentStepState);
     }
