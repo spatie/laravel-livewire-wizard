@@ -21,6 +21,10 @@ abstract class StepComponent extends Component
 
     public function nextStep()
     {
+        if (! empty($this->getRules())) {
+            $this->validate();
+        }
+
         $this->emitUp('nextStep', $this->currentStepState());
     }
 
