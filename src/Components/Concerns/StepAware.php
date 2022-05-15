@@ -22,7 +22,7 @@ trait StepAware
             ->map(function (string $stepName) use (&$currentFound, $currentStepName) {
                 $className = Livewire::getClass($stepName);
 
-                $info = (new $className())->info();
+                $info = (new $className())->stepInfo();
 
                 $status = $currentFound ? 'next' : 'previous';
 
