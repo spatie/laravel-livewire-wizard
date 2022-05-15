@@ -12,7 +12,7 @@ To get started you need to create a class that extends `WizardComponent`.
 ```php
 namespace App\Components;
 
-use Spatie\LivewireWizard\Components\WizardComponent
+use Spatie\LivewireWizard\Components\WizardComponent;
 
 class CheckoutWizardComponent extends WizardComponent
 {
@@ -86,7 +86,7 @@ namespace App\Components;
 use App\Components\CartComponent;
 use App\Components\DeliveryAddressComponent;
 use App\Components\ConfirmOrderComponent;
-use Spatie\LivewireWizard\Components\WizardComponent
+use Spatie\LivewireWizard\Components\WizardComponent;
 
 class CheckoutWizardComponent extends WizardComponent
 {

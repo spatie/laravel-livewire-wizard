@@ -10,7 +10,7 @@ This package offers lightweight Livewire components that allow you to easily bui
 Here's how a wizard component could look like.
 
 ```php
-use Spatie\LivewireWizard\Components\WizardComponent
+use Spatie\LivewireWizard\Components\WizardComponent;
 
 class CheckoutWizardComponent extends WizardComponent
 {
