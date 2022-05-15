@@ -9,7 +9,8 @@ Any step component has a `$steps` property that contains an array containing inf
 {{-- somewhere in a Blade view--}}
 <ul>
     @foreach($steps as $step)
-        <li class="{{ $step->isCurrent() ? 'text-bold' : '' }}"
+        <li 
+            class="{{ $step->isCurrent() ? 'text-bold' : '' }}"
             @if ($step->isPrevious())
                 wire:click="{{ $step->show() }}"
             @endif
