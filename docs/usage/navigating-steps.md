@@ -1,6 +1,6 @@
 ---
 title: Navigating steps
-weight: 1
+weight: 2
 ---
 
 There are various methods to navigate from one step to another. When switching steps we'll take care to preserve and restore state.
