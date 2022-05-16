@@ -85,7 +85,7 @@ it('will save and restore state when switching steps', function () {
     $this->wizard->assertSee(['second step', 'counter: 1']);
 });
 
-it('has a couple of handy methods to get state', function() {
+it('has a couple of handy methods to get state', function () {
     $this->firstStep
         ->call('nextStep')
         ->emitEvents()->in($this->wizard);
@@ -112,7 +112,7 @@ it('has a couple of handy methods to get state', function() {
     expect($currentStepState['counter'])->toBe(1);
 });
 
-it('has a steps property to render navigation', function() {
+it('has a steps property to render navigation', function () {
     $this->firstStep
         ->call('nextStep')
         ->emitEvents()->in($this->wizard);
