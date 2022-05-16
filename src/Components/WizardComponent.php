@@ -9,6 +9,7 @@ use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\NoStepsReturned;
+use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
 
 abstract class WizardComponent extends Component
 {
@@ -32,7 +33,15 @@ abstract class WizardComponent extends Component
             return;
         }
 
-        $this->currentStepName = $this->stepNames()->first();
+        $firstStep = $this->stepNames()->first();
+
+        $this->currentStepName = $firstStep;
+        $this->setStepState($firstStep, $this->getInitialState());
+    }
+
+    public function getInitialState(): array
+    {
+        return [];
     }
 
     public function stepNames(): Collection
@@ -87,10 +96,19 @@ abstract class WizardComponent extends Component
     public function showStep($toStepName, array $currentStepState = [])
     {
         if ($this->currentStepName) {
-            $this->allStepState[$this->currentStepName] = $currentStepState;
+            $this->setStepState($this->currentStepName, $currentStepState);
         }
 
         $this->currentStepName = $toStepName;
+    }
+
+    public function setStepState(string $step, array $state = []): void
+    {
+        if (! $this->stepNames()->contains($step)) {
+            throw StepDoesNotExist::doesNotHaveState($step);
+        }
+
+        $this->allStepState[$step] = $state;
     }
 
     public function render()

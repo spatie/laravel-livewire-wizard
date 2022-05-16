@@ -6,8 +6,8 @@ use Exception;
 
 class StepDoesNotExist extends Exception
 {
-    public static function make(string $askingStepName, string $nonExistingStepName): self
+    public static function doesNotHaveState(string $nonExistingStepName): self
     {
-        return new static("Step `$askingStepName` tried to activate step `{$nonExistingStepName}`, but that step does not exist.");
+        return new static("Step `{$nonExistingStepName}` step does not exist and as such cannot have state.");
     }
 }

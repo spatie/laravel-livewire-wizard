@@ -3,6 +3,7 @@
 use Livewire\Livewire;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
+use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\MyWizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
@@ -83,3 +84,8 @@ it('will save and restore state when switching steps', function () {
 
     $this->wizard->assertSee(['second step', 'counter: 1']);
 });
+
+it('cannot set state if step does not exist', function() {
+    $this->wizard
+        ->call('setStepState', 'fake-step', []);
+})->throws(StepDoesNotExist::class);
