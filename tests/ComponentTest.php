@@ -22,7 +22,7 @@ it('can render a step component', function () {
     $this->firstStep->assertSuccessful();
 });
 
-it('can show a specific step', function() {
+it('can show a specific step', function () {
     Livewire::test(MyWizardComponent::class, ['showStep' => 'third-step'])
         ->assertSuccessful()
         ->assertSee('third step');
@@ -43,7 +43,7 @@ it('can render the next and previous step', function () {
     $this->wizard->assertSee('first step');
 });
 
-it('can go to a specific step', function() {
+it('can go to a specific step', function () {
     $this->firstStep
         ->call('showStep', 'third-step')
         ->emitEvents()->in($this->wizard);

@@ -88,7 +88,6 @@ abstract class WizardComponent extends Component
     {
         if ($this->currentStepName) {
             $this->allStepState[$this->currentStepName] = $currentStepState;
-
         }
 
         $this->currentStepName = $toStepName;
