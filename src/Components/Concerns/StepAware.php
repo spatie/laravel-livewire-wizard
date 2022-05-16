@@ -13,6 +13,7 @@ trait StepAware
 
         if (method_exists($this, 'shouldSkip') && $this->shouldSkip()) {
             $this->nextStep();
+
             return;
         }
 

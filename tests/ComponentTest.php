@@ -14,6 +14,6 @@ it('can render a step component', function () {
 });
 
 it('skips current step', function () {
-   Livewire::test(SkipStepComponent::class)
+    Livewire::test(SkipStepComponent::class)
        ->assertEmittedUp('nextStep');
 });
