@@ -19,19 +19,19 @@ it('can set initial state via a passed props', function () {
         ]);
 });
 
-it('can handle manually passed in state', function() {
+it('can handle manually passed in state', function () {
     $initialState = [
         'first-step' => [
             'order' => 123,
         ],
         'second-step' => [
             'counter' => 2,
-        ]
+        ],
     ];
 
     $this->wizard = Livewire::test(WizardWithInitialState::class, [
         'initialState' => $initialState,
-        'order' => 456 // will be ignored since initialState is passed
+        'order' => 456, // will be ignored since initialState is passed
     ])
         ->assertSuccessful()
         ->assertSet('allStepState', $initialState);
