@@ -2,7 +2,9 @@
 
 namespace Spatie\LivewireWizard\Tests\TestSupport;
 
+use DOMDocument;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
 use Livewire\Testing\TestableLivewire;
@@ -55,6 +57,31 @@ class TestCase extends Orchestra
     {
         TestableLivewire::macro('emitEvents', function () {
             return new EventEmitter($this);
+        });
+
+        TestableLivewire::macro('jsonContent', function (string $elementId) {
+            $document = new DOMDocument();
+
+            $document->loadHTML($this->lastRenderedDom);
+
+            $content = $document->getElementById($elementId)->textContent;
+
+            return json_decode($content, true);
+        });
+
+        TestableLivewire::macro('htmlContent', function (string $elementId) {
+            $document = new DOMDocument();
+
+            $document->preserveWhiteSpace = false;
+
+            $document->loadHTML($this->lastRenderedDom);
+
+            $domNode = $document->getElementById($elementId);
+
+            return Str::of($document->saveHTML($domNode))
+                ->replace("\n", "\r\n")
+                ->trim()
+                ->toString();
         });
 
         return $this;

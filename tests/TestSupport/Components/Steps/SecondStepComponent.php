@@ -13,8 +13,19 @@ class SecondStepComponent extends StepComponent
         $this->counter = $this->counter + 1;
     }
 
+    public function stepInfo(): array
+    {
+        return [
+            'label' => 'Second step',
+        ];
+    }
+
     public function render()
     {
-        return view('test::second-step');
+        return view('test::second-step', [
+            'allStepState' => $this->allStepsState(),
+            'firstStepState' => $this->stateForStep('second-step'),
+            'currentStepState' => $this->currentStepState(),
+        ]);
     }
 }

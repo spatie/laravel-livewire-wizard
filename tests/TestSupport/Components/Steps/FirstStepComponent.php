@@ -10,4 +10,11 @@ class FirstStepComponent extends StepComponent
     {
         return view('test::first-step');
     }
+
+    public function stepInfo(): array
+    {
+        return [
+            'label' => 'First step',
+        ];
+    }
 }
