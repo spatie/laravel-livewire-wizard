@@ -7,6 +7,7 @@ use Spatie\LivewireWizard\Tests\TestSupport\Components\MyWizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
+use function Spatie\Snapshots\assertMatchesHtmlSnapshot;
 
 beforeEach(function () {
     $this->wizard = Livewire::test(MyWizardComponent::class);
@@ -14,7 +15,7 @@ beforeEach(function () {
     $this->firstStep = Livewire::test(FirstStepComponent::class);
 });
 
-it('can render a wizard component', function () {
+$it = it('can render a wizard component', function () {
     $this->wizard->assertSuccessful();
 });
 
@@ -82,4 +83,50 @@ it('will save and restore state when switching steps', function () {
         ->emitEvents()->in($this->wizard);
 
     $this->wizard->assertSee(['second step', 'counter: 1']);
+});
+
+it('has a couple of handy methods to get state', function() {
+    $this->firstStep
+        ->call('nextStep')
+        ->emitEvents()->in($this->wizard);
+
+    $this->wizard->assertSee(['second step', 'counter: 0']);
+
+    Livewire::test(SecondStepComponent::class)
+        ->call('increment')
+        ->call('previousStep')
+        ->emitEvents()->in($this->wizard);
+
+    $this->firstStep
+        ->call('nextStep')
+        ->emitEvents()->in($this->wizard);
+
+    $allStepState = $this->wizard->jsonContent('allStepState');
+    expect($allStepState['second-step']['allStepNames'])->toBe([
+        'first-step',
+        'second-step',
+        'third-step',
+    ]);
+
+    $currentStepState = $this->wizard->jsonContent('currentStepState');
+    expect($currentStepState['counter'])->toBe(1);
+});
+
+it('has a steps property to render navigation', function() {
+    $this->firstStep
+        ->call('nextStep')
+        ->emitEvents()->in($this->wizard);
+
+    $this->firstStep
+        ->call('nextStep')
+        ->emitEvents()->in($this->wizard);
+
+    Livewire::test(SecondStepComponent::class)
+        ->call('increment')
+        ->call('previousStep')
+        ->emitEvents()->in($this->wizard);
+
+    $navigationHtml = $this->wizard->htmlContent('navigation');
+
+    assertMatchesHtmlSnapshot($navigationHtml);
 });
