@@ -4,11 +4,11 @@ namespace Spatie\LivewireWizard\Components\Concerns;
 
 trait MountsWizard
 {
-    public function mountMountsWizard(?string $showStep = null, array $initialState = [])
+    public function mountMountsWizard(?string $showStep = null, array $initialState = null)
     {
         $stepName = $showStep ?? $this->stepNames()->first();
 
-        $initialState = $this->initialState() ?? $initialState;
+        $initialState = $initialState ?? $this->initialState() ?? [];
 
         $this->showStep($stepName, $initialState[$stepName] ?? []);
 

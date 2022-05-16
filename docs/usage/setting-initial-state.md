@@ -3,6 +3,8 @@ title: Setting initial state
 weight: 5
 ---
 
+There are various ways to customize what your wizard should initially display.
+
 ## Starting at a specific step
 
 If you want to let your wizard display a specific step when it is first rendered, you can pass the step name to the `show-step` property of the wizard.
