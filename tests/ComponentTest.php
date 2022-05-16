@@ -6,10 +6,10 @@ use Spatie\LivewireWizard\Tests\TestSupport\Components\MyWizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 
-beforeEach(function() {
-   $this->wizard =  Livewire::test(MyWizardComponent::class);
+beforeEach(function () {
+    $this->wizard = Livewire::test(MyWizardComponent::class);
 
-   $this->firstStep =  Livewire::test(FirstStepComponent::class);
+    $this->firstStep = Livewire::test(FirstStepComponent::class);
 });
 
 it('can render a wizard component', function () {
@@ -35,9 +35,8 @@ it('can render the next and previous step', function () {
     $this->wizard->assertSee('first step');
 });
 
-it('will throw an exception when going to the previous step on the first step', function() {
+it('will throw an exception when going to the previous step on the first step', function () {
     $this->firstStep
         ->call('previousStep')
         ->emitEvents()->in($this->wizard);
 })->throws(NoPreviousStep::class);
-
