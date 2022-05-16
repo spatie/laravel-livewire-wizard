@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 0.0.4 - 2022-05-16
+
+## What's Changed
+
+- feat: add support for initial state by @ju5t in https://github.com/spatie/laravel-livewire-wizard/pull/7
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/0.0.3...0.0.4
+
 ## 0.0.3 - 2022-05-16
 
 ## What's Changed
