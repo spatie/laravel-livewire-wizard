@@ -18,7 +18,7 @@ it('skips current step', function () {
        ->assertEmittedUp('nextStep');
 });
 
-it('can render the next step', function() {
+it('can render the next step', function () {
     $wizard = Livewire::test(MyWizardComponent::class)
         ->assertSuccessful()
         ->assertSee('first step');
@@ -28,8 +28,4 @@ it('can render the next step', function() {
         ->call('nextStep');
 
     $wizard->assertSee('second step');
-
-
-
-
 });
