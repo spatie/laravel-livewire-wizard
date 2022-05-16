@@ -9,6 +9,7 @@ use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\NoStepsReturned;
+use Spatie\LivewireWizard\Exceptions\SkippedStepDoesNotExist;
 
 abstract class WizardComponent extends Component
 {

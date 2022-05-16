@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\View;
 use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\CollectionMacros\CollectionMacroServiceProvider;
 use Spatie\LivewireWizard\Components\WizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SkipStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
 use Spatie\LivewireWizard\WizardServiceProvider;
 
@@ -30,6 +32,7 @@ class TestCase extends Orchestra
         return [
             LivewireServiceProvider::class,
             WizardServiceProvider::class,
+            CollectionMacroServiceProvider::class,
         ];
     }
 
@@ -39,5 +42,6 @@ class TestCase extends Orchestra
         Livewire::component('first-step', FirstStepComponent::class);
         Livewire::component('second-step', SecondStepComponent::class);
         Livewire::component('third-step', ThirdStepComponent::class);
+        Livewire::component('skip-step', SkipStepComponent::class);
     }
 }

@@ -6,4 +6,12 @@ use Spatie\LivewireWizard\Components\StepComponent;
 
 class ThirdStepComponent extends StepComponent
 {
+    public function render()
+    {
+        return <<<'blade'
+            <div>
+            Third step.
+            </div>
+        blade;
+    }
 }
