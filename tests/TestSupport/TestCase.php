@@ -2,7 +2,6 @@
 
 namespace Spatie\LivewireWizard\Tests\TestSupport;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\View;
 use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
@@ -54,7 +53,7 @@ class TestCase extends Orchestra
 
     public function registerLivewireTestMacros(): self
     {
-        TestableLivewire::macro('emitEvents', function() {
+        TestableLivewire::macro('emitEvents', function () {
             return new EventEmitter($this);
         });
 
