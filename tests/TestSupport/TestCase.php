@@ -77,7 +77,9 @@ class TestCase extends Orchestra
 
             $domNode = $document->getElementById($elementId);
 
-            return $document->saveHTML($domNode);
+            $html = $document->saveHTML($domNode);
+
+            return str_replace('\r\n', '\n', $html);
         });
 
         return $this;
