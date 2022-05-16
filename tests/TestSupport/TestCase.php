@@ -85,7 +85,6 @@ class TestCase extends Orchestra
             $html = Str::between($html, '<body>', '</body>');
 
             return trim($html);
-
         });
 
         return $this;
