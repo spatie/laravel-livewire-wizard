@@ -33,7 +33,7 @@ abstract class WizardComponent extends Component
 
         $this->showStep($stepName, $initialState[$stepName] ?? []);
 
-        foreach($initialState as $stepName => $state) {
+        foreach ($initialState as $stepName => $state) {
             $this->setStepState($stepName, $state);
         }
     }
