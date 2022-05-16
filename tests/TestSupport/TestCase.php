@@ -4,6 +4,7 @@ namespace Spatie\LivewireWizard\Tests\TestSupport;
 
 use DOMDocument;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
 use Livewire\Testing\TestableLivewire;
@@ -79,7 +80,12 @@ class TestCase extends Orchestra
 
             $html = $document->saveHTML($domNode);
 
-            return str_replace('\r\n', '\n', $html);
+            $html = str_replace("\r\n", "\n", $html);
+
+            $html = Str::between($html, '<body>', '</body>');
+
+            return trim($html);
+
         });
 
         return $this;
