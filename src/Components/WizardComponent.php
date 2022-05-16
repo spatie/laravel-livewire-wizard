@@ -39,6 +39,7 @@ abstract class WizardComponent extends Component
     {
         $steps = collect($this->steps())
             ->each(function (string $stepClassName) {
+
                 if (! is_a($stepClassName, StepComponent::class, true)) {
                     throw InvalidStepComponent::doesNotExtendStepComponent(static::class, $stepClassName);
                 }

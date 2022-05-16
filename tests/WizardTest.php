@@ -1,12 +1,14 @@
 <?php
 
 use Livewire\Livewire;
+use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\MyWizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithInvalidStepComponent;
 use function Spatie\Snapshots\assertMatchesHtmlSnapshot;
 
 beforeEach(function () {
@@ -65,6 +67,10 @@ it('throws an exception when going to the next step on the last step', function 
         ->call('nextStep')
         ->emitEvents()->in($wizard);
 })->throws(NoNextStep::class);
+
+it('will throw an exception if the wizard contains an invalid step', function() {
+   Livewire::test(WizardWithInvalidStepComponent::class);
+})->throws('did return an invalid step component');
 
 it('will save and restore state when switching steps', function () {
     $this->firstStep

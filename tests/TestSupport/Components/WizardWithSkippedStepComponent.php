@@ -2,15 +2,13 @@
 
 namespace Spatie\LivewireWizard\Tests\TestSupport\Components;
 
+use Spatie\LivewireWizard\Components\WizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SkipStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
 
-class WizardWithSkippedStepComponent extends \Spatie\LivewireWizard\Components\WizardComponent
+class WizardWithSkippedStepComponent extends WizardComponent
 {
-    /**
-     * @inheritDoc
-     */
     public function steps(): array
     {
         return [
