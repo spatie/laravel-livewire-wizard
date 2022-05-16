@@ -78,14 +78,10 @@ class TestCase extends Orchestra
 
             $domNode = $document->getElementById($elementId);
 
-            $html = $document->saveHTML($domNode);
-
-            $html = str_replace("\r\n", "\n", $html);
-
-            $html = Str::between($html, '<body>', '</body>');
-
-            return trim($html);
-
+            return Str::of($document->saveHTML($domNode))
+                ->replace("\r\n", "\n")
+                ->trim()
+                ->toString();
         });
 
         return $this;
