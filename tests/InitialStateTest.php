@@ -1,7 +1,6 @@
 <?php
 
 use Livewire\Livewire;
-use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithInitialState;
 
 beforeEach(function () {
