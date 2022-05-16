@@ -29,7 +29,7 @@ $initialState = [
 
 @endphp
 
-<livewire:checkout-wizard show-step="confirm-order" :initial-state="$initialState",  />
+<livewire:checkout-wizard show-step="confirm-order" :initial-state="$initialState" />
 ```
 
 Instead of passing initial state via the `initial-state` property, you could let your `WizardComponent` implement 
