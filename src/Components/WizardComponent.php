@@ -13,7 +13,7 @@ use Spatie\LivewireWizard\Exceptions\NoStepsReturned;
 abstract class WizardComponent extends Component
 {
     public array $allStepState = [];
-    public string $currentStepName;
+    public ?string $currentStepName = null;
 
     protected $listeners = [
         'previousStep',
@@ -24,8 +24,14 @@ abstract class WizardComponent extends Component
     /** @return <int, class-string<StepComponent> */
     abstract public function steps(): array;
 
-    public function mount()
+    public function mount(string $showStep = '')
     {
+        if ($showStep) {
+            $this->showStep($showStep, []);
+
+            return;
+        }
+
         $this->currentStepName = $this->stepNames()->first();
     }
 
@@ -78,9 +84,12 @@ abstract class WizardComponent extends Component
         $this->showStep($nextStep, $currentStepState);
     }
 
-    public function showStep($toStepName, array $currentStepState)
+    public function showStep($toStepName, array $currentStepState = [])
     {
-        $this->allStepState[$this->currentStepName] = $currentStepState;
+        if ($this->currentStepName) {
+            $this->allStepState[$this->currentStepName] = $currentStepState;
+
+        }
 
         $this->currentStepName = $toStepName;
     }

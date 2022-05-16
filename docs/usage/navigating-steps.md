@@ -59,3 +59,11 @@ You can also call it in your view.
     Go to the previous step
 </div>
 ```
+
+## Start at a specific step
+
+If you want the wizard to display a specific step when it is rendered first, you can pass the step name to the `show-step` property.
+
+```blade
+<livewire:checkout-wizard show-step="delivery-address-step" />
+```
