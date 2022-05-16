@@ -46,6 +46,8 @@ of our example.
 ```php
 namespace App\Components;
 
+use Spatie\LivewireWizard\Components\StepComponent;
+
 class CartStepComponent extends StepComponent
 {
     public function render()
