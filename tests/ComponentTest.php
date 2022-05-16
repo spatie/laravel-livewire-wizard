@@ -65,7 +65,7 @@ it('throws an exception when going to the next step on the last step', function 
         ->emitEvents()->in($wizard);
 })->throws(NoNextStep::class);
 
-it('will save and restore state when switching steps', function() {
+it('will save and restore state when switching steps', function () {
     $this->firstStep
         ->call('nextStep')
         ->emitEvents()->in($this->wizard);
