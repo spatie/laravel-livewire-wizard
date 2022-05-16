@@ -58,7 +58,7 @@ class TestCase extends Orchestra
             return new EventEmitter($this);
         });
 
-        TestableLivewire::macro('jsonContent', function(string $elementId) {
+        TestableLivewire::macro('jsonContent', function (string $elementId) {
             $document = new DOMDocument();
 
             $document->loadHTML($this->lastRenderedDom);
@@ -68,7 +68,7 @@ class TestCase extends Orchestra
             return json_decode($content, true);
         });
 
-        TestableLivewire::macro('htmlContent', function(string $elementId) {
+        TestableLivewire::macro('htmlContent', function (string $elementId) {
             $document = new DOMDocument();
 
             $document->preserveWhiteSpace = false;
