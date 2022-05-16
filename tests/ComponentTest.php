@@ -1,32 +1,43 @@
 <?php
 
 use Livewire\Livewire;
+use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\MyWizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
-use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SkipStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
+
+beforeEach(function() {
+   $this->wizard =  Livewire::test(MyWizardComponent::class);
+
+   $this->firstStep =  Livewire::test(FirstStepComponent::class);
+});
 
 it('can render a wizard component', function () {
-    Livewire::test(MyWizardComponent::class)->assertSuccessful();
+    $this->wizard->assertSuccessful();
 });
 
 it('can render a step component', function () {
-    Livewire::test(FirstStepComponent::class)->assertSuccessful();
+    $this->firstStep->assertSuccessful();
 });
 
-it('skips current step', function () {
-    Livewire::test(SkipStepComponent::class)
-       ->assertEmittedUp('nextStep');
-});
+it('can render the next and previous step', function () {
+    $this->wizard->assertSee('first step');
 
-it('can render the next step', function () {
-    $wizard = Livewire::test(MyWizardComponent::class)
-        ->assertSuccessful()
-        ->assertSee('first step');
-
-    Livewire::test(FirstStepComponent::class)
-        ->assertSuccessful()
+    $this->firstStep
         ->call('nextStep')
-        ->emitEvents()->in($wizard);
+        ->emitEvents()->in($this->wizard);
+    $this->wizard->assertSee('second step');
 
-    $wizard->assertSee('second step');
+    Livewire::test(SecondStepComponent::class)
+        ->call('previousStep')
+        ->emitEvents()->in($this->wizard);
+
+    $this->wizard->assertSee('first step');
 });
+
+it('will throw an exception when going to the previous step on the first step', function() {
+    $this->firstStep
+        ->call('previousStep')
+        ->emitEvents()->in($this->wizard);
+})->throws(NoPreviousStep::class);
+
