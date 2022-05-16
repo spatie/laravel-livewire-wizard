@@ -79,7 +79,7 @@ class TestCase extends Orchestra
             $domNode = $document->getElementById($elementId);
 
             return Str::of($document->saveHTML($domNode))
-                ->replace(PHP_EOL, "\n")
+                ->replace("\n", "\r\n")
                 ->trim()
                 ->toString();
         });
