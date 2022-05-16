@@ -1,3 +1,3 @@
 <div>
-    This is the first step
+    first step
 </div>

@@ -25,11 +25,8 @@ it('can render the next step', function() {
 
     Livewire::test(FirstStepComponent::class)
         ->assertSuccessful()
-        ->call('nextStep');
+        ->call('nextStep')
+        ->emitEvents()->in($wizard);
 
     $wizard->assertSee('second step');
-
-
-
-
 });

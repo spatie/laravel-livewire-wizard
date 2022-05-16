@@ -10,7 +10,7 @@ class SecondStepComponent extends StepComponent
     {
         return <<<'blade'
             <div>
-            Second step.
+            second step
             </div>
         blade;
     }
