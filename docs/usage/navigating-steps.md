@@ -75,7 +75,6 @@ In certain circumstances, you might want to skip over a few steps. This can be a
 ```php
 use Spatie\LivewireWizard\Components\StepComponent;
 
-
 class DeliveryAddressStepComponent extends StepComponent
 {
     public function shouldSkip(): bool
