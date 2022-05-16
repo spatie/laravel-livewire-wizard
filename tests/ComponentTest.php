@@ -35,7 +35,7 @@ it('can render the next and previous step', function () {
     $this->wizard->assertSee('first step');
 });
 
-it('will throw an exception when going to the previous step on the first step', function() {
+it('throws an exception when going to the previous step on the first step', function() {
     $this->firstStep
         ->call('previousStep')
         ->emitEvents()->in($this->wizard);
