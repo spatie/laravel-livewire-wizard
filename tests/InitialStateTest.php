@@ -12,7 +12,7 @@ it('loads initial state', function () {
     $this->wizard
         ->assertSuccessful()
         ->assertSet('allStepState', [
-            Livewire::getAlias(FirstStepComponent::class) => [
+            'first-step' => [
                 'order' => 1,
             ],
         ]);

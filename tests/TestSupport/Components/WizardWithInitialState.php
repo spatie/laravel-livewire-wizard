@@ -8,9 +8,6 @@ use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent
 
 class WizardWithInitialState extends WizardComponent
 {
-    /**
-     * @inheritDoc
-     */
     public function steps(): array
     {
         return [
@@ -19,10 +16,12 @@ class WizardWithInitialState extends WizardComponent
         ];
     }
 
-    public function getInitialState(): array
+    public function initialState(): array
     {
         return [
-            'order' => 1,
+            'first-step' => [
+                'order' => 1,
+            ],
         ];
     }
 }

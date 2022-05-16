@@ -25,23 +25,22 @@ abstract class WizardComponent extends Component
     /** @return <int, class-string<StepComponent> */
     abstract public function steps(): array;
 
-    public function mount(string $showStep = '')
+    public function mount(?string $showStep = null, array $initialState = [])
     {
-        if ($showStep) {
-            $this->showStep($showStep, $this->getInitialState());
+        $stepName = $showStep ?? $this->stepNames()->first();
 
-            return;
+        $initialState = $this->initialState() ?? $initialState;
+
+        $this->showStep($stepName, $initialState[$stepName] ?? []);
+
+        foreach($initialState as $stepName => $state) {
+            $this->setStepState($stepName, $state);
         }
-
-        $firstStep = $this->stepNames()->first();
-
-        $this->currentStepName = $firstStep;
-        $this->setStepState($firstStep, $this->getInitialState());
     }
 
-    public function getInitialState(): array
+    public function initialState(): ?array
     {
-        return [];
+        return null;
     }
 
     public function stepNames(): Collection
