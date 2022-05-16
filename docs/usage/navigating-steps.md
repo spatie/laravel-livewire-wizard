@@ -56,7 +56,7 @@ You can also call it in your view.
 
 ```blade
 <div wire:click="showStep('confirm-order-step')">
-    Go to the previous step
+    Go to the confirm order step
 </div>
 ```
 
