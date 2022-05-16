@@ -6,12 +6,15 @@ use Spatie\LivewireWizard\Components\StepComponent;
 
 class SecondStepComponent extends StepComponent
 {
+    public $counter = 0;
+
+    public function increment()
+    {
+        $this->counter = $this->counter + 1;
+    }
+
     public function render()
     {
-        return <<<'blade'
-            <div>
-            second step
-            </div>
-        blade;
+        return view('test::second-step');
     }
 }

@@ -8,10 +8,6 @@ class ThirdStepComponent extends StepComponent
 {
     public function render()
     {
-        return <<<'blade'
-            <div>
-            third step
-            </div>
-        blade;
+        return view('test::third-step');
     }
 }
