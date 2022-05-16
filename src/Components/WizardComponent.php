@@ -5,6 +5,7 @@ namespace Spatie\LivewireWizard\Components;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\Livewire;
+use Spatie\LivewireWizard\Components\Concerns\MountsWizard;
 use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
@@ -13,6 +14,8 @@ use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
 
 abstract class WizardComponent extends Component
 {
+    use MountsWizard;
+
     public array $allStepState = [];
     public ?string $currentStepName = null;
 
@@ -24,19 +27,6 @@ abstract class WizardComponent extends Component
 
     /** @return <int, class-string<StepComponent> */
     abstract public function steps(): array;
-
-    public function mount(?string $showStep = null, array $initialState = [])
-    {
-        $stepName = $showStep ?? $this->stepNames()->first();
-
-        $initialState = $this->initialState() ?? $initialState;
-
-        $this->showStep($stepName, $initialState[$stepName] ?? []);
-
-        foreach($initialState as $stepName => $state) {
-            $this->setStepState($stepName, $state);
-        }
-    }
 
     public function initialState(): ?array
     {

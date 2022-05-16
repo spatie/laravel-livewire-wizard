@@ -33,7 +33,38 @@ $initialState = [
 Instead of passing initial state via the `initial-state` property, you could let your `WizardComponent` implement 
 `initialState` and let that function return the initial state.
 
-In this example we 
+In this example we'll pass the user id as a prop, and fetch the relevant details in the `initialState` function.
+
+```blade
+{{-- in your blade view --}}
+<livewire:checkout-wizard show-step="confirm-order" user-id="$userId",  />
+```
+
+```php
+namespace App\Components;
+
+use Spatie\LivewireWizard\Components\WizardComponent;
+
+class CheckoutWizardComponent extends WizardComponent
+{
+    public function mount(string $userId)
+    {
+        $this->userId = $userId;
+    }
+    
+    public function initialState(): array
+    {
+        $user = User::findOrFail($this->userId);
+        
+        return [
+            'delivery-address-step' => [
+                'zip' => $user->zip,
+                'city' => $user->city,
+            ],       
+        ];
+    }
+}
+```
 
 
 

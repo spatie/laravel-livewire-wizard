@@ -8,6 +8,11 @@ use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent
 
 class WizardWithInitialState extends WizardComponent
 {
+    public function mount(string $order)
+    {
+        $this->order = $order;
+    }
+
     public function steps(): array
     {
         return [
@@ -20,7 +25,7 @@ class WizardWithInitialState extends WizardComponent
     {
         return [
             'first-step' => [
-                'order' => 1,
+                'order' => $this->order,
             ],
         ];
     }
