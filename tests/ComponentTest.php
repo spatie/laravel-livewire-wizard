@@ -17,3 +17,19 @@ it('skips current step', function () {
     Livewire::test(SkipStepComponent::class)
        ->assertEmittedUp('nextStep');
 });
+
+it('can render the next step', function() {
+    $wizard = Livewire::test(MyWizardComponent::class)
+        ->assertSuccessful()
+        ->assertSee('first step');
+
+    Livewire::test(FirstStepComponent::class)
+        ->assertSuccessful()
+        ->call('nextStep');
+
+    $wizard->assertSee('second step');
+
+
+
+
+});
