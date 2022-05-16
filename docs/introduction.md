@@ -3,8 +3,6 @@ title: Introduction
 weight: 1
 ---
 
-**PACKAGE IN DEVELOPMENT, DO NOT USE YET**
-
 This package offers lightweight Livewire components that allow you to easily build a wizard. With "wizard" we mean a multi-step process in which each step has its own screen.  
 
 Here's how a wizard component could look like.
