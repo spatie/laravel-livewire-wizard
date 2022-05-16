@@ -28,7 +28,7 @@ abstract class WizardComponent extends Component
     public function mount(string $showStep = '')
     {
         if ($showStep) {
-            $this->showStep($showStep, []);
+            $this->showStep($showStep, $this->getInitialState());
 
             return;
         }
