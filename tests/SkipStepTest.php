@@ -11,15 +11,8 @@ beforeEach(function () {
     $this->skipStep = Livewire::test(SkipStepComponent::class);
 });
 
-it('emits nextStep when skipping step', function () {
-    $this->skipStep
-        ->assertEmittedUp('nextStep');
-});
-
-it('skips step if shouldSkip returns true', function () {
-    $wizard = $this->wizard
-        ->assertSuccessful()
-        ->assertSee('first step');
+it('skips the step when shouldSkip returns true', function () {
+    $wizard = $this->wizard->assertSee('first step');
 
     $this->firstStep
         ->assertSuccessful()
