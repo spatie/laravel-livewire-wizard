@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 0.0.5 - 2022-05-17
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/0.0.4...0.0.5
+
 ## 0.0.4 - 2022-05-16
 
 ## What's Changed
