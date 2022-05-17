@@ -13,6 +13,7 @@ abstract class StepComponent extends Component
 
     public array $allStepNames = [];
     public array $steps = [];
+    public array $allStepsState = [];
 
     public function previousStep()
     {
@@ -29,11 +30,20 @@ abstract class StepComponent extends Component
         $this->emitUp('showStep', $stepName, $this->currentStepState());
     }
 
-    public function allStepsState(): array
+    public function allStepsState(string $key = null)
     {
         $stepName = Livewire::getAlias(static::class);
 
-        return array_merge($this->allStepsState ?? [], [$stepName => $this->currentStepState()]);
+        $state = array_merge(
+            $this->allStepsState ?? [],
+            [$stepName => $this->currentStepState()]
+        );
+
+        if ($key) {
+            Arr::get($key, $state);
+        }
+
+        return $state;
     }
 
     public function stateForStep(string $stepName): array
