@@ -56,7 +56,7 @@ You can also call it in your view.
 
 ```blade
 <div wire:click="showStep('confirm-order-step')">
-    Go to the previous step
+    Go to the confirm order step
 </div>
 ```
 
@@ -74,7 +74,6 @@ In certain circumstances, you might want to skip over a few steps. This can be a
 
 ```php
 use Spatie\LivewireWizard\Components\StepComponent;
-
 
 class DeliveryAddressStepComponent extends StepComponent
 {
