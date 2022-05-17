@@ -40,7 +40,7 @@ abstract class StepComponent extends Component
         );
 
         if ($key) {
-            Arr::get($key, $state);
+            return Arr::get($state, $key);
         }
 
         return $state;
