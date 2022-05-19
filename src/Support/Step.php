@@ -3,29 +3,30 @@
 namespace Spatie\LivewireWizard\Support;
 
 use Illuminate\Support\Arr;
+use Spatie\LivewireWizard\Enums\StepStatus;
 
 class Step
 {
     public function __construct(
         public string $stepName,
         public array $info,
-        public string $status,
+        public StepStatus $status,
     ) {
     }
 
     public function isPrevious(): bool
     {
-        return $this->status === 'previous';
+        return $this->status === StepStatus::Previous;
     }
 
     public function isCurrent(): bool
     {
-        return $this->status === 'current';
+        return $this->status === StepStatus::Current;
     }
 
     public function isNext(): bool
     {
-        return $this->status === 'next';
+        return $this->status === StepStatus::Next;
     }
 
     public function show(): string

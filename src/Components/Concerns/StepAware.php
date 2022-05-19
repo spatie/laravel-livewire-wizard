@@ -3,6 +3,7 @@
 namespace Spatie\LivewireWizard\Components\Concerns;
 
 use Livewire\Livewire;
+use Spatie\LivewireWizard\Enums\StepStatus;
 use Spatie\LivewireWizard\Support\Step;
 
 trait StepAware
@@ -25,12 +26,12 @@ trait StepAware
 
                 $info = (new $className())->stepInfo();
 
-                $status = $currentFound ? 'next' : 'previous';
+                $status = $currentFound ? StepStatus::Next : StepStatus::Previous;
 
 
                 if ($stepName === $currentStepName) {
                     $currentFound = true;
-                    $status = 'current';
+                    $status = StepStatus::Current;
                 }
 
                 return new Step($stepName, $info, $status);
