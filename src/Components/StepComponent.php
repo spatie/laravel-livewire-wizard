@@ -13,7 +13,6 @@ abstract class StepComponent extends Component
     use StepAware;
 
     public array $allStepNames = [];
-    public array $steps = [];
     public array $allStepsState = [];
 
     /** @var class-string<State> */
