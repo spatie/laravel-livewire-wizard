@@ -46,6 +46,8 @@ class CartStepComponent extends StepComponent
 
 You can easily [control which step is displayed](https://spatie.be/docs/laravel-livewire-wizard/v1/usage/navigating-steps), [access state of other steps](https://spatie.be/docs/laravel-livewire-wizard/v1/usage/accessing-state), and [build any navigation](https://spatie.be/docs/laravel-livewire-wizard/v1/usage/rendering-navigation) you desire.
 
+In [this repo on GitHub](https://github.com/spatie/laravel-livewire-wizard-demo-app), you'll find a demo Laravel application that uses the laravel-livewire-wizard package to create a simple checkout flow.
+
 ## Support us
 
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-livewire-wizard.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-livewire-wizard)
