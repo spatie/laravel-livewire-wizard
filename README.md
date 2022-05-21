@@ -68,6 +68,10 @@ All documentation is available [on our documentation site](https://spatie.be/doc
 composer test
 ```
 
+## Alternatives
+
+If you're using [Filament](https://filamentphp.com), take a look at [the built-in wizard functionality](https://filamentphp.com/docs/2.x/forms/layout#wizard).
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
