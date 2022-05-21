@@ -10,7 +10,9 @@
 
 This package offers lightweight Livewire components that allow you to easily build a wizard. With "wizard" we mean a multi-step process in which each step has its own screen.
 
-Here's what a wizard component could look like.
+![screenshot](https://github.com/spatie/laravel-livewire-wizard/blob/main/docs/images/screenshot.png?raw=true)
+
+Here's what a wizard component class could look like.
 
 ```php
 use Spatie\LivewireWizard\Components\WizardComponent
