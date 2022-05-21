@@ -2,7 +2,6 @@
 
 namespace Spatie\LivewireWizard\Components;
 
-use Illuminate\Support\Arr;
 use Livewire\Component;
 use Livewire\Livewire;
 use Spatie\LivewireWizard\Components\Concerns\StepAware;
