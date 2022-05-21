@@ -11,6 +11,7 @@ use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\NoStepsReturned;
 use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
+use Spatie\LivewireWizard\Support\State;
 
 abstract class WizardComponent extends Component
 {
@@ -107,9 +108,16 @@ abstract class WizardComponent extends Component
             [
                 'allStepNames' => $this->stepNames()->toArray(),
                 'allStepsState' => $this->allStepState,
+                'stateClassName' => $this->stateClass(),
             ],
         );
 
         return view('livewire-wizard::wizard', compact('currentStepState'));
+    }
+
+    /** @return class-string<State> */
+    public function stateClass(): string
+    {
+        return State::class;
     }
 }

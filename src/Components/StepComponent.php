@@ -6,6 +6,7 @@ use Illuminate\Support\Arr;
 use Livewire\Component;
 use Livewire\Livewire;
 use Spatie\LivewireWizard\Components\Concerns\StepAware;
+use Spatie\LivewireWizard\Support\State;
 
 abstract class StepComponent extends Component
 {
@@ -15,21 +16,25 @@ abstract class StepComponent extends Component
     public array $steps = [];
     public array $allStepsState = [];
 
+    /** @var class-string<State>  */
+    public string $stateClassName = State::class;
+
     public function previousStep()
     {
-        $this->emitUp('previousStep', $this->currentStepState());
+        $this->emitUp('previousStep', $this->state()->currentStep());
     }
 
     public function nextStep()
     {
-        $this->emitUp('nextStep', $this->currentStepState());
+        $this->emitUp('nextStep', $this->state()->currentStep());
     }
 
     public function showStep(string $stepName)
     {
-        $this->emitUp('showStep', $stepName, $this->currentStepState());
+        $this->emitUp('showStep', $stepName, $this->state()->currentStep());
     }
 
+    /*
     public function allStepsState(string $key = null)
     {
         $stepName = Livewire::getAlias(static::class);
@@ -57,9 +62,29 @@ abstract class StepComponent extends Component
     {
         return Arr::except($this->all(), 'allStepsState');
     }
+    */
 
     public function stepInfo(): array
     {
         return [];
+    }
+
+    public function state(): State
+    {
+        /** @var State $stateClass */
+        $stateClass = new $this->stateClassName;
+
+        $stepName = Livewire::getAlias(static::class);
+
+        $allState = array_merge(
+            $this->allStepsState ?? [],
+            [$stepName => $this->all()]
+        );
+
+        $stateClass
+            ->setAllState($allState)
+            ->setCurrentStepName($stepName);
+
+        return $stateClass;
     }
 }

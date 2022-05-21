@@ -23,9 +23,9 @@ class SecondStepComponent extends StepComponent
     public function render()
     {
         return view('test::second-step', [
-            'allStepState' => $this->allStepsState(),
-            'firstStepState' => $this->stateForStep('second-step'),
-            'currentStepState' => $this->currentStepState(),
+            'allStepState' => $this->state()->all(),
+            'firstStepState' => $this->state()->forStep('second-step'),
+            'currentStepState' => $this->state()->currentStep(),
         ]);
     }
 }
