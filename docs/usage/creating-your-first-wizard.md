@@ -139,6 +139,6 @@ Alternatively, you could also directly use `nextStep` in a `wire:click` somewher
 
 With the basics of the wizard now working, explore the other sections in these docs to explore what's possible.
 
-## View and example
+## Take a look at the example app
 
 In [this repo on GitHub](https://github.com/spatie/laravel-livewire-wizard-demo-app), you'll find a demo Laravel application that contains the checkout flow as described above.
