@@ -20,5 +20,4 @@ class CustomStateStepComponent extends StepComponent
             </div>
         blade;
     }
-
 }

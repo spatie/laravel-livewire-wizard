@@ -1,7 +1,6 @@
 <?php
 
 use Livewire\Livewire;
-use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithCustomStateObject;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithInvalidCustomStateObject;
 use Spatie\LivewireWizard\Tests\TestSupport\State\CustomState;
