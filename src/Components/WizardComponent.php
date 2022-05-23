@@ -110,17 +110,10 @@ abstract class WizardComponent extends Component
             ->map(function ($step) {
                 $instance = $this->getLivewireInstance($step);
 
-                if (! method_exists($instance, 'shouldSkip')) {
-                    return false;
+                if (method_exists($instance, 'shouldSkip') && $instance->shouldSkip()) {
+                    return $step;
                 }
-
-                if (! $instance->shouldSkip()) {
-                    return false;
-                }
-
-                return $step;
-            })
-            ->reject(fn ($value) => $value === false);
+            });
     }
 
     protected function getLivewireInstance(string $step)
