@@ -14,6 +14,7 @@ use Spatie\LivewireWizard\Components\WizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\CustomStateStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SkipStepBasedOnStateComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SkipStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Support\EventEmitter;
@@ -51,6 +52,7 @@ class TestCase extends Orchestra
         Livewire::component('third-step', ThirdStepComponent::class);
         Livewire::component('custom-state-step', CustomStateStepComponent::class);
         Livewire::component('skip-step', SkipStepComponent::class);
+        Livewire::component('skip-step-state', SkipStepBasedOnStateComponent::class);
 
         return $this;
     }
