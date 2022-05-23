@@ -118,8 +118,6 @@ abstract class WizardComponent extends Component
 
     protected function getLivewireInstance(string $step)
     {
-        $class = Livewire::getClass($step);
-
         $id = str()->random(20);
 
         if (class_exists($step)) {
