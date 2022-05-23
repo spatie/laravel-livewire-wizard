@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 1.0.1 - 2022-05-23
+
+- remove buddy skip step functionality
+
 ## 1.0.0 - 2022-05-21
 
 - stable release
