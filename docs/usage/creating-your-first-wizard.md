@@ -26,7 +26,7 @@ The `WizardComponent` class extends Livewire's component class, so you need the 
 // typically, in a service provider
 
 use Livewire\Livewire;
-use App\Components\App\Components;
+use App\Components\CheckoutWizardComponent;
 
 Livewire::component('checkout-wizard', CheckoutWizardComponent::class);
 ```
