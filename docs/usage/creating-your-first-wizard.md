@@ -20,8 +20,7 @@ class CheckoutWizardComponent extends WizardComponent
 }
 ```
 
-The `WizardComponent` class extends Livewire's component class, so you need the register `CheckoutWizardComponent` with
-Livewire.
+The `WizardComponent` class extends Livewire's component class, so you need the register `CheckoutWizardComponent` with Livewire.
 
 ```php
 // typically, in a service provider
@@ -40,8 +39,7 @@ Next, let's add steps to the wizard. In our example, let's assume the checkout p
 2. A step to specify delivery address details
 3. A step that show all order details and the ability to confirm the order
 
-For each step, you need to create a class that extends `StepComponent`. Here's how it may look like for the first step
-of our example.
+For each step, you need to create a class that extends `StepComponent`. Here's how it may look like for the first step of our example.
 
 ```php
 namespace App\Components;

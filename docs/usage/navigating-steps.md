@@ -67,19 +67,3 @@ If you want the wizard to display a specific step when it is rendered first, you
 ```blade
 <livewire:checkout-wizard show-step="delivery-address-step" />
 ```
-
-## Skipping steps
-
-In certain circumstances, you might want to skip over a few steps. This can be achieved by letting your step component implement a `shouldSkip` function. If it returns `true` then the step will be skipped.
-
-```php
-use Spatie\LivewireWizard\Components\StepComponent;
-
-class DeliveryAddressStepComponent extends StepComponent
-{
-    public function shouldSkip(): bool
-    {
-        return auth()->user()->hasValidDeliveryAddress();
-    }
-}
-```
