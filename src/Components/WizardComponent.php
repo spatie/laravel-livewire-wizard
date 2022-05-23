@@ -4,6 +4,7 @@ namespace Spatie\LivewireWizard\Components;
 
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use Livewire\LifecycleManager;
 use Livewire\Livewire;
 use Spatie\LivewireWizard\Components\Concerns\MountsWizard;
 use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
@@ -62,6 +63,7 @@ abstract class WizardComponent extends Component
     public function previousStep(array $currentStepState)
     {
         $previousStep = collect($this->stepNames())
+            ->reject(fn (string $step) => $this->getSkippedSteps()->contains($step))
             ->before(fn (string $step) => $step === $this->currentStepName);
 
         if (! $previousStep) {
@@ -74,6 +76,7 @@ abstract class WizardComponent extends Component
     public function nextStep(array $currentStepState)
     {
         $nextStep = collect($this->stepNames())
+            ->reject(fn (string $step) => $this->getSkippedSteps()->contains($step))
             ->after(fn (string $step) => $step === $this->currentStepName);
 
         if (! $nextStep) {
@@ -99,6 +102,43 @@ abstract class WizardComponent extends Component
         }
 
         $this->allStepState[$step] = $state;
+    }
+
+    protected function getSkippedSteps(): Collection
+    {
+        return $this->stepNames()
+            ->map(function ($step) {
+                $instance = $this->getLivewireInstance($step);
+
+                if (! method_exists($instance, 'shouldSkip')) {
+                    return false;
+                }
+
+                if (! $instance->shouldSkip()) {
+                    return false;
+                }
+
+                return $step;
+            })
+            ->reject(fn ($value) => $value === false);
+    }
+
+    protected function getLivewireInstance(string $step)
+    {
+        $class = Livewire::getClass($step);
+
+        $id = str()->random(20);
+
+        if (class_exists($step)) {
+            $step = $step::getName();
+        }
+
+        $mounted = LifecycleManager::fromInitialRequest($step, $id)
+            ->boot()
+            ->initialHydrate()
+            ->mount([]);
+
+        return $mounted->instance;
     }
 
     public function render()
