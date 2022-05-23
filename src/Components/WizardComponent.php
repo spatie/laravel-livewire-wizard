@@ -136,21 +136,14 @@ abstract class WizardComponent extends Component
         $mounted = LifecycleManager::fromInitialRequest($step, $id)
             ->boot()
             ->initialHydrate()
-            ->mount([]);
+            ->mount($this->getStepState($step));
 
         return $mounted->instance;
     }
 
     public function render()
     {
-        $currentStepState = array_merge(
-            $this->allStepState[$this->currentStepName] ?? [],
-            [
-                'allStepNames' => $this->stepNames()->toArray(),
-                'allStepsState' => $this->allStepState,
-                'stateClassName' => $this->stateClass(),
-            ],
-        );
+        $currentStepState = $this->getStepState($this->currentStepName);
 
         return view('livewire-wizard::wizard', compact('currentStepState'));
     }
@@ -159,5 +152,17 @@ abstract class WizardComponent extends Component
     public function stateClass(): string
     {
         return State::class;
+    }
+
+    private function getStepState(string $step): array
+    {
+        return array_merge(
+            $this->allStepState[$step] ?? [],
+            [
+                'allStepNames' => $this->stepNames()->toArray(),
+                'allStepsState' => $this->allStepState,
+                'stateClassName' => $this->stateClass(),
+            ],
+        );
     }
 }
