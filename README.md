@@ -70,7 +70,9 @@ composer test
 
 ## Alternatives
 
-If you're using [Filament](https://filamentphp.com), take a look at [the built-in wizard functionality](https://filamentphp.com/docs/2.x/forms/layout#wizard).
+Our package is headless, meaning it does not provide UI, but it offers functions to easily build any UI you want. If you do not wish to build your own UI, you could consider using [vildanbina/livewire-wizard](https://github.com/vildanbina/livewire-wizard), which  includes pre-built navigation and CSS.
+
+[Filament](https://filamentphp.com) users could also take a look at [the built-in wizard functionality](https://filamentphp.com/docs/2.x/forms/layout#wizard).
 
 ## Changelog
 
