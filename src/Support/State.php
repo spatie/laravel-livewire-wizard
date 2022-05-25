@@ -25,7 +25,13 @@ class State
 
     public function forStep(string $stepName): array
     {
-        return $this->allState[$stepName] ?? [];
+        $state = $this->allState[$stepName] ?? [];
+
+        if (array_key_exists('allStepsState', $state)) {
+            unset($state['allStepsState']);
+        }
+
+        return $state;
     }
 
     public function get(string $key)
