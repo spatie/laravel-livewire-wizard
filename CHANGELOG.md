@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 1.0.2 - 2022-05-25
+
+## What's Changed
+
+- Update creating-your-first-wizard.md by @nickfls in https://github.com/spatie/laravel-livewire-wizard/pull/18
+- Fix memory leak (@freekmurze)
+
+## New Contributors
+
+- @nickfls made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/18
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.0.1...1.0.2
+
 ## 1.0.1 - 2022-05-23
 
 - remove buddy skip step functionality
