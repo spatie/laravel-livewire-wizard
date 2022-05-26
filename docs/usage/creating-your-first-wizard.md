@@ -20,7 +20,7 @@ class CheckoutWizardComponent extends WizardComponent
 }
 ```
 
-The `WizardComponent` class extends Livewire's component class, so you need the register `CheckoutWizardComponent` with Livewire.
+The `WizardComponent` class extends Livewire's component class, so you need to register the `CheckoutWizardComponent` with Livewire.
 
 ```php
 // typically, in a service provider
