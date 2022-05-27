@@ -23,9 +23,9 @@ Any step component has a `$steps` property that contains an array containing inf
 
 Each entry in the array contains an instance of `Spatie\LivewireWizard\Support\Step`. It has these methods:
 
-- `isCurrent()`: returns `true` is this step is currently being displayed
-- `isPrevious()`: returns `true` is this step comes before the step that's currently displayed
-- `isNext()`: returns `true` is this step comes after the step that's currently displayed
+- `isCurrent()`: returns `true` if this step is currently being displayed
+- `isPrevious()`: returns `true` if this step comes before the step that's currently displayed
+- `isNext()`: returns `true` if this step comes after the step that's currently displayed
 - `show()`: return the string that can be passed to `wire:click` to show the step
 
 ## Adding extra info to a step
