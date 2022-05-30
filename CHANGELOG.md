@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 1.0.3 - 2022-05-30
+
+### What's Changed
+
+- Fix typo by @damms005 in https://github.com/spatie/laravel-livewire-wizard/pull/20
+- Fix typo by @damms005 in https://github.com/spatie/laravel-livewire-wizard/pull/21
+- Fix typo by @damms005 in https://github.com/spatie/laravel-livewire-wizard/pull/22
+- chore: remove old code by @ju5t in https://github.com/spatie/laravel-livewire-wizard/pull/23
+- refactor: move logic into dedicated method by @ju5t in https://github.com/spatie/laravel-livewire-wizard/pull/26
+
+### New Contributors
+
+- @damms005 made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/20
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.0.2...1.0.3
+
 ## 1.0.2 - 2022-05-25
 
 ## What's Changed
