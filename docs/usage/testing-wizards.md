@@ -42,7 +42,7 @@ $wizard->assertSee('fill in your address');
 `emitEvents` takes the event thats emitted by `nextStep` and passes it to the
 wizard. The wizard processes it and takes you to the next step.
 
-## Passing state to components
+## Testing state in a StepComponent
 
 Now you know how to navigate your wizard in your tests, let's talk state. 
 
