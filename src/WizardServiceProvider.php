@@ -7,6 +7,7 @@ use Livewire\Livewire;
 use Livewire\Testing\TestableLivewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
 use Spatie\LivewireWizard\Tests\TestSupport\Support\EventEmitter;
 
 class WizardServiceProvider extends PackageServiceProvider
@@ -36,7 +37,11 @@ class WizardServiceProvider extends PackageServiceProvider
                 ? Livewire::getAlias($step)
                 : $step;
 
-            return Arr::get($state, $stepName);
+            $state = Arr::get($state, $stepName);
+
+            throw_if(is_null($state), StepDoesNotExist::stepNotFound($step));
+
+            return $state;
         });
     }
 }
