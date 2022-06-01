@@ -46,9 +46,9 @@ wizard. The wizard processes it and takes you to the next step.
 
 Now you know how to navigate your wizard in your tests, let's talk state. 
 
-We have a cart wizard. The initial state of this cart is a list of items, made
-available to the `show-cart-step`. We want to be sure this step has access to
-those items. The cart has only one item, Spatie's Laravel Comments.
+Let's say We have a cart wizard. The initial state of this cart is a list of 
+items, made available to the `show-cart-step`. We want to be sure this step has 
+access to those items. The cart has only one item, Spatie's Laravel Comments.
 
 `getStateForStep` allows you to get state for a step from a wizard. The example
 below shows how you can test if the cart contains the item you expect.
@@ -69,3 +69,4 @@ $showCartState = $wizard->getStateForStep('show-cart-step');
 Livewire::test(ShowCartStep::class, $showCartState)
     ->assertSet('items.0.detail', 'Laravel Comments');
 ```
+
