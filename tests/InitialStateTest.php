@@ -1,6 +1,7 @@
 <?php
 
 use Livewire\Livewire;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithInitialState;
 
 beforeEach(function () {
@@ -9,7 +10,7 @@ beforeEach(function () {
     ]);
 });
 
-it('can set initial state via a passed props', function () {
+it('can set initial state via passed props', function () {
     $this->wizard
         ->assertSuccessful()
         ->assertSet('allStepState', [
@@ -35,4 +36,30 @@ it('can handle manually passed in state', function () {
     ])
         ->assertSuccessful()
         ->assertSet('allStepState', $initialState);
+
+    $firstStepState = $this->wizard->getStateForStep(FirstStepComponent::class);
+
+    Livewire::test(FirstStepComponent::class, $firstStepState)
+        ->assertSuccessful()
+        ->assertSet('order', 123);
+});
+
+it('ignores initial state if property does not exist', function () {
+    $initialState = [
+        'first-step' => [
+            'name' => 'Freek',
+        ],
+    ];
+
+    $this->wizard = Livewire::test(WizardWithInitialState::class, [
+        'initialState' => $initialState,
+        'order' => 456, // will be ignored since initialState is passed
+    ])
+        ->assertSuccessful();
+
+    $firstStepState = $this->wizard->getStateForStep(FirstStepComponent::class);
+
+    Livewire::test(FirstStepComponent::class, $firstStepState)
+        ->assertSuccessful()
+        ->assertNotSet('name', 'Freek');
 });

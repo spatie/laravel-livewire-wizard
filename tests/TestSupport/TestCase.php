@@ -55,10 +55,6 @@ class TestCase extends Orchestra
 
     public function registerLivewireTestMacros(): self
     {
-        TestableLivewire::macro('emitEvents', function () {
-            return new EventEmitter($this);
-        });
-
         TestableLivewire::macro('jsonContent', function (string $elementId) {
             $document = new DOMDocument();
 

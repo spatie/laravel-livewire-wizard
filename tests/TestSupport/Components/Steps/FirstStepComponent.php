@@ -6,6 +6,8 @@ use Spatie\LivewireWizard\Components\StepComponent;
 
 class FirstStepComponent extends StepComponent
 {
+    public int $order = 0;
+
     public function render()
     {
         return view('test::first-step');
