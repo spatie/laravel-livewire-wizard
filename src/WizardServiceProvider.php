@@ -30,7 +30,7 @@ class WizardServiceProvider extends PackageServiceProvider
             return new EventEmitter($this);
         });
 
-        TestableLivewire::macro('getStateForStep', function (string $step) {
+        TestableLivewire::macro('getStepState', function (string $step) {
             $state = $this->get('allStepState');
 
             $stepName = class_exists($step)

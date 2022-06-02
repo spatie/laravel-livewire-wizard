@@ -37,7 +37,7 @@ it('can handle manually passed in state', function () {
         ->assertSuccessful()
         ->assertSet('allStepState', $initialState);
 
-    $firstStepState = $this->wizard->getStateForStep(FirstStepComponent::class);
+    $firstStepState = $this->wizard->getStepState(FirstStepComponent::class);
 
     Livewire::test(FirstStepComponent::class, $firstStepState)
         ->assertSuccessful()
@@ -57,7 +57,7 @@ it('ignores initial state if property does not exist', function () {
     ])
         ->assertSuccessful();
 
-    $firstStepState = $this->wizard->getStateForStep(FirstStepComponent::class);
+    $firstStepState = $this->wizard->getStepState(FirstStepComponent::class);
 
     Livewire::test(FirstStepComponent::class, $firstStepState)
         ->assertSuccessful()

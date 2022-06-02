@@ -9,5 +9,5 @@ beforeEach(function () {
 });
 
 it('throws an exception when state cannot be found', function () {
-    $this->wizard->getStateForStep('three-thousand');
+    $this->wizard->getStepState('three-thousand');
 })->throws(StepDoesNotExist::class, 'Step `three-thousand` does not exist.');
