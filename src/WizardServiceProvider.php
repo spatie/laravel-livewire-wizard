@@ -8,7 +8,7 @@ use Livewire\Testing\TestableLivewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
-use Spatie\LivewireWizard\Tests\TestSupport\Support\EventEmitter;
+use Spatie\LivewireWizard\Support\EventEmitter;
 
 class WizardServiceProvider extends PackageServiceProvider
 {
