@@ -15,7 +15,6 @@ use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\CustomStateStepComp
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
-use Spatie\LivewireWizard\Tests\TestSupport\Support\EventEmitter;
 use Spatie\LivewireWizard\WizardServiceProvider;
 
 class TestCase extends Orchestra
