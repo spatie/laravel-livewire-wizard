@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 1.1.0 - 2022-06-03
+
+### What's Changed
+
+- feat: make wizards testable by @ju5t in https://github.com/spatie/laravel-livewire-wizard/pull/29
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.0.3...1.1.0
+
 ## 1.0.3 - 2022-05-30
 
 ### What's Changed
