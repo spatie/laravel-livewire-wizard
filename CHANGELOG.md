@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 1.1.1 - 2022-06-03
+
+### What's Changed
+
+- fix: move EventEmitter to src by @ju5t in https://github.com/spatie/laravel-livewire-wizard/pull/30
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.1.0...1.1.1
+
 ## 1.1.0 - 2022-06-03
 
 ### What's Changed
