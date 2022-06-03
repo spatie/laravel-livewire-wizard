@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\LivewireWizard\Tests\TestSupport\Support;
+namespace Spatie\LivewireWizard\Support;
 
 use Illuminate\Support\Arr;
 use Livewire\Testing\TestableLivewire;
