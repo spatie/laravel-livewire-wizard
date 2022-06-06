@@ -2,12 +2,9 @@
 
 namespace Spatie\LivewireWizard;
 
-use Illuminate\Support\Arr;
-use Livewire\Livewire;
 use Livewire\Testing\TestableLivewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
 use Spatie\LivewireWizard\Support\EventEmitter;
 
 class WizardServiceProvider extends PackageServiceProvider

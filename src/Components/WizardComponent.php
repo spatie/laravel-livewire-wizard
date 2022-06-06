@@ -2,7 +2,6 @@
 
 namespace Spatie\LivewireWizard\Components;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\Livewire;
@@ -111,7 +110,7 @@ abstract class WizardComponent extends Component
             : $stepName;
 
         throw_if(
-            !$this->stepNames()->contains($stepName),
+            ! $this->stepNames()->contains($stepName),
             StepDoesNotExist::stepNotFound($stepName)
         );
 
