@@ -30,18 +30,8 @@ class WizardServiceProvider extends PackageServiceProvider
             return new EventEmitter($this);
         });
 
-        TestableLivewire::macro('getStepState', function (string $step) {
-            $state = $this->get('allStepState');
-
-            $stepName = class_exists($step)
-                ? Livewire::getAlias($step)
-                : $step;
-
-            $state = Arr::get($state, $stepName);
-
-            throw_if(is_null($state), StepDoesNotExist::stepNotFound($step));
-
-            return $state;
+        TestableLivewire::macro('getStepState', function (?string $step = null) {
+            return $this->instance()->getCurrentStepState($step);
         });
     }
 }
