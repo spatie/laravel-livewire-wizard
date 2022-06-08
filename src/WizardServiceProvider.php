@@ -2,13 +2,10 @@
 
 namespace Spatie\LivewireWizard;
 
-use Illuminate\Support\Arr;
-use Livewire\Livewire;
 use Livewire\Testing\TestableLivewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
-use Spatie\LivewireWizard\Tests\TestSupport\Support\EventEmitter;
+use Spatie\LivewireWizard\Support\EventEmitter;
 
 class WizardServiceProvider extends PackageServiceProvider
 {
@@ -30,18 +27,8 @@ class WizardServiceProvider extends PackageServiceProvider
             return new EventEmitter($this);
         });
 
-        TestableLivewire::macro('getStepState', function (string $step) {
-            $state = $this->get('allStepState');
-
-            $stepName = class_exists($step)
-                ? Livewire::getAlias($step)
-                : $step;
-
-            $state = Arr::get($state, $stepName);
-
-            throw_if(is_null($state), StepDoesNotExist::stepNotFound($step));
-
-            return $state;
+        TestableLivewire::macro('getStepState', function (?string $step = null) {
+            return $this->instance()->getCurrentStepState($step);
         });
     }
 }

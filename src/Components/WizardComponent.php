@@ -101,10 +101,21 @@ abstract class WizardComponent extends Component
         $this->allStepState[$step] = $state;
     }
 
-    public function getCurrentStepState(): array
+    public function getCurrentStepState(?string $step = null): array
     {
+        $stepName = $step ?? $this->currentStepName;
+
+        $stepName = class_exists($stepName)
+            ? Livewire::getAlias($stepName)
+            : $stepName;
+
+        throw_if(
+            ! $this->stepNames()->contains($stepName),
+            StepDoesNotExist::stepNotFound($stepName)
+        );
+
         return array_merge(
-            $this->allStepState[$this->currentStepName] ?? [],
+            $this->allStepState[$stepName] ?? [],
             [
                 'allStepNames' => $this->stepNames()->toArray(),
                 'allStepsState' => $this->allStepState,
