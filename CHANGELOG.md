@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 1.1.3 - 2022-06-09
+
+- allow initial step to be overridden
+
 ## 1.1.2 - 2022-06-06
 
 ### What's Changed
