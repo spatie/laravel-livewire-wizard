@@ -9,7 +9,7 @@ trait MountsWizard
 {
     public function mountMountsWizard(?string $showStep = null, array $initialState = null)
     {
-        $stepName = $showStep ?? $this->stepNames()->first();
+        $stepName = $showStep ?? $this->currentStepName ?? $this->stepNames()->first();
 
         $initialState = $initialState ?? $this->initialState() ?? [];
 
