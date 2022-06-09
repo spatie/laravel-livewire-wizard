@@ -15,7 +15,7 @@ If you want to let your wizard display a specific step when it is first rendered
 
 ## Setting initial state
 
-To let the steps start with other values than the ones hardcoded in your steps, you can pass initial state via the `initial-state` property. The value given just be an array. The key of each item needs to be the name of a step, the value an array containing the state for that step. Here's an example:
+To let the steps start with other values than the ones hardcoded in your steps, you can pass initial state via the `initial-state` property. The value given must be an array. The key of each item needs to be the name of a step, the value an array containing the state for that step. Here's an example:
 
 ```blade
 @php
