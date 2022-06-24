@@ -24,7 +24,7 @@ $initialState = [
         // ...
         'zip' => '10000'
         'city' => 'Washington',
-    ];  
+    ],
 ];
 
 @endphp
