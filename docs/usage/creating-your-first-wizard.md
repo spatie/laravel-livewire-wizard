@@ -63,9 +63,9 @@ Since steps are Livewire components, don't forget to register all steps to Livew
 // typically, in a service provider
 
 use Livewire\Livewire;
-use App\Components\CartComponent;
-use App\Components\DeliveryAddressComponent;
-use App\Components\ConfirmOrderComponent;
+use App\Components\CartStepComponent;
+use App\Components\DeliveryAddressStepComponent;
+use App\Components\ConfirmOrderStepComponent;
 
 // ... other registrations
 
@@ -83,9 +83,9 @@ In `CheckoutWizardComponent` add a function named `steps` that returns an array 
 ```php
 namespace App\Components;
 
-use App\Components\CartComponent;
-use App\Components\DeliveryAddressComponent;
-use App\Components\ConfirmOrderComponent;
+use App\Components\CartStepComponent;
+use App\Components\DeliveryAddressStepComponent;
+use App\Components\ConfirmOrderStepComponent;
 use Spatie\LivewireWizard\Components\WizardComponent;
 
 class CheckoutWizardComponent extends WizardComponent
