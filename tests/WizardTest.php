@@ -9,6 +9,7 @@ use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithInvalidStepComponent;
+
 use function Spatie\Snapshots\assertMatchesHtmlSnapshot;
 
 beforeEach(function () {
