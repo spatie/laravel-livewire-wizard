@@ -27,8 +27,8 @@ class State
     {
         $state = $this->allState[$stepName] ?? [];
 
-        if (array_key_exists('allStepsState', $state)) {
-            unset($state['allStepsState']);
+        if (!empty($state)) {
+            return $state['allStepsState'][$stepName];
         }
 
         return $state;
