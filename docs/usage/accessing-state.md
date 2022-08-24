@@ -15,14 +15,14 @@ On that state object you can call these methods:
 
 - `all()`: returns an array containing the values of all public properties of all steps in the wizard. The key of the items in the array is the name of the step. Optionally, you can pass is a key name to let the function only return the value for that key.
 - `forStep($stepname)`:  returns the values of all public properties of the given step.
-- `current()`: returns an array containing the values of all public properties of the current step. The result is almost identical to Livewire's native `all()` method, but with some internal properties filtered out.
+- `currentStep()`: returns an array containing the values of all public properties of the current step. The result is almost identical to Livewire's native `all()` method, but with some internal properties filtered out.
 
 ```php
 // in a step component
 
 $this->state()->all(); // returns all state from all steps in the wizard
 $this->state()->forStep('delivery-address-step'); // returns all state of the given step
-$this->state()->current(); // returns all state of the current step
+$this->state()->currentStep(); // returns all state of the current step
 ```
 
 ## Using a custom state object
