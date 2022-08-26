@@ -24,7 +24,7 @@ individual components. They don't paint the full picture.
 
 ## Testing navigation of the wizard
 
-When testing a wizard- or step-component, you may make use of the `emitsEvents()`
+When testing a wizard- or step-component, you may make use of the `emitEvents()`
  method provided by our package.
  
 `emitEvents` allows you to take all events from a `StepComponent` and fire them in the `WizardComponent`. 
