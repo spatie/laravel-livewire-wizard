@@ -64,7 +64,7 @@ class CheckoutWizardComponent extends WizardComponent
 }
 ```
 
-With this in place, the `state()` function of step components will return and instance of `MyCustomState`. You can use any custom method you added on your state class.
+With this in place, the `state()` function of step components will return an instance of `MyCustomState`. You can use any custom method you added on your state class.
 
 ```php
 namespace App\Components;
