@@ -38,13 +38,13 @@ class MyCustomState extends State
 {
     public function deliveryAddress(): array
     {
-        $deliverStepState = $this->forStep('delivery-address-step');
+        $deliveryStepState = $this->forStep('delivery-address-step');
     
         return [
-            'name' => $deliverStepState['name'],
-            'address' => $deliverStepState['address'],
-            'zip' => $deliverStepState['zip'],
-            'city' => $deliverStepState['city'],
+            'name' => $deliveryStepState['name'],
+            'address' => $deliveryStepState['address'],
+            'zip' => $deliveryStepState['zip'],
+            'city' => $deliveryStepState['city'],
         ];
     }
 }
