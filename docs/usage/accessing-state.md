@@ -38,13 +38,13 @@ class MyCustomState extends State
 {
     public function deliveryAddress(): array
     {
-        $deliverStepState = $this->forStep('delivery-address-step');
+        $deliveryStepState = $this->forStep('delivery-address-step');
     
         return [
-            'name' => $deliverStepState['name'],
-            'address' => $deliverStepState['address'],
-            'zip' => $deliverStepState['zip'],
-            'city' => $deliverStepState['city'],
+            'name' => $deliveryStepState['name'],
+            'address' => $deliveryStepState['address'],
+            'zip' => $deliveryStepState['zip'],
+            'city' => $deliveryStepState['city'],
         ];
     }
 }
@@ -64,7 +64,7 @@ class CheckoutWizardComponent extends WizardComponent
 }
 ```
 
-With this in place, the `state()` function of step components will return and instance of `MyCustomState`. You can use any custom method you added on your state class.
+With this in place, the `state()` function of step components will return an instance of `MyCustomState`. You can use any custom method you added on your state class.
 
 ```php
 namespace App\Components;
