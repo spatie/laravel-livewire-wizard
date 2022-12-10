@@ -105,7 +105,7 @@ abstract class WizardComponent extends Component
         $stepName = $step ?? $this->currentStepName;
 
         $stepName = class_exists($stepName)
-            ? Livewire::getClass($stepName)
+            ? Livewire::getAlias($stepName)
             : $stepName;
 
         throw_if(
