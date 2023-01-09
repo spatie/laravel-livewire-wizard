@@ -55,7 +55,7 @@ We then move to the next step by calling `nextStep`. This emits an event to be
 picked up by the wizard. `emitEvents` takes the event thats emitted by `nextStep` and passes it to the
 wizard. The wizard processes it and takes you to the next step. We then assert if the second step is loaded.
 
-## Testing state in a `StepComponent`
+## Testing state in a StepComponent
 
 Now that you know how to navigate your wizard in your tests, let's talk state. 
 
