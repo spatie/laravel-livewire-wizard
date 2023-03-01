@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 1.1.5 - 2023-03-01
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/laravel-livewire-wizard/pull/68
+- Fix `Creation of dynamic property` warning in PHP 8.2 by @JayBizzle in https://github.com/spatie/laravel-livewire-wizard/pull/71
+
+### New Contributors
+
+- @JayBizzle made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/71
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.1.4...1.1.5
+
 ## 1.1.4 - 2023-01-25
 
 - allow L10
