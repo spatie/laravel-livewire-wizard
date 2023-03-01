@@ -8,6 +8,8 @@ use Spatie\LivewireWizard\Support\Step;
 
 trait StepAware
 {
+    public array $steps = [];
+
     public function bootedStepAware()
     {
         $currentFound = false;
