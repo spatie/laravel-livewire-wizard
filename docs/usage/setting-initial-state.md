@@ -22,8 +22,8 @@ To let the steps start with other values than the ones hardcoded in your steps, 
 $initialState = [
     'delivery-address-step' => [
         // ...
-        'zip' => '10000'
-        'city' => 'Washington',
+        'zip' => '10000',
+        'city' => 'Washington'
     ],
 ];
 
