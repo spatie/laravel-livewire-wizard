@@ -23,7 +23,7 @@ $initialState = [
     'delivery-address-step' => [
         // ...
         'zip' => '10000',
-        'city' => 'Washington'
+        'city' => 'Washington',
     ],
 ];
 
