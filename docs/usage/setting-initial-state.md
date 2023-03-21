@@ -39,7 +39,7 @@ In this example we'll pass the user id as a prop, and fetch the relevant details
 
 ```blade
 {{-- in your blade view --}}
-<livewire:checkout-wizard show-step="confirm-order" user-id="$userId",  />
+<livewire:checkout-wizard show-step="confirm-order" :user-id="$userId",  />
 ```
 
 ```php
