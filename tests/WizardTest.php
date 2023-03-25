@@ -142,3 +142,17 @@ it('has a steps property to render navigation', function () {
 
     assertMatchesHtmlSnapshot($navigationHtml);
 });
+
+it('does have the correct has step states', function () {
+    $this->secondStep = Livewire::test(SecondStepComponent::class);
+    $this->thirdStep = Livewire::test(ThirdStepComponent::class);
+
+    $this->assertTrue($this->firstStep->call('hasNextStep'));
+    $this->assertFalse($this->firstStep->call('hasPreviousStep'));
+
+    $this->assertTrue($this->secondStep->call('hasNextStep'));
+    $this->assertTrue($this->secondStep->call('hasPreviousStep'));
+
+    $this->assertFalse($this->thirdStep->call('hasNextStep'));
+    $this->assertTrue($this->thirdStep->call('hasPreviousStep'));
+});
