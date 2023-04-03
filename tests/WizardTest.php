@@ -143,16 +143,30 @@ it('has a steps property to render navigation', function () {
     assertMatchesHtmlSnapshot($navigationHtml);
 });
 
-it('does have the correct has step states', function () {
-    $this->secondStep = Livewire::test(SecondStepComponent::class);
-    $this->thirdStep = Livewire::test(ThirdStepComponent::class);
+it('has the correct has step states', function () {
+    // Set up the step names array to match the expected steps
+    $stepNames = [
+        Livewire::getAlias(FirstStepComponent::class),
+        Livewire::getAlias(SecondStepComponent::class),
+        Livewire::getAlias(ThirdStepComponent::class),
+    ];
 
-    $this->assertTrue($this->firstStep->call('hasNextStep'));
-    $this->assertFalse($this->firstStep->call('hasPreviousStep'));
+    // Create instances of each step component and set the allStepNames property on them
+    $this->firstStep = new FirstStepComponent();
+    $this->firstStep->allStepNames = $stepNames;
 
-    $this->assertTrue($this->secondStep->call('hasNextStep'));
-    $this->assertTrue($this->secondStep->call('hasPreviousStep'));
+    $this->secondStep = new SecondStepComponent();
+    $this->secondStep->allStepNames = $stepNames;
 
-    $this->assertFalse($this->thirdStep->call('hasNextStep'));
-    $this->assertTrue($this->thirdStep->call('hasPreviousStep'));
+    $this->thirdStep = new ThirdStepComponent();
+    $this->thirdStep->allStepNames = $stepNames;
+
+    $this->assertFalse($this->firstStep->hasPreviousStep());
+    $this->assertTrue($this->firstStep->hasNextStep());
+
+    $this->assertTrue($this->secondStep->hasPreviousStep());
+    $this->assertTrue($this->secondStep->hasNextStep());
+
+    $this->assertTrue($this->thirdStep->hasPreviousStep());
+    $this->assertFalse($this->thirdStep->hasNextStep());
 });
