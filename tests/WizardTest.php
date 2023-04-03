@@ -161,12 +161,12 @@ it('has the correct has step states', function () {
     $this->thirdStep = new ThirdStepComponent();
     $this->thirdStep->allStepNames = $stepNames;
 
-    $this->assertFalse($this->firstStep->hasPreviousStep());
-    $this->assertTrue($this->firstStep->hasNextStep());
+    expect($this->firstStep->hasPreviousStep())->toBeFalse();
+    expect($this->firstStep->hasNextStep())->toBeTrue();
 
-    $this->assertTrue($this->secondStep->hasPreviousStep());
-    $this->assertTrue($this->secondStep->hasNextStep());
+    expect($this->secondStep->hasPreviousStep())->toBeTrue();
+    expect($this->secondStep->hasNextStep())->toBeTrue();
 
-    $this->assertTrue($this->thirdStep->hasPreviousStep());
-    $this->assertFalse($this->thirdStep->hasNextStep());
+    expect($this->thirdStep->hasPreviousStep())->toBeTrue();
+    expect($this->thirdStep->hasNextStep())->toBeFalse();
 });
