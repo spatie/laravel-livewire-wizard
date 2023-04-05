@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 1.2.0 - 2023-04-05
+
+### What's Changed
+
+- Add missing comma in example code by @astersnake in https://github.com/spatie/laravel-livewire-wizard/pull/72
+- add missing colon (:) by @Enaah in https://github.com/spatie/laravel-livewire-wizard/pull/73
+- Add has step checks by @Bird87ZA in https://github.com/spatie/laravel-livewire-wizard/pull/78
+
+### New Contributors
+
+- @astersnake made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/72
+- @Enaah made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/73
+- @Bird87ZA made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/78
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.1.5...1.2.0
+
 ## 1.1.5 - 2023-03-01
 
 ### What's Changed
