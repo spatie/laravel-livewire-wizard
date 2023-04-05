@@ -142,3 +142,31 @@ it('has a steps property to render navigation', function () {
 
     assertMatchesHtmlSnapshot($navigationHtml);
 });
+
+it('has the correct has step states', function () {
+    // Set up the step names array to match the expected steps
+    $stepNames = [
+        Livewire::getAlias(FirstStepComponent::class),
+        Livewire::getAlias(SecondStepComponent::class),
+        Livewire::getAlias(ThirdStepComponent::class),
+    ];
+
+    // Create instances of each step component and set the allStepNames property on them
+    $this->firstStep = new FirstStepComponent();
+    $this->firstStep->allStepNames = $stepNames;
+
+    $this->secondStep = new SecondStepComponent();
+    $this->secondStep->allStepNames = $stepNames;
+
+    $this->thirdStep = new ThirdStepComponent();
+    $this->thirdStep->allStepNames = $stepNames;
+
+    expect($this->firstStep->hasPreviousStep())->toBeFalse();
+    expect($this->firstStep->hasNextStep())->toBeTrue();
+
+    expect($this->secondStep->hasPreviousStep())->toBeTrue();
+    expect($this->secondStep->hasNextStep())->toBeTrue();
+
+    expect($this->thirdStep->hasPreviousStep())->toBeTrue();
+    expect($this->thirdStep->hasNextStep())->toBeFalse();
+});

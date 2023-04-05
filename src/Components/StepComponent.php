@@ -32,6 +32,16 @@ abstract class StepComponent extends Component
         $this->emitUp('showStep', $stepName, $this->state()->currentStep());
     }
 
+    public function hasPreviousStep()
+    {
+        return $this->allStepNames[0] !== Livewire::getAlias(static::class);
+    }
+
+    public function hasNextStep()
+    {
+        return end($this->allStepNames) !== Livewire::getAlias(static::class);
+    }
+
     public function stepInfo(): array
     {
         return [];

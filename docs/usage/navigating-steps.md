@@ -60,6 +60,13 @@ You can also call it in your view.
 </div>
 ```
 
+You can also check if a next or previous step exists directly from the step component.
+
+```blade
+$this->hasNextStep();
+$this->hasPreviousStep();
+```
+
 ## Start at a specific step
 
 If you want the wizard to display a specific step when it is rendered first, you can pass the step name to the `show-step` property.
