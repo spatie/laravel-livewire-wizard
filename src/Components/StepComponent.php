@@ -34,7 +34,7 @@ abstract class StepComponent extends Component
 
     public function hasPreviousStep()
     {
-        return $this->allStepNames[0] !== Livewire::getAlias(static::class);
+        return !empty($this->allStepNames) && $this->allStepNames[0] !== Livewire::getAlias(static::class);
     }
 
     public function hasNextStep()
