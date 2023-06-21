@@ -13,7 +13,7 @@ class EventEmitter
 
     public function in(TestableLivewire $component): TestableLivewire
     {
-        $events = Arr::get($this->emittingComponent->payload, 'effects.emits');
+        $events = Arr::get($this->emittingComponent->payload, 'effects.emits', []);
 
         foreach ($events as $event) {
             $component->emit($event['event'], ...$event['params']);
