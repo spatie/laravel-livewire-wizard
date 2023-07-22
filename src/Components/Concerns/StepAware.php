@@ -2,7 +2,7 @@
 
 namespace Spatie\LivewireWizard\Components\Concerns;
 
-use Livewire\Livewire;
+use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Enums\StepStatus;
 use Spatie\LivewireWizard\Support\Step;
 
@@ -14,11 +14,11 @@ trait StepAware
     {
         $currentFound = false;
 
-        $currentStepName = Livewire::getAlias(static::class);
+        $currentStepName = app(ComponentRegistry::class)->getName(static::class);
 
         $this->steps = collect($this->allStepNames)
             ->map(function (string $stepName) use (&$currentFound, $currentStepName) {
-                $className = Livewire::getClass($stepName);
+                $className = app(ComponentRegistry::class)->getClass($stepName);
 
                 $info = (new $className())->stepInfo();
 

@@ -2,10 +2,12 @@
 
 namespace Spatie\LivewireWizard;
 
-use Livewire\Testing\TestableLivewire;
+use Livewire\Features\SupportTesting\Testable;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LivewireWizard\Support\EventEmitter;
+use Spatie\LivewireWizard\Support\StepSynth;
 
 class WizardServiceProvider extends PackageServiceProvider
 {
@@ -18,16 +20,17 @@ class WizardServiceProvider extends PackageServiceProvider
 
     public function bootingPackage()
     {
+        Livewire::propertySynthesizer(StepSynth::class);
         $this->registerLivewireTestMacros();
     }
 
     public function registerLivewireTestMacros()
     {
-        TestableLivewire::macro('emitEvents', function () {
+        Testable::macro('emitEvents', function () {
             return new EventEmitter($this);
         });
 
-        TestableLivewire::macro('getStepState', function (?string $step = null) {
+        Testable::macro('getStepState', function (?string $step = null) {
             return $this->instance()->getCurrentStepState($step);
         });
     }
