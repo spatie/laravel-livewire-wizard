@@ -3,20 +3,20 @@
 namespace Spatie\LivewireWizard\Support;
 
 use Illuminate\Support\Arr;
-use Livewire\Testing\TestableLivewire;
+use Livewire\Features\SupportTesting\Testable;
 
 class EventEmitter
 {
-    public function __construct(protected TestableLivewire $emittingComponent)
+    public function __construct(protected Testable $emittingComponent)
     {
     }
 
-    public function in(TestableLivewire $component): TestableLivewire
+    public function in(Testable $component): Testable
     {
-        $events = Arr::get($this->emittingComponent->payload, 'effects.emits', []);
+        $events = Arr::get($this->emittingComponent->effects, 'dispatches', []);
 
         foreach ($events as $event) {
-            $component->emit($event['event'], ...$event['params']);
+            $component->dispatch($event['name'], ...$event['params']);
         }
 
         return $this->emittingComponent;

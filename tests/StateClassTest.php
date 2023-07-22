@@ -1,7 +1,6 @@
 <?php
 
 use Livewire\Livewire;
-use Livewire\Testing\TestableLivewire;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithCustomStateObject;
@@ -40,10 +39,11 @@ it('can load state from different steps', function () {
 
     Livewire::test(FirstStepComponent::class, $wizard->getStepState())
         ->call('nextStep')
+        ->assertDispatched('nextStep')
         ->emitEvents()->in($wizard);
 
     Livewire::test(SecondStepComponent::class, $wizard->getStepState())
-        ->tap(function (TestableLivewire $testableLivewire) {
+        ->tap(function (\Livewire\Features\SupportTesting\Testable $testableLivewire) {
             $livewireComponent = $testableLivewire->instance();
             $state = $livewireComponent->state()->forStep('first-step');
             expect($state['order'])->toBe(1029);
