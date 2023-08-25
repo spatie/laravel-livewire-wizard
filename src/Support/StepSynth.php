@@ -8,7 +8,7 @@ class StepSynth extends \Livewire\Mechanisms\HandleComponents\Synthesizers\Synth
 {
     public static $key = 'step';
 
-    static function match($target)
+    public static function match($target)
     {
         return $target instanceof Step;
     }
