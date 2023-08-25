@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.0.0 - 2023-08-25
+
+### What's Changed
+
+- Fixed bug where tests would fail by @Bird87ZA in https://github.com/spatie/laravel-livewire-wizard/pull/79
+- Update to Livewire 3 by @fredericlesueurs in https://github.com/spatie/laravel-livewire-wizard/pull/87
+
+### New Contributors
+
+- @mabdullahsari made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/84
+- @fredericlesueurs made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/87
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.2.0...2.0.0
+
 ## 1.2.0 - 2023-04-05
 
 ### What's Changed
