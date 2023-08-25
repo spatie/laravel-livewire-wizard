@@ -5,9 +5,9 @@ namespace Spatie\LivewireWizard\Tests\TestSupport;
 use DOMDocument;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
-use Livewire\Testing\TestableLivewire;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\CollectionMacros\CollectionMacroServiceProvider;
 use Spatie\LivewireWizard\Components\WizardComponent;
@@ -54,22 +54,22 @@ class TestCase extends Orchestra
 
     public function registerLivewireTestMacros(): self
     {
-        TestableLivewire::macro('jsonContent', function (string $elementId) {
+        Testable::macro('jsonContent', function (string $elementId) {
             $document = new DOMDocument();
 
-            $document->loadHTML($this->lastRenderedDom);
+            $document->loadHTML($this->lastState->getHtml());
 
             $content = $document->getElementById($elementId)->textContent;
 
             return json_decode($content, true);
         });
 
-        TestableLivewire::macro('htmlContent', function (string $elementId) {
+        Testable::macro('htmlContent', function (string $elementId) {
             $document = new DOMDocument();
 
             $document->preserveWhiteSpace = false;
 
-            $document->loadHTML($this->lastRenderedDom);
+            $document->loadHTML($this->lastState->getHtml());
 
             $domNode = $document->getElementById($elementId);
 

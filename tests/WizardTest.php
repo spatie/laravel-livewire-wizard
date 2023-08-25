@@ -1,6 +1,7 @@
 <?php
 
 use Livewire\Livewire;
+use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
@@ -37,11 +38,13 @@ it('can render the next and previous step', function () {
 
     $this->firstStep
         ->call('nextStep')
+        ->assertDispatched('nextStep')
         ->emitEvents()->in($this->wizard);
     $this->wizard->assertSee('second step');
 
     Livewire::test(SecondStepComponent::class)
         ->call('previousStep')
+        ->assertDispatched('previousStep')
         ->emitEvents()->in($this->wizard);
 
     $this->wizard->assertSee('first step');
@@ -50,6 +53,7 @@ it('can render the next and previous step', function () {
 it('can go to a specific step', function () {
     $this->firstStep
         ->call('showStep', 'third-step')
+        ->assertDispatched('showStep')
         ->emitEvents()->in($this->wizard);
 
     $this->wizard->assertSee('third step');
@@ -58,6 +62,7 @@ it('can go to a specific step', function () {
 it('throws an exception when going to the previous step on the first step', function () {
     $this->firstStep
         ->call('previousStep')
+        ->assertDispatched('previousStep')
         ->emitEvents()->in($this->wizard);
 })->throws(NoPreviousStep::class);
 
@@ -66,6 +71,7 @@ it('throws an exception when going to the next step on the last step', function 
 
     Livewire::test(ThirdStepComponent::class)
         ->call('nextStep')
+        ->assertDispatched('nextStep')
         ->emitEvents()->in($wizard);
 })->throws(NoNextStep::class);
 
@@ -76,6 +82,7 @@ it('will throw an exception if the wizard contains an invalid step', function ()
 it('will save and restore state when switching steps', function () {
     $this->firstStep
         ->call('nextStep')
+        ->assertDispatched('nextStep')
         ->emitEvents()->in($this->wizard);
 
     $this->wizard->assertSee(['second step', 'counter: 0']);
@@ -83,10 +90,12 @@ it('will save and restore state when switching steps', function () {
     Livewire::test(SecondStepComponent::class)
         ->call('increment')
         ->call('previousStep')
+        ->assertDispatched('previousStep')
         ->emitEvents()->in($this->wizard);
 
     $this->firstStep
         ->call('nextStep')
+        ->assertDispatched('nextStep')
         ->emitEvents()->in($this->wizard);
 
     $this->wizard->assertSee(['second step', 'counter: 1']);
@@ -100,6 +109,7 @@ it('cannot set state if step does not exist', function () {
 it('has a couple of handy methods to get state', function () {
     $this->firstStep
         ->call('nextStep')
+        ->assertDispatched('nextStep')
         ->emitEvents()->in($this->wizard);
 
     $this->wizard->assertSee(['second step', 'counter: 0']);
@@ -107,10 +117,12 @@ it('has a couple of handy methods to get state', function () {
     Livewire::test(SecondStepComponent::class)
         ->call('increment')
         ->call('previousStep')
+        ->assertDispatched('previousStep')
         ->emitEvents()->in($this->wizard);
 
     $this->firstStep
         ->call('nextStep')
+        ->assertDispatched('nextStep')
         ->emitEvents()->in($this->wizard);
 
     $allStepState = $this->wizard->jsonContent('allStepState');
@@ -127,15 +139,18 @@ it('has a couple of handy methods to get state', function () {
 it('has a steps property to render navigation', function () {
     $this->firstStep
         ->call('nextStep')
+        ->assertDispatched('nextStep')
         ->emitEvents()->in($this->wizard);
 
     $this->firstStep
         ->call('nextStep')
+        ->assertDispatched('nextStep')
         ->emitEvents()->in($this->wizard);
 
     Livewire::test(SecondStepComponent::class)
         ->call('increment')
         ->call('previousStep')
+        ->assertDispatched('previousStep')
         ->emitEvents()->in($this->wizard);
 
     $navigationHtml = $this->wizard->htmlContent('navigation');
@@ -146,9 +161,9 @@ it('has a steps property to render navigation', function () {
 it('has the correct has step states', function () {
     // Set up the step names array to match the expected steps
     $stepNames = [
-        Livewire::getAlias(FirstStepComponent::class),
-        Livewire::getAlias(SecondStepComponent::class),
-        Livewire::getAlias(ThirdStepComponent::class),
+        app(ComponentRegistry::class)->getName(FirstStepComponent::class),
+        app(ComponentRegistry::class)->getName(SecondStepComponent::class),
+        app(ComponentRegistry::class)->getName(ThirdStepComponent::class),
     ];
 
     // Create instances of each step component and set the allStepNames property on them
