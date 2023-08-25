@@ -1,6 +1,6 @@
 ---
-title: v1
+title: v2
 slogan: Headless Livewire components to build wizards
 githubUrl: https://github.com/spatie/laravel-livewire-wizard
-branch: v1
+branch: main
 ---
