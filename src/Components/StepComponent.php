@@ -11,6 +11,8 @@ abstract class StepComponent extends Component
 {
     use StepAware;
 
+    public ?string $wizardClassName = null;
+
     public array $allStepNames = [];
     public array $allStepsState = [];
 
@@ -19,17 +21,17 @@ abstract class StepComponent extends Component
 
     public function previousStep()
     {
-        $this->dispatch('previousStep', $this->state()->currentStep());
+        $this->dispatch('previousStep', $this->state()->currentStep())->to($this->wizardClassName);
     }
 
     public function nextStep()
     {
-        $this->dispatch('nextStep', $this->state()->currentStep());
+        $this->dispatch('nextStep', $this->state()->currentStep())->to($this->wizardClassName);
     }
 
     public function showStep(string $stepName)
     {
-        $this->dispatch('showStep', toStepName: $stepName, currentStepState: $this->state()->currentStep());
+        $this->dispatch('showStep', toStepName: $stepName, currentStepState: $this->state()->currentStep())->to($this->wizardClassName);
     }
 
     public function hasPreviousStep()

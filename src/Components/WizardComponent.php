@@ -118,6 +118,7 @@ abstract class WizardComponent extends Component
                 'allStepNames' => $this->stepNames()->toArray(),
                 'allStepsState' => $this->allStepState,
                 'stateClassName' => $this->stateClass(),
+                'wizardClassName' => static::class,
             ],
         );
     }
