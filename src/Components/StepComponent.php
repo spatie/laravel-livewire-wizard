@@ -2,6 +2,7 @@
 
 namespace Spatie\LivewireWizard\Components;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Components\Concerns\StepAware;
@@ -18,6 +19,14 @@ abstract class StepComponent extends Component
 
     /** @var class-string<State> */
     public string $stateClassName = State::class;
+
+    #[On('updateState')]
+    public function updateState($state): void
+    {
+        unset($state['steps']);
+
+        $this->fill($state);
+    }
 
     public function previousStep()
     {

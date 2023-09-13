@@ -97,6 +97,10 @@ abstract class WizardComponent extends Component
         }
 
         $this->allStepState[$step] = $state;
+
+        if ($step === $this->currentStepName) {
+            $this->dispatch('updateState', $state)->to($step);
+        }
     }
 
     public function getCurrentStepState(?string $step = null): array
