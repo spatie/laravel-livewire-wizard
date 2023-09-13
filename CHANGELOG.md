@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.0.1 - 2023-09-13
+
+### What's Changed
+
+- Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/spatie/laravel-livewire-wizard/pull/92
+- Fixes step navigation when there are multiple wizards on a page by @OrangeJuiced in https://github.com/spatie/laravel-livewire-wizard/pull/94
+
+### New Contributors
+
+- @OrangeJuiced made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/94
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.0.0...2.0.1
+
 ## 2.0.0 - 2023-08-25
 
 ### What's Changed
