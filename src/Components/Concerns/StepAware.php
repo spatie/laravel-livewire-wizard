@@ -10,6 +10,8 @@ trait StepAware
 {
     public array $steps = [];
 
+    public float $progress = 0;
+
     public function bootedStepAware()
     {
         $currentFound = false;
@@ -24,7 +26,6 @@ trait StepAware
 
                 $status = $currentFound ? StepStatus::Next : StepStatus::Previous;
 
-
                 if ($stepName === $currentStepName) {
                     $currentFound = true;
                     $status = StepStatus::Current;
@@ -33,5 +34,19 @@ trait StepAware
                 return new Step($stepName, $info, $status);
             })
             ->toArray();
+
+        $this->getProgress();
+    }
+
+    public function getProgress(): float
+    {
+        $steps = collect($this->steps);
+        $totalSteps = $steps->count() - 1;
+
+        $index = $steps->search(fn (Step $step) => $step->stepName === $this->getName());
+
+        return $this->progress = $totalSteps > 0
+            ? round(abs($index / $totalSteps), 2)
+            : 0;
     }
 }

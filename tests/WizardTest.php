@@ -5,6 +5,7 @@ use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
+use Spatie\LivewireWizard\Support\Step;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\MyWizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
@@ -184,4 +185,43 @@ it('has the correct has step states', function () {
 
     expect($this->thirdStep->hasPreviousStep())->toBeTrue();
     expect($this->thirdStep->hasNextStep())->toBeFalse();
+});
+
+it('can properly determine the step progress', function () {
+    // Set up the step names array to match the expected steps
+    $stepNames = [
+        app(ComponentRegistry::class)->getName(FirstStepComponent::class),
+        app(ComponentRegistry::class)->getName(SecondStepComponent::class),
+        app(ComponentRegistry::class)->getName(ThirdStepComponent::class),
+    ];
+
+    // Setup components
+    $this->firstStep = new FirstStepComponent();
+    $this->firstStep->allStepNames = $stepNames;
+    $this->firstStep->setName('first-step');
+    $this->firstStep->bootedStepAware();
+
+    $this->secondStep = new SecondStepComponent();
+    $this->secondStep->allStepNames = $stepNames;
+    $this->secondStep->setName('second-step');
+    $this->secondStep->bootedStepAware();
+
+    $this->thirdStep = new ThirdStepComponent();
+    $this->thirdStep->allStepNames = $stepNames;
+    $this->thirdStep->setName('third-step');
+    $this->thirdStep->bootedStepAware();
+
+    // Get progress
+    $firstStepProgress = $this->firstStep->getProgress();
+    $secondStepProgress = $this->secondStep->getProgress();
+    $thirdStepProgress = $this->thirdStep->getProgress();
+
+    expect($this->firstStep->progress)->toBe(0.0);
+    expect($firstStepProgress)->toBe(0.0);
+
+    expect($this->secondStep->progress)->toBe(0.5);
+    expect($secondStepProgress)->toBe(0.5);
+
+    expect($this->thirdStep->progress)->toBe(1.0);
+    expect($thirdStepProgress)->toBe(1.0);
 });

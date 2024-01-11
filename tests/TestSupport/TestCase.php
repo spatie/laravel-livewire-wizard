@@ -25,7 +25,7 @@ class TestCase extends Orchestra
 
         config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 
-        View::addNamespace('test', __DIR__ . '/resources/views');
+        View::addNamespace('test', __DIR__.'/resources/views');
 
         $this
             ->registerLivewireComponents()

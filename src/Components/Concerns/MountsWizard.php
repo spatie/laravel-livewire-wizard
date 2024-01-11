@@ -7,7 +7,7 @@ use Spatie\LivewireWizard\Support\State;
 
 trait MountsWizard
 {
-    public function mountMountsWizard(?string $showStep = null, array $initialState = null)
+    public function mountMountsWizard(?string $showStep = null, ?array $initialState = null)
     {
         $stepName = $showStep ?? $this->currentStepName ?? $this->stepNames()->first();
 
@@ -21,6 +21,6 @@ trait MountsWizard
 
         if (! is_a($this->stateClass(), State::class, true)) {
             throw InvalidStateClassName::doesNotExtendState(static::class, $this->stateClass());
-        };
+        }
     }
 }
