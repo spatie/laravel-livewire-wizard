@@ -37,7 +37,7 @@ class State
 
     public function forStepClass(string $stepClass): array
     {
-        $stepName = app(ComponentRegistry::class)->getClass($stepClass);
+        $stepName = app(ComponentRegistry::class)->getName($stepClass);
 
         return $this->forStep($stepName);
     }
