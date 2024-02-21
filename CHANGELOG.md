@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.1.0 - 2024-02-21
+
+### What's Changed
+
+* add forStepClass method to get state more convenient by @bangnokia in https://github.com/spatie/laravel-livewire-wizard/pull/108
+
+### New Contributors
+
+* @bangnokia made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/108
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.0.1...2.1.0
+
 ## 2.0.1 - 2023-09-13
 
 ### What's Changed
