@@ -3,6 +3,7 @@
 namespace Spatie\LivewireWizard\Support;
 
 use Illuminate\Support\Arr;
+use Livewire\Mechanisms\ComponentRegistry;
 
 class State
 {
@@ -32,6 +33,13 @@ class State
         }
 
         return $state;
+    }
+
+    public function forStepClass(string $stepClass): array
+    {
+        $stepName = app(ComponentRegistry::class)->getName($stepClass);
+
+        return $this->forStep($stepName);
     }
 
     public function get(string $key)

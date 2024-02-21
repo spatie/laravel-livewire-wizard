@@ -47,5 +47,8 @@ it('can load state from different steps', function () {
             $livewireComponent = $testableLivewire->instance();
             $state = $livewireComponent->state()->forStep('first-step');
             expect($state['order'])->toBe(1029);
+
+            $state = $livewireComponent->state()->forStepClass(FirstStepComponent::class);
+            expect($state['order'])->toBe(1029);
         });
 });
