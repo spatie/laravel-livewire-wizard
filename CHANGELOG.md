@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.2.0 - 2024-03-08
+
+### What's Changed
+
+* Laravel 11.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-livewire-wizard/pull/109
+
+### New Contributors
+
+* @laravel-shift made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/109
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.1.0...2.2.0
+
 ## 2.1.0 - 2024-02-21
 
 ### What's Changed
