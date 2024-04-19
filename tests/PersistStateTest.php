@@ -5,7 +5,6 @@ use Livewire\Livewire;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithPersistState;
 
-
 it('can restore the persisted state', function () {
     $wizard = Testable::create(WizardWithPersistState::class, [
         'initialState' => [
