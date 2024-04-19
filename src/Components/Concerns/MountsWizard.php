@@ -11,7 +11,7 @@ trait MountsWizard
     {
         $stepName = $showStep ?? $this->currentStepName ?? $this->stepNames()->first();
 
-        $initialState = $initialState ?? $this->initialState() ?? [];
+        $initialState = $initialState ?? array_merge($this->initialState() ?? [], $this->allStepState) ?? [];
 
         $this->showStep($stepName, $initialState[$stepName] ?? []);
 
