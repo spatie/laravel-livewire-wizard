@@ -2,13 +2,11 @@
 
 namespace Spatie\LivewireWizard\Tests\TestSupport\Components;
 
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Session;
 use Spatie\LivewireWizard\Components\WizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 
-#[Layout('test::layout')]
 class WizardWithPersistState extends WizardComponent
 {
     #[Session]
