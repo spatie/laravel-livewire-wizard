@@ -9,9 +9,9 @@ it('can restore the persisted state', function () {
     $wizard = Testable::create(WizardWithPersistState::class, [
         'initialState' => [
             'first-step' => [
-                'order' => 123
-            ]
-        ]
+                'order' => 123,
+            ],
+        ],
     ]);
 
     $wizard->call('setStepState', 'first-step', ['order' => 456]);
@@ -23,9 +23,9 @@ it('can restore the persisted state', function () {
     $wizard = Testable::create(WizardWithPersistState::class, [
         'initialState' => [
             'first-step' => [
-                'order' => 123
-            ]
-        ]
+                'order' => 123,
+            ],
+        ],
     ]);
 
     Livewire::test(FirstStepComponent::class, $wizard->getStepState(FirstStepComponent::class))

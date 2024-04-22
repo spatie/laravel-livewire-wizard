@@ -24,8 +24,8 @@ class WizardWithPersistState extends WizardComponent
     {
         return [
             'first-step' => [
-                'order' => 123
-            ]
+                'order' => 123,
+            ],
         ];
     }
 }
