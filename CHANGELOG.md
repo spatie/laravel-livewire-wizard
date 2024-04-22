@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.3.0 - 2024-04-22
+
+### What's Changed
+
+* merge initialStep with allStepState by @bangnokia in https://github.com/spatie/laravel-livewire-wizard/pull/112
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.0.0 by @dependabot in https://github.com/spatie/laravel-livewire-wizard/pull/111
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.2.0...2.3.0
+
 ## 2.2.0 - 2024-03-08
 
 ### What's Changed
