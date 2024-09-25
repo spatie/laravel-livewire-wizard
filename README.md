@@ -71,6 +71,8 @@ Our package is headless. This means that it does not provide UI, but it offers f
 
 [Filament](https://filamentphp.com) users could also take a look at [the built-in wizard functionality](https://filamentphp.com/docs/2.x/forms/layout#wizard).
 
+Another headless package [satoved/laravel-livewire-steps](https://github.com/satoved/laravel-livewire-steps) that uses Livewire form objects for steps instead of Livewire components can be considered for simpler use cases.
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
