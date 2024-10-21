@@ -2,6 +2,7 @@
 
 namespace Spatie\LivewireWizard;
 
+use Livewire\Component;
 use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
@@ -26,6 +27,15 @@ class WizardServiceProvider extends PackageServiceProvider
 
     public function registerLivewireTestMacros()
     {
+        Component::macro('testStep', function (string $stepClass, array $state = []) {
+            $wizardComponent = Livewire::test(static::class, ['initialState' => $state]);
+            $wizard = $wizardComponent->invade();
+            $wizard->mountMountsWizard($stepClass, $state);
+
+            return Livewire::test($stepClass, $wizard->getCurrentStepState($stepClass))
+                ->emitEvents()->in($wizardComponent);
+        });
+
         Testable::macro('emitEvents', function () {
             return new EventEmitter($this);
         });
