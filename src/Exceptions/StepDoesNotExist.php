@@ -4,7 +4,7 @@ namespace Spatie\LivewireWizard\Exceptions;
 
 use Exception;
 
-class StepDoesNotExist extends Exception
+final class StepDoesNotExist extends Exception
 {
     public static function stepNotFound(string $nonExistingStepName): self
     {
