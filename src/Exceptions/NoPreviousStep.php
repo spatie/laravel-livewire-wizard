@@ -4,7 +4,7 @@ namespace Spatie\LivewireWizard\Exceptions;
 
 use Exception;
 
-final class NoPreviousStep extends Exception
+class NoPreviousStep extends Exception
 {
     public static function make(
         string $wizardComponentClassName,
