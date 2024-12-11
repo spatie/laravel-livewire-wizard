@@ -1,5 +1,5 @@
 ---
-title: Testing Wizards
+title: Testing wizards
 weight: 6
 ---
 
