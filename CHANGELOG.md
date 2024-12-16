@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.4.0 - 2024-12-16
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.0.0 to 2.1.0 by @dependabot in https://github.com/spatie/laravel-livewire-wizard/pull/114
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/spatie/laravel-livewire-wizard/pull/120
+* Add alternative package to README by @satoved in https://github.com/spatie/laravel-livewire-wizard/pull/122
+* Add `Component::testStep` to allow easy testing of wizard StepComponents by @musa11971 in https://github.com/spatie/laravel-livewire-wizard/pull/123
+
+### New Contributors
+
+* @satoved made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/122
+* @musa11971 made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/123
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.3.0...2.4.0
+
 ## 2.3.0 - 2024-04-22
 
 ### What's Changed
