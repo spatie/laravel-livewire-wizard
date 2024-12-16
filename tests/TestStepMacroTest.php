@@ -13,7 +13,7 @@ it('can test a step with initial state', function () {
     MyWizardComponent::testStep(SecondStepComponent::class, [
         'first-step' => [
             'order' => 220,
-        ]
+        ],
     ])
         ->assertSee('Order value is: 220');
 });
@@ -22,6 +22,6 @@ it('cannot test a step with invalid initial state', function () {
     MyWizardComponent::testStep(SecondStepComponent::class, [
         'random-fake-step' => [
             'order' => 220,
-        ]
+        ],
     ]);
 })->throws(Exception::class);
