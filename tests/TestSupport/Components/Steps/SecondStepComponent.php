@@ -26,6 +26,7 @@ class SecondStepComponent extends StepComponent
             'allStepState' => $this->state()->all(),
             'firstStepState' => $this->state()->forStep('second-step'),
             'currentStepState' => $this->state()->currentStep(),
+            'orderValueFromPreviousStep' => $this->state()->forStepClass(FirstStepComponent::class)['order'] ?? 'none',
         ]);
     }
 }

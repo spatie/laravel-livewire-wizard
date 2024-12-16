@@ -1,6 +1,12 @@
 <div>
-    This is the second step
-    counter: {{ $this->counter }}
+    <p>
+        This is the second step
+        counter: {{ $this->counter }}
+    </p>
+
+    <p>
+        This is the "order" value, from step one. Order value is: {{ $orderValueFromPreviousStep }}
+    </p>
 
     {{-- used in ste test --}}
     <div id="currentStepState">@json($currentStepState)</div>
