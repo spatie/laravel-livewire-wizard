@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.4.1 - 2025-01-17
+
+### What's Changed
+
+* Make nullable parameter type hint explicitly nullable by @nimah79 in https://github.com/spatie/laravel-livewire-wizard/pull/125
+
+### New Contributors
+
+* @nimah79 made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/125
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.4.0...2.4.1
+
 ## 2.4.0 - 2024-12-16
 
 ### What's Changed
