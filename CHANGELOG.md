@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.4.2 - 2025-02-21
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/spatie/laravel-livewire-wizard/pull/126
+* Laravel 12.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-livewire-wizard/pull/127
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.4.1...2.4.2
+
 ## 2.4.1 - 2025-01-17
 
 ### What's Changed
