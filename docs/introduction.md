@@ -30,6 +30,8 @@ A step is class that extends `StepComponent` (which in its turn extends `Livewir
 ```php
 namespace App\Components;
 
+use Spatie\LivewireWizard\Components\StepComponent;
+
 class CartStepComponent extends StepComponent
 {
     // add any Livewire powered method you want
