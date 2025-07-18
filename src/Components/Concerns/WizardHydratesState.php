@@ -17,7 +17,7 @@ trait WizardHydratesState
                 $state = app(ComponentHydrator::class)->hydrateData($this, $currentStepState);
             }
 
-            $this->setStepState($this->currentStepName, $currentStepState);
+            $this->setStepState($this->currentStepName, $state);
         }
 
 
