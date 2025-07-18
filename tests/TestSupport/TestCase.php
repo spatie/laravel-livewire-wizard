@@ -11,8 +11,11 @@ use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\CollectionMacros\CollectionMacroServiceProvider;
 use Spatie\LivewireWizard\Components\WizardComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\MyHydratedWizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\CustomStateStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstHydratedStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondHydratedStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
 use Spatie\LivewireWizard\WizardServiceProvider;
@@ -49,6 +52,9 @@ class TestCase extends Orchestra
         Livewire::component('third-step', ThirdStepComponent::class);
         Livewire::component('custom-state-step', CustomStateStepComponent::class);
 
+        Livewire::component('hydrated-wizard', MyHydratedWizardComponent::class);
+        Livewire::component('dehydrated-first-step', FirstHydratedStepComponent::class);
+        Livewire::component('dehydrated-second-step', SecondHydratedStepComponent::class);
         return $this;
     }
 
