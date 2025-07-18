@@ -1,73 +1,72 @@
 <div align="left">
-    <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=laravel-livewire-wizard">
-      <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/laravel-livewire-wizard/html/dark.webp">
-        <img alt="Logo for laravel-livewire-wizard" src="https://spatie.be/packages/header/laravel-livewire-wizard/html/light.webp">
-      </picture>
-    </a>
-
 <h1>Build wizards using Livewire</h1>
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-livewire-wizard.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-livewire-wizard)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-livewire-wizard/run-tests.yml?branch=main&label=tests)](https://github.com/spatie/laravel-livewire-wizard/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-livewire-wizard/php-cs-fixer.yml?branch=main&label=code%20style)](https://github.com/spatie/laravel-livewire-wizard/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-livewire-wizard.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-livewire-wizard)
-    
 </div>
 
-This package offers lightweight Livewire components that allow you to easily build a wizard. With "wizard" we mean a multi-step process in which each step has its own screen.
+This package is a fork of [Spaties larave-livewire-wizard package](https://github.com/spatie/laravel-livewire-wizard), and tries to address and issue I ran into while developing using the package. Should you have encountered the same issue, migrating to this package should be swift, and a near drop in replacement.
 
-![screenshot](https://github.com/spatie/laravel-livewire-wizard/blob/main/docs/images/screenshot.png?raw=true)
-
-Here's what a wizard component class could look like.
-
-```php
-use Spatie\LivewireWizard\Components\WizardComponent;
-
-class CheckoutWizardComponent extends WizardComponent
-{
-    public function steps() : array
-    {
-        return [
-            CartStepComponent::class,
-            DeliveryAddressStepComponent::class,
-            ConfirmOrderStepComponent::class,
-        ];       
-    }
-}
-```
-
-A step is class that extends `StepComponent` (which in its turn extends `Livewire\Component`). You can do anything in here that you can do with a regular Livewire component.
+## The issue
+I like what Livewire offers, Forms, Models and Enums all easily accessable in Livewire/Components. Unfortunately using these in a StepComponent, will break the state management done by the Wizard. Navigating back to a previous step that uses on of these data type will likely throw an Exception.
 
 ```php
-namespace App\Components;
-
-class CartStepComponent extends StepComponent
-{
-    // add any Livewire powered method you want
-
-    public function render()
-    {
-        return view('checkout-wizard.steps.cart');
-    }
-}
+  Cannot assign string to property \StepComponent::$likes_coffee of type \Enums\LikesCoffeeEnum;
 ```
 
-You can easily [control which step is displayed](https://spatie.be/docs/laravel-livewire-wizard/v1/usage/navigating-steps), [access state of other steps](https://spatie.be/docs/laravel-livewire-wizard/v1/usage/accessing-state), and [build any navigation](https://spatie.be/docs/laravel-livewire-wizard/v1/usage/rendering-navigation) you desire.
-
-In [this repo on GitHub](https://github.com/spatie/laravel-livewire-wizard-demo-app), you'll find a demo Laravel application that uses the laravel-livewire-wizard package to create a simple checkout flow.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-livewire-wizard.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-livewire-wizard)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+This is caused because these object don't retain type while traversing the Livewire event system. By default, events get serialized to json, and deserialized by the wizard again. This change uses Livewire/Synthesizers and existing Livewire code to process these events instead. The end result, Forms, Models, Enums and all other Synthesizable data types available in StepComponents.
 
 ## Documentation
 
-All documentation is available [on our documentation site](https://spatie.be/docs/laravel-livewire-wizard).
+### Migrating to this package
+This package ships with two new classes the replace the old ones. 
+```diff
+- use Spatie\LivewireWizard\Components\WizardComponent;
++ use Spatie\LivewireWizard\Components\HydratedWizardComponent;
+
+- class MyWizardComponent extends WizardComponent
++ class MyWizardComponent extends HydratedWizardComponent
+{
+
+}
+```
+
+```diff
+- use Spatie\LivewireWizard\Components\StepComponent;
++ use Spatie\LivewireWizard\Components\DehydratedStepComponent;
+
+- class MyStepComponent extends StepComponent
++ class MyStepComponent extends DehydratedStepComponent
+{
+
+}
+```
+Changing these classes is all it takes for your steps and wizard to support a wider variety of datatypes. For backwards compatibility reasons, the original components are still available. StepComponents that don't require Forms or Models can still extend `Spatie\LivewireWizard\Components\StepComponent`, skipping the dehydration of events. This is compatible with the new `HydratedWizardComponent`, so mixed `StepComponent` classes is allowed.
+
+### Alternative method
+The changes made for this new feature are also available as traits. Adding these to existing Wizards and Steps should have the same result.  
+
+See, `Spatie\LivewireWizard\Components\Concerns\WizardHydratesState` and `Spatie\LivewireWizard\Components\Concerns\DehydratedStepComponent` for more info.
+
+```diff
+use Spatie\LivewireWizard\Components\WizardComponent;
++ use Spatie\LivewireWizard\Components\Concerns\WizardHydratesState;
+
+class MyWizardComponent extends WizardComponent
+{
++   use WizardHydratesState;
+
+}
+```
+
+```diff
+  use Spatie\LivewireWizard\Components\StepComponent;
++ use Spatie\LivewireWizard\Components\Concerns\DehydratedStepComponent;
+
+class MyStepComponent extends StepComponent
+{
++    use DehydratedStepComponent;
+
+}
+```
+
 
 ## Testing
 
@@ -75,32 +74,13 @@ All documentation is available [on our documentation site](https://spatie.be/doc
 composer test
 ```
 
-## Alternatives
-
-Our package is headless. This means that it does not provide UI, but it offers functions to easily build any UI you want. If you do not wish to build your own UI, you could consider using [vildanbina/livewire-wizard](https://github.com/vildanbina/livewire-wizard), which  includes pre-built navigation and CSS.
-
-[Filament](https://filamentphp.com) users could also take a look at [the built-in wizard functionality](https://filamentphp.com/docs/2.x/forms/layout#wizard).
-
-Another headless package [satoved/laravel-livewire-steps](https://github.com/satoved/laravel-livewire-steps) that uses Livewire form objects for steps instead of Livewire components can be considered for simpler use cases.
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
 ## Credits
-
+Credits to the original developers
 - [Freek Van der Herten](https://github.com/freekmurze)
 - [Rias Van der Veken](https://github.com/riasvdv)
-- [All Contributors](../../contributors)
+- [All Contributors](https://github.com/spatie/laravel-livewire-wizard/graphs/contributors)
+
+And credits to the developers over at [Dolphiq](https://dolphiq.nl/), for providing feedback on this.
 
 ## License
-
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
