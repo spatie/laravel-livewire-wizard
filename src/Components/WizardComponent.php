@@ -5,6 +5,7 @@ namespace Spatie\LivewireWizard\Components;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Drawer\Utils;
 use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Components\Concerns\MountsWizard;
 use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
@@ -12,6 +13,7 @@ use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\NoStepsReturned;
 use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
+use Spatie\LivewireWizard\Support\ComponentHydrator;
 use Spatie\LivewireWizard\Support\State;
 
 abstract class WizardComponent extends Component
@@ -58,7 +60,7 @@ abstract class WizardComponent extends Component
     public function previousStep(array $currentStepState)
     {
         $previousStep = collect($this->stepNames())
-            ->before(fn (string $step) => $step === $this->currentStepName);
+            ->before(fn(string $step) => $step === $this->currentStepName);
 
         if (! $previousStep) {
             throw NoPreviousStep::make(self::class, $this->currentStepName);
@@ -71,7 +73,7 @@ abstract class WizardComponent extends Component
     public function nextStep(array $currentStepState)
     {
         $nextStep = collect($this->stepNames())
-            ->after(fn (string $step) => $step === $this->currentStepName);
+            ->after(fn(string $step) => $step === $this->currentStepName);
 
         if (! $nextStep) {
             throw NoNextStep::make(self::class, $this->currentStepName);
@@ -84,8 +86,14 @@ abstract class WizardComponent extends Component
     public function showStep($toStepName, array $currentStepState = [])
     {
         if ($this->currentStepName) {
-            $this->setStepState($this->currentStepName, $currentStepState);
+            $state = $currentStepState;
+            if (Utils::isSyntheticTuple($state)) {
+                $state = app(ComponentHydrator::class)->hydrateData($this, $currentStepState);
+            }
+
+            $this->setStepState($this->currentStepName, $state);
         }
+
 
         $this->currentStepName = $toStepName;
     }

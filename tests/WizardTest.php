@@ -2,14 +2,17 @@
 
 use Livewire\Livewire;
 use Livewire\Mechanisms\ComponentRegistry;
+use Spatie\CollectionMacros\Macros\Fourth;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\MyWizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FourthStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithInvalidStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Enums\LikesCoffeeEnum;
 
 use function Spatie\Snapshots\assertMatchesHtmlSnapshot;
 
@@ -67,9 +70,9 @@ it('throws an exception when going to the previous step on the first step', func
 })->throws(NoPreviousStep::class);
 
 it('throws an exception when going to the next step on the last step', function () {
-    $wizard = Livewire::test(MyWizardComponent::class, ['showStep' => 'third-step']);
+    $wizard = Livewire::test(MyWizardComponent::class, ['showStep' => 'fourth-step']);
 
-    Livewire::test(ThirdStepComponent::class)
+    Livewire::test(FourthStepComponent::class)
         ->call('nextStep')
         ->assertDispatched('nextStep')
         ->emitEvents()->in($wizard);
@@ -130,6 +133,7 @@ it('has a couple of handy methods to get state', function () {
         'first-step',
         'second-step',
         'third-step',
+        'fourth-step',
     ]);
 
     $currentStepState = $this->wizard->jsonContent('currentStepState');
@@ -184,4 +188,56 @@ it('has the correct has step states', function () {
 
     expect($this->thirdStep->hasPreviousStep())->toBeTrue();
     expect($this->thirdStep->hasNextStep())->toBeFalse();
+});
+
+
+it('can remember state for forms', function () {
+    $wizard = Livewire::test(MyWizardComponent::class, ['showStep' => 'fourth-step']);
+
+    Livewire::test(FourthStepComponent::class)
+        ->update([], [
+            'form' => [
+                'name' => 'John Doe',
+                'email' => 'john@doe.nl',
+                'likes_coffee' => LikesCoffeeEnum::No->value,
+            ],
+        ])
+        ->call('previousStep')
+        ->assertDispatched('previousStep')
+        ->emitEvents()->in($wizard);
+
+    $wizard->assertSee('third step');
+
+    Livewire::test(ThirdStepComponent::class)
+        ->call('nextStep')
+        ->assertDispatched('nextStep')
+        ->emitEvents()->in($wizard);
+
+    $wizard
+        ->assertSee('fourth step')
+        ->assertSee('John Doe')
+        ->assertSee('john@doe.nl')
+        ->assertSee(LikesCoffeeEnum::No->value);
+});
+
+it('can remember enums in steps', function () {
+    $wizard = Livewire::test(MyWizardComponent::class, ['showStep' => 'fourth-step']);
+
+    Livewire::test(FourthStepComponent::class)
+        ->update([], [
+            'likesCoffee' => LikesCoffeeEnum::Alittle->value
+        ])
+        ->call('previousStep')
+        ->assertDispatched('previousStep')
+        ->emitEvents()->in($wizard);
+
+    $wizard->assertSee('third step');
+
+    Livewire::test(ThirdStepComponent::class)
+        ->call('nextStep')
+        ->assertDispatched('nextStep')
+        ->emitEvents()->in($wizard);
+
+    $wizard
+        ->assertSee(LikesCoffeeEnum::Alittle->value);
 });
