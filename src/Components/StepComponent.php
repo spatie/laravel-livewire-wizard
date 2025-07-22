@@ -5,6 +5,7 @@ namespace Spatie\LivewireWizard\Components;
 use Livewire\Component;
 use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Components\Concerns\StepAware;
+use Spatie\LivewireWizard\Support\ComponentHydrator;
 use Spatie\LivewireWizard\Support\State;
 
 abstract class StepComponent extends Component
@@ -19,19 +20,27 @@ abstract class StepComponent extends Component
     /** @var class-string<State> */
     public string $stateClassName = State::class;
 
+    public function dispatchDehydrated($event, ...$params)
+    {
+        $hydrator = app(ComponentHydrator::class);
+        $newParams = collect($params)->map(fn($param) => $hydrator->dehydrateData($this, $param))->toArray();
+
+        return parent::dispatch($event, ...$newParams);
+    }
+
     public function previousStep()
     {
-        $this->dispatch('previousStep', $this->state()->currentStep())->to($this->wizardClassName);
+        $this->dispatchDehydrated('previousStep', $this->state()->currentStep())->to($this->wizardClassName);
     }
 
     public function nextStep()
     {
-        $this->dispatch('nextStep', $this->state()->currentStep())->to($this->wizardClassName);
+        $this->dispatchDehydrated('nextStep', $this->state()->currentStep())->to($this->wizardClassName);
     }
 
     public function showStep(string $stepName)
     {
-        $this->dispatch('showStep', toStepName: $stepName, currentStepState: $this->state()->currentStep())->to($this->wizardClassName);
+        $this->dispatchDehydrated('showStep', toStepName: $stepName, currentStepState: $this->state()->currentStep())->to($this->wizardClassName);
     }
 
     public function hasPreviousStep()
