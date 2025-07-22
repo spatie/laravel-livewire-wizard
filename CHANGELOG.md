@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.4.3 - 2025-07-22
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/spatie/laravel-livewire-wizard/pull/129
+* Added support for synthisizable objects in StepComponents by @blazery in https://github.com/spatie/laravel-livewire-wizard/pull/134
+* Bump stefanzweifel/git-auto-commit-action from 4 to 6 by @dependabot[bot] in https://github.com/spatie/laravel-livewire-wizard/pull/130
+* Add missing use statement to documentation example by @bilfeldt in https://github.com/spatie/laravel-livewire-wizard/pull/128
+
+### New Contributors
+
+* @blazery made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/134
+* @bilfeldt made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/128
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.4.2...2.4.3
+
 ## 2.4.2 - 2025-02-21
 
 ### What's Changed
