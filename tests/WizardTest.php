@@ -2,7 +2,6 @@
 
 use Livewire\Livewire;
 use Livewire\Mechanisms\ComponentRegistry;
-use Spatie\CollectionMacros\Macros\Fourth;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
@@ -225,7 +224,7 @@ it('can remember enums in steps', function () {
 
     Livewire::test(FourthStepComponent::class)
         ->update([], [
-            'likesCoffee' => LikesCoffeeEnum::Alittle->value
+            'likesCoffee' => LikesCoffeeEnum::Alittle->value,
         ])
         ->call('previousStep')
         ->assertDispatched('previousStep')

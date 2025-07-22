@@ -8,7 +8,6 @@ use Spatie\LivewireWizard\Tests\TestSupport\Forms\UserDataForm;
 
 class FourthStepComponent extends StepComponent
 {
-
     public UserDataForm $form;
 
     public ?LikesCoffeeEnum $likesCoffee = null;

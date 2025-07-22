@@ -23,7 +23,7 @@ abstract class StepComponent extends Component
     public function dispatchDehydrated($event, ...$params)
     {
         $hydrator = app(ComponentHydrator::class);
-        $newParams = collect($params)->map(fn($param) => $hydrator->dehydrateData($this, $param))->toArray();
+        $newParams = collect($params)->map(fn ($param) => $hydrator->dehydrateData($this, $param))->toArray();
 
         return parent::dispatch($event, ...$newParams);
     }

@@ -10,7 +10,6 @@ use Livewire\Livewire;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\CollectionMacros\CollectionMacroServiceProvider;
-use Spatie\CollectionMacros\Macros\Fourth;
 use Spatie\LivewireWizard\Components\WizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\CustomStateStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;

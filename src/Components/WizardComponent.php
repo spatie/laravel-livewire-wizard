@@ -60,7 +60,7 @@ abstract class WizardComponent extends Component
     public function previousStep(array $currentStepState)
     {
         $previousStep = collect($this->stepNames())
-            ->before(fn(string $step) => $step === $this->currentStepName);
+            ->before(fn (string $step) => $step === $this->currentStepName);
 
         if (! $previousStep) {
             throw NoPreviousStep::make(self::class, $this->currentStepName);
@@ -73,7 +73,7 @@ abstract class WizardComponent extends Component
     public function nextStep(array $currentStepState)
     {
         $nextStep = collect($this->stepNames())
-            ->after(fn(string $step) => $step === $this->currentStepName);
+            ->after(fn (string $step) => $step === $this->currentStepName);
 
         if (! $nextStep) {
             throw NoNextStep::make(self::class, $this->currentStepName);
