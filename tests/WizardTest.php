@@ -198,7 +198,7 @@ it('can remember state for forms', function () {
             'form' => [
                 'name' => 'John Doe',
                 'email' => 'john@doe.nl',
-                'likes_coffee' => LikesCoffeeEnum::No->value,
+                'likes_coffee' => LikesCoffeeEnum::No,
             ],
         ])
         ->call('previousStep')
