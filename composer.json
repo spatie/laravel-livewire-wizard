@@ -24,7 +24,7 @@
         "php": "^8.2",
         "illuminate/contracts": "^10.0|^11.0|^12.0",
         "illuminate/support": "^10.0|^11.0|^12.0",
-        "livewire/livewire": "^3.0",
+        "livewire/livewire": "^3.0|^4.0",
         "spatie/laravel-collection-macros": "^7.13|^8.0",
         "spatie/laravel-package-tools": "^1.16.1"
     },

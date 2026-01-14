@@ -14,11 +14,11 @@ trait StepAware
     {
         $currentFound = false;
 
-        $currentStepName = app(ComponentRegistry::class)->getName(static::class);
+        $currentStepName = $this->componentName(static::class);
 
         $this->steps = collect($this->allStepNames)
             ->map(function (string $stepName) use (&$currentFound, $currentStepName) {
-                $className = app(ComponentRegistry::class)->getClass($stepName);
+                $className = $this->componentClass($stepName);
 
                 $info = (new $className())->stepInfo();
 
@@ -33,5 +33,25 @@ trait StepAware
                 return new Step($stepName, $info, $status);
             })
             ->toArray();
+    }
+
+    private function componentName(string $name): string
+    {
+        if (app()->has(ComponentRegistry::class)) {
+
+            return app(ComponentRegistry::class)->getName($name);
+        }
+
+        return app('livewire.finder')->normalizeName($name);
+    }
+
+    private function componentClass(string $name): string
+    {
+        if (app()->has(ComponentRegistry::class)) {
+
+            return app(ComponentRegistry::class)->getClass($name);
+        }
+
+        return app('livewire.finder')->resolveClassComponentClassName($name);
     }
 }

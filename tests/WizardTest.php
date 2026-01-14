@@ -162,11 +162,22 @@ it('has a steps property to render navigation', function () {
 });
 
 it('has the correct has step states', function () {
+
+    $componentName = function (string $name): string
+    {
+        if (app()->has(ComponentRegistry::class)) {
+
+            return app(ComponentRegistry::class)->getName($name);
+        }
+
+        return app('livewire.finder')->normalizeName($name);
+    };
+
     // Set up the step names array to match the expected steps
     $stepNames = [
-        app(ComponentRegistry::class)->getName(FirstStepComponent::class),
-        app(ComponentRegistry::class)->getName(SecondStepComponent::class),
-        app(ComponentRegistry::class)->getName(ThirdStepComponent::class),
+        $componentName(FirstStepComponent::class),
+        $componentName(SecondStepComponent::class),
+        $componentName(ThirdStepComponent::class),
     ];
 
     // Create instances of each step component and set the allStepNames property on them

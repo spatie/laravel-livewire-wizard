@@ -20,8 +20,11 @@ abstract class WizardComponent extends Component
 {
     use MountsWizard;
 
+
     public array $allStepState = [];
     public ?string $currentStepName = null;
+    public ?array $initialState = null;
+    public ?string $showStep = null;
 
     /** @return <int, class-string<StepComponent> */
     abstract public function steps(): array;
@@ -40,7 +43,7 @@ abstract class WizardComponent extends Component
                 }
             })
             ->map(function (string $stepClassName) {
-                $alias = app(ComponentRegistry::class)->getName($stepClassName);
+                $alias = $this->componentName($stepClassName);
 
                 if (is_null($alias)) {
                     throw InvalidStepComponent::notRegisteredWithLivewire(static::class, $stepClassName);
@@ -112,7 +115,7 @@ abstract class WizardComponent extends Component
         $stepName = $step ?? $this->currentStepName;
 
         $stepName = class_exists($stepName)
-            ? app(ComponentRegistry::class)->getName($stepName)
+            ? $this->componentName($stepName)
             : $stepName;
 
         throw_if(
@@ -142,5 +145,16 @@ abstract class WizardComponent extends Component
     public function stateClass(): string
     {
         return State::class;
+    }
+
+
+    private function componentName(string $name): string
+    {
+        if (app()->has(ComponentRegistry::class)) {
+
+            return app(ComponentRegistry::class)->getName($name);
+        }
+
+        return app('livewire.finder')->normalizeName($name);
     }
 }

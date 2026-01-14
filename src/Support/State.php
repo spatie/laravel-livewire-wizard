@@ -37,7 +37,11 @@ class State
 
     public function forStepClass(string $stepClass): array
     {
-        $stepName = app(ComponentRegistry::class)->getName($stepClass);
+        if (app()->has(ComponentRegistry::class)) {
+            $stepName = app(ComponentRegistry::class)->getName($stepClass);
+        } else {
+            $stepName = app('livewire.finder')->normalizeName($stepClass);
+        }
 
         return $this->forStep($stepName);
     }
