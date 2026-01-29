@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Drawer\Utils;
-use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Components\Concerns\MountsWizard;
 use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
@@ -14,12 +13,13 @@ use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\NoStepsReturned;
 use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
 use Spatie\LivewireWizard\Support\ComponentHydrator;
+use Spatie\LivewireWizard\Support\ResolvesLivewireComponents;
 use Spatie\LivewireWizard\Support\State;
 
 abstract class WizardComponent extends Component
 {
     use MountsWizard;
-
+    use ResolvesLivewireComponents;
 
     public array $allStepState = [];
     public ?string $currentStepName = null;
@@ -97,7 +97,6 @@ abstract class WizardComponent extends Component
             $this->setStepState($this->currentStepName, $state);
         }
 
-
         $this->currentStepName = $toStepName;
     }
 
@@ -145,16 +144,5 @@ abstract class WizardComponent extends Component
     public function stateClass(): string
     {
         return State::class;
-    }
-
-
-    private function componentName(string $name): string
-    {
-        if (app()->has(ComponentRegistry::class)) {
-
-            return app(ComponentRegistry::class)->getName($name);
-        }
-
-        return app('livewire.finder')->normalizeName($name);
     }
 }

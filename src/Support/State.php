@@ -3,10 +3,11 @@
 namespace Spatie\LivewireWizard\Support;
 
 use Illuminate\Support\Arr;
-use Livewire\Mechanisms\ComponentRegistry;
 
 class State
 {
+    use ResolvesLivewireComponents;
+
     protected array $allState = [];
     protected string $currentStepName = '';
 
@@ -37,13 +38,7 @@ class State
 
     public function forStepClass(string $stepClass): array
     {
-        if (app()->has(ComponentRegistry::class)) {
-            $stepName = app(ComponentRegistry::class)->getName($stepClass);
-        } else {
-            $stepName = app('livewire.finder')->normalizeName($stepClass);
-        }
-
-        return $this->forStep($stepName);
+        return $this->forStep($this->componentName($stepClass));
     }
 
     public function get(string $key)

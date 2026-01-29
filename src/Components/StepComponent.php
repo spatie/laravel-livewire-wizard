@@ -3,7 +3,6 @@
 namespace Spatie\LivewireWizard\Components;
 
 use Livewire\Component;
-use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Components\Concerns\StepAware;
 use Spatie\LivewireWizard\Support\ComponentHydrator;
 use Spatie\LivewireWizard\Support\State;
@@ -76,5 +75,4 @@ abstract class StepComponent extends Component
 
         return $stateClass;
     }
-
 }
