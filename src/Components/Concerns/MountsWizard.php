@@ -23,6 +23,8 @@ trait MountsWizard
 
         if (! is_a($this->stateClass(), State::class, true)) {
             throw InvalidStateClassName::doesNotExtendState(static::class, $this->stateClass());
-        };
+        }
+
+        unset($this->initialState, $this->showStep);
     }
 }

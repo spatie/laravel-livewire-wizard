@@ -1,7 +1,6 @@
 <?php
 
 use Livewire\Livewire;
-use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
 use Spatie\LivewireWizard\Exceptions\NoPreviousStep;
 use Spatie\LivewireWizard\Exceptions\StepDoesNotExist;
@@ -162,11 +161,13 @@ it('has a steps property to render navigation', function () {
 });
 
 it('has the correct has step states', function () {
+    $componentName = fn (string $name): string => app('livewire.finder')->normalizeName($name);
+
     // Set up the step names array to match the expected steps
     $stepNames = [
-        app(ComponentRegistry::class)->getName(FirstStepComponent::class),
-        app(ComponentRegistry::class)->getName(SecondStepComponent::class),
-        app(ComponentRegistry::class)->getName(ThirdStepComponent::class),
+        $componentName(FirstStepComponent::class),
+        $componentName(SecondStepComponent::class),
+        $componentName(ThirdStepComponent::class),
     ];
 
     // Create instances of each step component and set the allStepNames property on them
@@ -198,7 +199,7 @@ it('can remember state for forms', function () {
             'form' => [
                 'name' => 'John Doe',
                 'email' => 'john@doe.nl',
-                'likes_coffee' => LikesCoffeeEnum::No->value,
+                'likes_coffee' => LikesCoffeeEnum::No,
             ],
         ])
         ->call('previousStep')

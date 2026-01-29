@@ -3,7 +3,6 @@
 namespace Spatie\LivewireWizard\Components;
 
 use Livewire\Component;
-use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Components\Concerns\StepAware;
 use Spatie\LivewireWizard\Support\ComponentHydrator;
 use Spatie\LivewireWizard\Support\State;
@@ -45,12 +44,12 @@ abstract class StepComponent extends Component
 
     public function hasPreviousStep()
     {
-        return ! empty($this->allStepNames) && $this->allStepNames[0] !== app(ComponentRegistry::class)->getName(static::class);
+        return ! empty($this->allStepNames) && $this->allStepNames[0] !== $this->componentName(static::class);
     }
 
     public function hasNextStep()
     {
-        return end($this->allStepNames) !== app(ComponentRegistry::class)->getName(static::class);
+        return end($this->allStepNames) !== $this->componentName(static::class);
     }
 
     public function stepInfo(): array
@@ -63,7 +62,7 @@ abstract class StepComponent extends Component
         /** @var State $stateClass */
         $stateClass = new $this->stateClassName();
 
-        $stepName = app(ComponentRegistry::class)->getName(static::class);
+        $stepName = $this->componentName(static::class);
 
         $allState = array_merge(
             $this->allStepsState ?? [],
