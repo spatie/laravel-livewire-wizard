@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.0.0 - 2026-01-29
+
+### What's Changed
+
+* Update issue template by @AlexVanderbist in https://github.com/spatie/laravel-livewire-wizard/pull/136
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/spatie/laravel-livewire-wizard/pull/137
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/spatie/laravel-livewire-wizard/pull/141
+* Feature/livewire v4 by @ainesophaur in https://github.com/spatie/laravel-livewire-wizard/pull/142
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/136
+* @ainesophaur made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/142
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.4.3...3.0.0
+
 ## 2.4.3 - 2025-07-22
 
 ### What's Changed
