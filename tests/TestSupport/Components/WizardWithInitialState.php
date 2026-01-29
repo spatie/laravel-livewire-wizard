@@ -8,7 +8,7 @@ use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent
 
 class WizardWithInitialState extends WizardComponent
 {
-    public function mount(int $order, )
+    public function mount(int $order)
     {
         $this->order = $order;
     }
