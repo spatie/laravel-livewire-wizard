@@ -14,6 +14,7 @@ use Spatie\LivewireWizard\Components\WizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\CustomStateStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FourthStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\MountStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
 use Spatie\LivewireWizard\WizardServiceProvider;
@@ -50,6 +51,7 @@ class TestCase extends Orchestra
         Livewire::component('third-step', ThirdStepComponent::class);
         Livewire::component('fourth-step', FourthStepComponent::class);
         Livewire::component('custom-state-step', CustomStateStepComponent::class);
+        Livewire::component('mount-step', MountStepComponent::class);
 
         return $this;
     }
