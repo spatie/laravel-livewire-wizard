@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.1.0 - 2026-02-09
+
+### What's Changed
+
+* Add support for passing extra parameters to the wizard's `mount` method via `testStep` by @babeuloula in https://github.com/spatie/laravel-livewire-wizard/pull/140
+
+### New Contributors
+
+* @babeuloula made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/140
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/3.0.0...3.1.0
+
 ## 3.0.0 - 2026-01-29
 
 ### What's Changed

@@ -49,4 +49,44 @@ CheckoutWizardComponent::testStep(ConfirmOrderStepComponent::class, [
 expect(Order::count())->toBe(1);
 ```
 
-In the above test, we pass the state required by the `ConfirmOrderStepComponent` as an array. In this case, it is the delivery address that the user entered in the previous step. We are then able to assert whether the text is displayed properly and call the `confirmOrder` method on the Step to submit the order.   
+In the above test, we pass the state required by the `ConfirmOrderStepComponent` as an array. In this case, it is the delivery address that the user entered in the previous step. We are then able to assert whether the text is displayed properly and call the `confirmOrder` method on the Step to submit the order.
+
+## Testing a wizard step with mount parameters
+If your wizard component accepts parameters in its `mount` method, you can pass them using the `params` argument:
+
+```php
+CheckoutWizardComponent::testStep(CartStepComponent::class, params: [
+    'user' => $user,
+    'mode' => 'edit',
+])
+    ->assertSuccessful()
+    ->assertSee('Items in your cart');
+```
+
+These parameters will be forwarded to the `mount` method of the wizard component:
+
+```php
+class CheckoutWizardComponent extends WizardComponent
+{
+    public function mount(User $user, string $mode): void
+    {
+        $this->user = $user;
+        $this->mode = $mode;
+    }
+
+    // ...
+}
+```
+
+You can also combine state and mount parameters:
+
+```php
+CheckoutWizardComponent::testStep(ConfirmOrderStepComponent::class, [
+        'wizard.delivery-address-step-component' => [
+            'street' => '1818 Sherman Street',
+        ],
+    ], params: [
+        'user' => $user,
+    ])
+    ->assertSuccessful();
+```
