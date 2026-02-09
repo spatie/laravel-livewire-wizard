@@ -3,11 +3,7 @@
 namespace Spatie\LivewireWizard\Tests\TestSupport\Components;
 
 use Spatie\LivewireWizard\Components\WizardComponent;
-use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
-use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FourthStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\MountStepComponent;
-use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
-use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
 
 class WizardWithMountComponent extends WizardComponent
 {
