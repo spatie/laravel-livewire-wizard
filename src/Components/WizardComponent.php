@@ -2,6 +2,7 @@
 
 namespace Spatie\LivewireWizard\Components;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -106,7 +107,7 @@ abstract class WizardComponent extends Component
             throw StepDoesNotExist::doesNotHaveState($step);
         }
 
-        $this->allStepState[$step] = $state;
+        Arr::set($this->allStepState, $step, $state);
     }
 
     public function getCurrentStepState(?string $step = null): array
@@ -122,11 +123,21 @@ abstract class WizardComponent extends Component
             StepDoesNotExist::stepNotFound($stepName)
         );
 
+        $allStepsState = [];
+
+        foreach ($this->stepNames() as $name) {
+            $data = Arr::get($this->allStepState, $name);
+
+            if (is_array($data)) {
+                $allStepsState[$name] = $data;
+            }
+        }
+
         return array_merge(
-            $this->allStepState[$stepName] ?? [],
+            Arr::get($this->allStepState, $stepName, []),
             [
                 'allStepNames' => $this->stepNames()->toArray(),
-                'allStepsState' => $this->allStepState,
+                'allStepsState' => $allStepsState,
                 'stateClassName' => $this->stateClass(),
                 'wizardClassName' => static::class,
             ],
