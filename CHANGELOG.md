@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.0.1 - 2026-02-22
+
+### What's Changed
+
+* Resolve #143 Previous step state is getting reset to the initialState() values in later steps by @NankoPrinzhorn in https://github.com/spatie/laravel-livewire-wizard/pull/145
+
+### New Contributors
+
+* @NankoPrinzhorn made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/145
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/3.1.0...3.0.1
+
 ## 3.1.0 - 2026-02-09
 
 ### What's Changed
