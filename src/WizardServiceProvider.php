@@ -30,6 +30,7 @@ class WizardServiceProvider extends PackageServiceProvider
         Component::macro('testStep', function (string $stepClass, array $state = [], array $params = []) {
             $wizardComponent = Livewire::test(static::class, array_merge(['initialState' => $state], $params));
             $wizard = $wizardComponent->invade();
+            $wizard->allStepState = [];
             $wizard->mountMountsWizard($stepClass, $state);
 
             return Livewire::test($stepClass, $wizard->getCurrentStepState($stepClass))
