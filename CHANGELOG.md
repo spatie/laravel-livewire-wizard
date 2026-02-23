@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.0.2 - 2026-02-23
+
+### What's Changed
+
+* tests: handle dotted keys during entire lifecycle by @ju5t in https://github.com/spatie/laravel-livewire-wizard/pull/147
+* Fix component resolution for namespaced names in Livewire 4 by @timvandijck
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/3.0.1...3.0.2
+
 ## 3.0.1 - 2026-02-22
 
 ### What's Changed
