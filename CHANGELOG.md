@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.1.2 - 2026-02-27
+
+Add support for Laravel 13
+
 ## 3.0.2 - 2026-02-23
 
 ### What's Changed
