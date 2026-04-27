@@ -27,7 +27,7 @@ abstract class WizardComponent extends Component
     public ?array $initialState = null;
     public ?string $showStep = null;
 
-    /** @return <int, class-string<StepComponent> */
+    /** @return list<class-string<StepComponent>> */
     abstract public function steps(): array;
 
     public function initialState(): ?array
