@@ -2,6 +2,24 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.1.3 - 2026-08-02
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/spatie/laravel-livewire-wizard/pull/150
+* Bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/spatie/laravel-livewire-wizard/pull/152
+* Update docblock for steps method return type by @CasEbb in https://github.com/spatie/laravel-livewire-wizard/pull/151
+* Bump actions/checkout from 4 to 7 by @dependabot[bot] in https://github.com/spatie/laravel-livewire-wizard/pull/153
+* Fix: Restore compatibility with Livewire 4.3.4 by @JulianGlueck in https://github.com/spatie/laravel-livewire-wizard/pull/154
+* Fix: Pass enum backing value in form state test by @JulianGlueck in https://github.com/spatie/laravel-livewire-wizard/pull/155
+
+### New Contributors
+
+* @CasEbb made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/151
+* @JulianGlueck made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/154
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/3.1.2...3.1.3
+
 ## 3.1.2 - 2026-02-27
 
 Add support for Laravel 13
