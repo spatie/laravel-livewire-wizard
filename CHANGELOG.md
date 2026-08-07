@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.1.4 - 2026-08-07
+
+### What's Changed
+
+* Require livewire/livewire ^4.3.4 by @clarkewing in https://github.com/spatie/laravel-livewire-wizard/pull/156
+
+### New Contributors
+
+* @clarkewing made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/156
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/3.1.3...3.1.4
+
 ## 3.1.3 - 2026-08-02
 
 ### What's Changed
