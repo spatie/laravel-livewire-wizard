@@ -53,6 +53,8 @@ class TestCase extends Orchestra
         Livewire::component('custom-state-step', CustomStateStepComponent::class);
         Livewire::component('mount-step', MountStepComponent::class);
 
+        Livewire::addLocation(viewPath: __DIR__ . '/resources/components');
+
         return $this;
     }
 
