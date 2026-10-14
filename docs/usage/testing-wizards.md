@@ -90,3 +90,29 @@ CheckoutWizardComponent::testStep(ConfirmOrderStepComponent::class, [
     ])
     ->assertSuccessful();
 ```
+
+## Testing a step of an SFC or MFC wizard
+
+A single-file or multi-file wizard has no class to call `testStep` on. Test its steps from the wizard's test instance instead, passing the step's component name. The `state` argument works the same way.
+
+```php
+Livewire::test('checkout-wizard')
+    ->testStep('checkout.confirm-order-step', [
+        'checkout.delivery-address-step' => [
+            'street' => '1818 Sherman Street',
+        ],
+    ])
+    ->assertSee('Delivery Address: 1818 Sherman Street');
+```
+
+Parameters for the wizard's `mount` method are passed to `Livewire::test` as usual.
+
+```php
+Livewire::test('checkout-wizard', [
+    'user' => $user,
+    'mode' => 'edit',
+])
+    ->testStep('checkout.cart-step')
+    ->assertSuccessful()
+    ->assertSee('Items in your cart');
+```

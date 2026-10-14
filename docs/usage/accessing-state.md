@@ -15,7 +15,7 @@ On that state object you can call these methods:
 
 - `all()`: returns an array containing the values of all public properties of all steps in the wizard. The key of the items in the array is the name of the step. Optionally, you can pass is a key name to let the function only return the value for that key.
 - `forStep($stepname)`:  returns the values of all public properties of the given step.
-- `forStepClass(StepComponent::class)`: similar to `forStep`, but you can pass in the class name of the step component.
+- `forStepClass(StepComponent::class)`: similar to `forStep`, but you can pass in the class name of the step component. SFC and MFC steps have no class name, so use `forStep` for those.
 - `currentStep()`: returns an array containing the values of all public properties of the current step. The result is almost identical to Livewire's native `all()` method, but with some internal properties filtered out.
 
 ```php

@@ -137,6 +137,92 @@ Alternatively, you could also directly use `nextStep` in a `wire:click` somewher
 
 With the basics of the wizard now working, explore the other sections in these docs to explore what's possible.
 
+## Using SFCs and MFCs
+
+Wizards and steps can also be Livewire single-file or multi-file components. These need no registration, since Livewire finds them by name, but they have no class name either, so list the steps by their component names.
+
+```blade
+{{-- resources/views/components/checkout-wizard.blade.php --}}
+<?php
+
+use Spatie\LivewireWizard\Components\WizardComponent;
+
+new class extends WizardComponent
+{
+    public function steps(): array
+    {
+        return [
+            'checkout.cart-step',
+            'checkout.delivery-address-step',
+            'checkout.confirm-order-step',
+        ];
+    }
+};
+?>
+
+@include('livewire-wizard::wizard')
+```
+
+A single-file component always has a template, so the wizard includes the package's view to render the current step. To render something around the step instead, use `$currentStepName` and `$currentStepState` in your own template.
+
+```blade
+<div>
+    <h1>Checkout</h1>
+
+    {{-- The current step --}}
+    @livewire($currentStepName, $currentStepState, key($currentStepName))
+</div>
+```
+
+A step is a single-file component that extends `StepComponent`.
+
+```blade
+{{-- resources/views/components/checkout/cart-step.blade.php --}}
+<?php
+
+use Spatie\LivewireWizard\Components\StepComponent;
+
+new class extends StepComponent
+{
+    public function save(): void
+    {
+        $this->nextStep();
+    }
+};
+?>
+
+<div>
+    ...
+</div>
+```
+
+A multi-file component works the same way, with the class and the template in separate files.
+
+```php
+// resources/views/components/checkout-wizard/checkout-wizard.php
+
+use Spatie\LivewireWizard\Components\WizardComponent;
+
+new class extends WizardComponent
+{
+    public function steps(): array
+    {
+        return [
+            'checkout.cart-step',
+            'checkout.delivery-address-step',
+            'checkout.confirm-order-step',
+        ];
+    }
+};
+```
+
+```blade
+{{-- resources/views/components/checkout-wizard/checkout-wizard.blade.php --}}
+@include('livewire-wizard::wizard')
+```
+
+Component names and class names can be mixed in the wizard's `steps()`. When accessing the state of a step by name, use `forStep()` rather than `forStepClass()`.
+
 ## Take a look at the example app
 
 In [this repo on GitHub](https://github.com/spatie/laravel-livewire-wizard-demo-app), you'll find a demo Laravel application that contains the checkout flow as described above.

@@ -25,7 +25,7 @@ class CheckoutWizardComponent extends WizardComponent
 }
 ```
 
-A step is class that extends `StepComponent` (which in its turn extends `Livewire\Component`). You can do anything in here that you can do with a regular Livewire component.
+A step is a component that extends `StepComponent` (which in its turn extends `Livewire\Component`). You can do anything in here that you can do with a regular Livewire component.
 
 ```php
 namespace App\Components;
@@ -41,6 +41,53 @@ class CartStepComponent extends StepComponent
         return view('checkout-wizard.steps.cart');
     }
 }
+```
+
+Wizards and steps can also be [single-file or multi-file components](/docs/laravel-livewire-wizard/v1/usage/creating-your-first-wizard).
+
+```blade
+{{-- resources/views/components/checkout-wizard.blade.php --}}
+<?php
+
+use Spatie\LivewireWizard\Components\WizardComponent;
+
+new class extends WizardComponent
+{
+    public function steps(): array
+    {
+        return [
+            'checkout.cart-step',
+            'checkout.delivery-address-step',
+            'checkout.confirm-order-step',
+        ];
+    }
+};
+?>
+
+@include('livewire-wizard::wizard')
+```
+
+```blade
+{{-- resources/views/components/checkout/cart-step.blade.php --}}
+<?php
+
+use Spatie\LivewireWizard\Components\StepComponent;
+
+new class extends StepComponent
+{
+    // add any Livewire powered method you want
+};
+?>
+
+<div>
+    <ul>
+        @foreach (session('cart') as $item)
+            <li>{{ $item['name'] }}</li>
+        @endforeach
+    </ul>
+
+    <button wire:click="nextStep">Continue</button>
+</div>
 ```
 
 You can easily [control which step is displayed](/docs/laravel-livewire-wizard/v1/usage/navigating-steps), [access state of other steps](/docs/laravel-livewire-wizard/v1/usage/accessing-state), and [build any navigation](/docs/laravel-livewire-wizard/v1/usage/rendering-navigation) you desire.
