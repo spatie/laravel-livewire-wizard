@@ -9,13 +9,20 @@ use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FourthStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\ThirdStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithInvalidCompiledStep;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithInvalidStepComponent;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithMixedSteps;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithNonComponentStep;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithSfcSteps;
+use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithUnknownStepName;
 use Spatie\LivewireWizard\Tests\TestSupport\Enums\LikesCoffeeEnum;
 
 use function Spatie\Snapshots\assertMatchesHtmlSnapshot;
 
 beforeEach(function () {
     $this->wizard = Livewire::test(MyWizardComponent::class);
+
+    $this->sfcWizard = Livewire::test('sfc-wizard');
 
     $this->firstStep = Livewire::test(FirstStepComponent::class);
 });
@@ -24,8 +31,21 @@ $it = it('can render a wizard component', function () {
     $this->wizard->assertSuccessful();
 });
 
+it('can render an SFC wizard', function () {
+    $this->sfcWizard->assertSuccessful();
+});
+
+it('can render an SFC wizard with its own view', function () {
+    Livewire::test('sfc-wizard-with-custom-view')
+        ->assertSee('custom wizard view');
+});
+
 it('can render a step component', function () {
     $this->firstStep->assertSuccessful();
+});
+
+it('can render an SFC step component', function () {
+    $this->sfcWizard->testStep('sfc-first-step')->assertSuccessful();
 });
 
 it('can show a specific step', function () {
@@ -47,8 +67,39 @@ it('can render the next and previous step', function () {
         ->call('previousStep')
         ->assertDispatched('previousStep')
         ->emitEvents()->in($this->wizard);
-
     $this->wizard->assertSee('first step');
+});
+
+it('can render the next and previous SFC step', function () {
+    $this->sfcWizard->assertSee('sfc first step');
+
+    $this->sfcWizard->testStep('sfc-first-step')
+        ->call('nextStep')
+        ->assertDispatchedTo('sfc-wizard', 'nextStep')
+        ->emitEvents()->in($this->sfcWizard);
+    $this->sfcWizard->assertSee('sfc second step');
+
+    $this->sfcWizard->testStep('sfc-second-step')
+        ->call('previousStep')
+        ->assertDispatchedTo('sfc-wizard', 'previousStep')
+        ->emitEvents()->in($this->sfcWizard);
+    $this->sfcWizard->assertSee('sfc first step');
+});
+
+it('can render the next and previous MFC step', function () {
+    $wizard = Livewire::test('mfc-wizard')->assertSee('mfc first step');
+
+    $wizard->testStep('mfc-first-step')
+        ->call('nextStep')
+        ->assertDispatchedTo('mfc-wizard', 'nextStep')
+        ->emitEvents()->in($wizard);
+    $wizard->assertSee('sfc second step');
+
+    $wizard->testStep('sfc-second-step')
+        ->call('previousStep')
+        ->assertDispatchedTo('mfc-wizard', 'previousStep')
+        ->emitEvents()->in($wizard);
+    $wizard->assertSee('mfc first step');
 });
 
 it('can go to a specific step', function () {
@@ -76,9 +127,48 @@ it('throws an exception when going to the next step on the last step', function 
         ->emitEvents()->in($wizard);
 })->throws(NoNextStep::class);
 
+it('can drive compiled steps from a class-based wizard', function () {
+    $wizard = Livewire::test(WizardWithSfcSteps::class)
+        ->assertSuccessful();
+
+    $wizard->testStep('sfc-first-step')
+        ->set('name', 'Rias')
+        ->call('nextStep')
+        ->emitEvents()->in($wizard);
+
+    $wizard
+        ->assertSee('sfc second step')
+        ->assertSee('hello Rias');
+});
+
+it('can mix class-based and compiled steps', function () {
+    $wizard = Livewire::test(WizardWithMixedSteps::class)
+        ->assertSuccessful();
+
+    $wizard->testStep(FirstStepComponent::class)
+        ->call('nextStep')
+        ->emitEvents()->in($wizard);
+
+    $wizard
+        ->assertSet('currentStepName', 'sfc-second-step')
+        ->assertSee('sfc second step');
+});
+
 it('will throw an exception if the wizard contains an invalid step', function () {
     Livewire::test(WizardWithInvalidStepComponent::class);
 })->throws('did return an invalid step component');
+
+it('will throw an exception if the wizard contains an invalid compiled step', function () {
+    Livewire::test(WizardWithInvalidCompiledStep::class);
+})->throws('did return an invalid step component');
+
+it('will throw an exception if the wizard contains a class that is not a component', function () {
+    Livewire::test(WizardWithNonComponentStep::class);
+})->throws('did return an invalid step component');
+
+it('will throw an exception if the wizard contains an unknown step name', function () {
+    Livewire::test(WizardWithUnknownStepName::class);
+})->throws('was not registered with Livewire');
 
 it('will save and restore state when switching steps', function () {
     $this->firstStep
@@ -160,6 +250,16 @@ it('has a steps property to render navigation', function () {
     assertMatchesHtmlSnapshot($navigationHtml);
 });
 
+it('has a steps property to render navigation in an SFC step', function () {
+    $this->sfcWizard->assertSeeInOrder(['First is current', 'Second is next', 'Third is next']);
+
+    $this->sfcWizard->testStep('sfc-first-step')
+        ->call('nextStep')
+        ->emitEvents()->in($this->sfcWizard);
+
+    $this->sfcWizard->assertSeeInOrder(['First is previous', 'Second is current', 'Third is next']);
+});
+
 it('has the correct has step states', function () {
     $componentName = fn (string $name): string => app('livewire.finder')->normalizeName($name);
 
@@ -188,6 +288,21 @@ it('has the correct has step states', function () {
 
     expect($this->thirdStep->hasPreviousStep())->toBeTrue();
     expect($this->thirdStep->hasNextStep())->toBeFalse();
+});
+
+it('has the correct has step states for SFC steps', function () {
+    $firstStep = $this->sfcWizard->testStep('sfc-first-step')->instance();
+    $secondStep = $this->sfcWizard->testStep('sfc-second-step')->instance();
+    $thirdStep = $this->sfcWizard->testStep('sfc-third-step')->instance();
+
+    expect($firstStep->hasPreviousStep())->toBeFalse();
+    expect($firstStep->hasNextStep())->toBeTrue();
+
+    expect($secondStep->hasPreviousStep())->toBeTrue();
+    expect($secondStep->hasNextStep())->toBeTrue();
+
+    expect($thirdStep->hasPreviousStep())->toBeTrue();
+    expect($thirdStep->hasNextStep())->toBeFalse();
 });
 
 

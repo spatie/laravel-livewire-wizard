@@ -9,6 +9,7 @@ new class extends WizardComponent
         return [
             'sfc-first-step',
             'sfc-second-step',
+            'sfc-third-step',
         ];
     }
 };

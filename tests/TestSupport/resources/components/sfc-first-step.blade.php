@@ -15,4 +15,9 @@ new class extends StepComponent
 
 <div>
     <p>sfc first step</p>
+    <ul id="navigation">
+        @foreach ($steps as $step)
+            <li>{{ $step->label }} is {{ $step->status->value }}</li>
+        @endforeach
+    </ul>
 </div>
