@@ -7,98 +7,78 @@ A "wizard" is a multi-step process in which each step has its own screen. In our
 
 ## Creating the wizard component
 
-To get started you need to create a class that extends `WizardComponent`.
+To get started, create a single-file component that extends `WizardComponent`. Livewire finds it by its name, `checkout-wizard`, so there is nothing to register.
 
-```php
-namespace App\Components;
+```blade
+{{-- resources/views/components/⚡checkout-wizard.blade.php --}}
+<?php
 
 use Spatie\LivewireWizard\Components\WizardComponent;
 
-class CheckoutWizardComponent extends WizardComponent
+new class extends WizardComponent
 {
+};
+?>
 
-}
+@include('livewire-wizard::wizard')
 ```
 
-The `WizardComponent` class extends Livewire's component class, so you need to register the `CheckoutWizardComponent` with Livewire.
-
-```php
-// typically, in a service provider
-
-use Livewire\Livewire;
-use App\Components\CheckoutWizardComponent;
-
-Livewire::component('checkout-wizard', CheckoutWizardComponent::class);
-```
+A single-file component always has a template. Here the wizard includes the package's view, which renders the current step; we'll come back to that template when rendering the wizard.
 
 ## Creating steps
 
 Next, let's add steps to the wizard. In our example, let's assume the checkout process has three steps:
 
-1. A step to specify display the contents of a cart
+1. A step to display the contents of a cart
 2. A step to specify delivery address details
-3. A step that show all order details and the ability to confirm the order
+3. A step that shows all order details and the ability to confirm the order
 
-For each step, you need to create a class that extends `StepComponent`. Here's how it may look like for the first step of our example.
+For each step, create a single-file component that extends `StepComponent`. Here's how it may look like for the first step of our example.
 
-```php
-namespace App\Components;
+```blade
+{{-- resources/views/components/checkout/⚡cart-step.blade.php --}}
+<?php
 
 use Spatie\LivewireWizard\Components\StepComponent;
 
-class CartStepComponent extends StepComponent
+new class extends StepComponent
 {
-    public function render()
-    {
-        return view('checkout-wizard.steps.cart');
-    }
-}
+};
+?>
+
+<div>
+    ...
+</div>
 ```
 
-This `CartComponent` is a regular Livewire component, so you can add any Livewire functionality you want. You could display some info, add actions, handle a form, anything goes!
-
-Since steps are Livewire components, don't forget to register all steps to Livewire.
-
-```php
-// typically, in a service provider
-
-use Livewire\Livewire;
-use App\Components\CartStepComponent;
-use App\Components\DeliveryAddressStepComponent;
-use App\Components\ConfirmOrderStepComponent;
-
-// ... other registrations
-
-Livewire::component('cart-step', CartStepComponent::class);
-Livewire::component('delivery-address-step', DeliveryAddressStepComponent::class);
-Livewire::component('confirm-order-step', ConfirmOrderStepComponent::class);
-```
+This step is a regular Livewire component, so you can add any Livewire functionality you want. You could display some info, add actions, handle a form, anything goes!
 
 ## Adding steps to the wizard
 
-Now that you've created the step classes, let's add them to the wizard.
+Now that you've created the steps, let's add them to the wizard.
 
-In `CheckoutWizardComponent` add a function named `steps` that returns an array with all your steps.
+In the wizard, add a function named `steps` that returns an array with the component names of all your steps.
 
-```php
-namespace App\Components;
+```blade
+{{-- resources/views/components/⚡checkout-wizard.blade.php --}}
+<?php
 
-use App\Components\CartStepComponent;
-use App\Components\DeliveryAddressStepComponent;
-use App\Components\ConfirmOrderStepComponent;
 use Spatie\LivewireWizard\Components\WizardComponent;
 
-class CheckoutWizardComponent extends WizardComponent
+new class extends WizardComponent
 {
-    public function steps() : array
+    public function steps(): array
     {
         return [
-            CartStepComponent::class,
-            DeliveryAddressStepComponent::class,
-            ConfirmOrderStepComponent::class,
-        ];       
+            'checkout.cart-step',
+            'checkout.delivery-address-step',
+            'checkout.confirm-order-step',
+        ];
     }
-}
+};
+?>
+
+@include('livewire-wizard::wizard')
 ```
 
 ## Rendering the wizard component
@@ -108,6 +88,17 @@ Now that everything is set up, you can render the wizard component in any view y
 ```blade
 <div>
     <livewire:checkout-wizard />
+</div>
+```
+
+The wizard's template is what renders the current step, which is all the package's view does. To render something around the step instead, use `$currentStepName` and `$currentStepState` in your own template.
+
+```blade
+<div>
+    <h1>Checkout</h1>
+
+    {{-- The current step --}}
+    @livewire($currentStepName, $currentStepState, key($currentStepName))
 </div>
 ```
 
@@ -137,69 +128,12 @@ Alternatively, you could also directly use `nextStep` in a `wire:click` somewher
 
 With the basics of the wizard now working, explore the other sections in these docs to explore what's possible.
 
-## Using SFCs and MFCs
-
-Wizards and steps can also be Livewire single-file or multi-file components. These need no registration, since Livewire finds them by name, but they have no class name either, so list the steps by their component names.
-
-```blade
-{{-- resources/views/components/checkout-wizard.blade.php --}}
-<?php
-
-use Spatie\LivewireWizard\Components\WizardComponent;
-
-new class extends WizardComponent
-{
-    public function steps(): array
-    {
-        return [
-            'checkout.cart-step',
-            'checkout.delivery-address-step',
-            'checkout.confirm-order-step',
-        ];
-    }
-};
-?>
-
-@include('livewire-wizard::wizard')
-```
-
-A single-file component always has a template, so the wizard includes the package's view to render the current step. To render something around the step instead, use `$currentStepName` and `$currentStepState` in your own template.
-
-```blade
-<div>
-    <h1>Checkout</h1>
-
-    {{-- The current step --}}
-    @livewire($currentStepName, $currentStepState, key($currentStepName))
-</div>
-```
-
-A step is a single-file component that extends `StepComponent`.
-
-```blade
-{{-- resources/views/components/checkout/cart-step.blade.php --}}
-<?php
-
-use Spatie\LivewireWizard\Components\StepComponent;
-
-new class extends StepComponent
-{
-    public function save(): void
-    {
-        $this->nextStep();
-    }
-};
-?>
-
-<div>
-    ...
-</div>
-```
+## Using multi-file components
 
 A multi-file component works the same way, with the class and the template in separate files.
 
 ```php
-// resources/views/components/checkout-wizard/checkout-wizard.php
+// resources/views/components/⚡checkout-wizard/checkout-wizard.php
 
 use Spatie\LivewireWizard\Components\WizardComponent;
 
@@ -217,11 +151,64 @@ new class extends WizardComponent
 ```
 
 ```blade
-{{-- resources/views/components/checkout-wizard/checkout-wizard.blade.php --}}
+{{-- resources/views/components/⚡checkout-wizard/checkout-wizard.blade.php --}}
 @include('livewire-wizard::wizard')
 ```
 
-Component names and class names can be mixed in the wizard's `steps()`. When accessing the state of a step by name, use `forStep()` rather than `forStepClass()`.
+## Using class-based components
+
+Wizards and steps can also be class-based components. These need to be registered with Livewire, and can be listed in `steps()` by class name. Component names and class names can be mixed.
+
+```php
+namespace App\Components;
+
+use Spatie\LivewireWizard\Components\WizardComponent;
+
+class CheckoutWizardComponent extends WizardComponent
+{
+    public function steps(): array
+    {
+        return [
+            CartStepComponent::class,
+            DeliveryAddressStepComponent::class,
+            ConfirmOrderStepComponent::class,
+        ];
+    }
+}
+```
+
+```php
+// typically, in a service provider
+
+use Livewire\Livewire;
+use App\Components\CheckoutWizardComponent;
+use App\Components\CartStepComponent;
+use App\Components\DeliveryAddressStepComponent;
+use App\Components\ConfirmOrderStepComponent;
+
+Livewire::component('checkout-wizard', CheckoutWizardComponent::class);
+Livewire::component('cart-step', CartStepComponent::class);
+Livewire::component('delivery-address-step', DeliveryAddressStepComponent::class);
+Livewire::component('confirm-order-step', ConfirmOrderStepComponent::class);
+```
+
+A class-based step renders its own view, and a class-based wizard without a `render` method uses the package's view.
+
+```php
+namespace App\Components;
+
+use Spatie\LivewireWizard\Components\StepComponent;
+
+class CartStepComponent extends StepComponent
+{
+    public function render()
+    {
+        return view('checkout-wizard.steps.cart');
+    }
+}
+```
+
+When accessing the state of a step listed by class, `forStepClass()` works as well as `forStep()`.
 
 ## Take a look at the example app
 
