@@ -44,12 +44,12 @@ abstract class StepComponent extends Component
 
     public function hasPreviousStep()
     {
-        return ! empty($this->allStepNames) && $this->allStepNames[0] !== $this->componentName(static::class);
+        return ! empty($this->allStepNames) && $this->allStepNames[0] !== $this->stepName();
     }
 
     public function hasNextStep()
     {
-        return end($this->allStepNames) !== $this->componentName(static::class);
+        return end($this->allStepNames) !== $this->stepName();
     }
 
     public function stepInfo(): array
@@ -62,7 +62,7 @@ abstract class StepComponent extends Component
         /** @var State $stateClass */
         $stateClass = new $this->stateClassName();
 
-        $stepName = $this->componentName(static::class);
+        $stepName = $this->stepName();
 
         $allState = array_merge(
             $this->allStepsState ?? [],
