@@ -35,6 +35,6 @@ it('can test wizard with params', function () {
         ->assertSee('Mount step');
 });
 
-it('cant test wizard without params', function () {
+it('cannot test wizard without required params', function () {
     WizardWithMountComponent::testStep(MountStepComponent::class);
 })->throws(Exception::class);
