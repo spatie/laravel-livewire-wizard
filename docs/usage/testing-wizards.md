@@ -3,13 +3,13 @@ title: Testing wizards
 weight: 6
 ---
 
-On this page we'll show you a few tips on how to test wizard steps created with this package. For explanation purposes, consider an example wizard called `CheckoutWizardComponent`. It has the following steps:
-- `CartStepComponent`: Displays the products in the user's cart.
-- `DeliveryAddressStepComponent`: Allows the user to enter their delivery address.
-- `ConfirmOrderStepComponent`: Displays the order details and allows the user to confirm the order.
+On this page we'll show you a few tips on how to test wizard steps created with this package. For explanation purposes, consider an example wizard called `checkout-wizard`. It has the following steps:
+- `checkout.cart-step`: Displays the products in the user's cart.
+- `checkout.delivery-address-step`: Allows the user to enter their delivery address.
+- `checkout.confirm-order-step`: Displays the order details and allows the user to confirm the order.
 
 ## Testing a wizard step without state
-The first step of our checkout wizard is a simple step that doesn't require any state. It only displays the products in the user's cart. To test this step, we can use the following test:
+The first step of our checkout wizard is a simple step that doesn't require any state. It only displays the products in the user's cart. To test this step, we can use the `testStep` method on the wizard's test instance:
 
 ```php
 session()->put('cart', [
@@ -17,7 +17,8 @@ session()->put('cart', [
     ['name' => 'Chocolate', 'price' => 150],
 ]);
 
-CheckoutWizardComponent::testStep(CartStepComponent::class)
+Livewire::test('checkout-wizard')
+    ->testStep('checkout.cart-step')
     ->assertSuccessful()
     ->assertSee('Items in your cart')
     ->assertSee('Candle')
@@ -30,8 +31,9 @@ The above test will assert that the step is shown successfully, and that it disp
 You may need to test a wizard step that requires some state from a previous step. As an example, consider the last step of our checkout wizard.  
 
 ```php
-CheckoutWizardComponent::testStep(ConfirmOrderStepComponent::class, [
-        'wizard.delivery-address-step-component' => [
+Livewire::test('checkout-wizard')
+    ->testStep('checkout.confirm-order-step', [
+        'checkout.delivery-address-step' => [
             'street' => '1818 Sherman Street',
             'city' => 'Hope',
             'state' => 'Kansas',
@@ -49,24 +51,31 @@ CheckoutWizardComponent::testStep(ConfirmOrderStepComponent::class, [
 expect(Order::count())->toBe(1);
 ```
 
-In the above test, we pass the state required by the `ConfirmOrderStepComponent` as an array. In this case, it is the delivery address that the user entered in the previous step. We are then able to assert whether the text is displayed properly and call the `confirmOrder` method on the Step to submit the order.
+In the above test, we pass the state required by the confirm order step as an array, keyed by step name. In this case, it is the delivery address that the user entered in the previous step. We are then able to assert whether the text is displayed properly and call the `confirmOrder` method on the step to submit the order.
 
 ## Testing a wizard step with mount parameters
-If your wizard component accepts parameters in its `mount` method, you can pass them using the `params` argument:
+If your wizard component accepts parameters in its `mount` method, pass them to `Livewire::test` as usual:
 
 ```php
-CheckoutWizardComponent::testStep(CartStepComponent::class, params: [
+Livewire::test('checkout-wizard', [
     'user' => $user,
     'mode' => 'edit',
 ])
+    ->testStep('checkout.cart-step')
     ->assertSuccessful()
     ->assertSee('Items in your cart');
 ```
 
 These parameters will be forwarded to the `mount` method of the wizard component:
 
-```php
-class CheckoutWizardComponent extends WizardComponent
+```blade
+{{-- resources/views/components/⚡checkout-wizard.blade.php --}}
+<?php
+
+use App\Models\User;
+use Spatie\LivewireWizard\Components\WizardComponent;
+
+new class extends WizardComponent
 {
     public function mount(User $user, string $mode): void
     {
@@ -75,14 +84,23 @@ class CheckoutWizardComponent extends WizardComponent
     }
 
     // ...
-}
+};
+?>
+
+@include('livewire-wizard::wizard')
 ```
 
-You can also combine state and mount parameters:
+## Testing a step of a class-based wizard
+
+A class-based wizard can also be tested through the static `testStep` method on its class, passing the step's class. State is keyed by step name as before, and mount parameters go in the `params` argument.
 
 ```php
+CheckoutWizardComponent::testStep(CartStepComponent::class)
+    ->assertSuccessful()
+    ->assertSee('Items in your cart');
+
 CheckoutWizardComponent::testStep(ConfirmOrderStepComponent::class, [
-        'wizard.delivery-address-step-component' => [
+        'delivery-address-step' => [
             'street' => '1818 Sherman Street',
         ],
     ], params: [

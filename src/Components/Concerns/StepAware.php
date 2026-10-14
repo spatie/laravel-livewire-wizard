@@ -16,7 +16,7 @@ trait StepAware
     {
         $currentFound = false;
 
-        $currentStepName = $this->componentName(static::class);
+        $currentStepName = $this->stepName();
 
         $this->steps = collect($this->allStepNames)
             ->map(function (string $stepName) use (&$currentFound, $currentStepName) {
@@ -34,5 +34,10 @@ trait StepAware
                 return new Step($stepName, $info, $status);
             })
             ->toArray();
+    }
+
+    protected function stepName(): string
+    {
+        return $this->getName() ?? $this->componentName(static::class);
     }
 }
