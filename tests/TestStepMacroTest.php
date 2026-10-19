@@ -9,7 +9,7 @@ use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithMountComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\WizardWithSfcSteps;
 
 it('can test a step without state', function () {
-    MyWizardComponent::testStep(FirstStepComponent::class)
+    MyWizardComponent::testStep(stepClass: FirstStepComponent::class)
         ->assertSee('first step');
 });
 
@@ -60,4 +60,37 @@ it('can test a compiled step of a class-based wizard', function () {
         'sfc-first-step' => ['name' => 'Rias'],
     ])
         ->assertSee('hello Rias');
+});
+
+it('can navigate from the tested step while preserving wizard state', function (
+    string $wizardName,
+    string $firstStep,
+    string $secondStep,
+    string $thirdStep,
+    array $initialState,
+    array $overrideState,
+) {
+    $wizard = Livewire::test($wizardName, ['initialState' => [$firstStep => $initialState]]);
+
+    $wizard->testStep($secondStep, [$firstStep => $overrideState])
+        ->call('nextStep')
+        ->emitEvents()->in($wizard);
+
+    $wizard
+        ->assertSet('currentStepName', $thirdStep)
+        ->assertSet("allStepState.{$firstStep}", $overrideState)
+        ->call('previousStep', [])
+        ->assertSet('currentStepName', app('livewire.finder')->normalizeName($secondStep))
+        ->assertSet("allStepState.{$firstStep}", $overrideState);
+})->with([
+    'compiled wizard' => ['sfc-wizard', 'sfc-first-step', 'sfc-second-step', 'sfc-third-step', ['name' => 'Freek'], ['name' => 'Rias']],
+    'class-based wizard' => [MyWizardComponent::class, 'first-step', SecondStepComponent::class, 'third-step', ['order' => 12], ['order' => 220]],
+]);
+
+it('retains mounted state when testing another step', function () {
+    $wizard = Livewire::test('sfc-wizard', [
+        'initialState' => ['sfc-first-step' => ['name' => 'Freek']],
+    ]);
+
+    $wizard->testStep('sfc-second-step')->assertSee('hello Freek');
 });

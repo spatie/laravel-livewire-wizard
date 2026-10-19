@@ -27,17 +27,24 @@ class WizardServiceProvider extends PackageServiceProvider
 
     public function registerLivewireTestMacros()
     {
-        Component::macro('testStep', function (string $step, array $state = [], array $params = []) {
+        Component::macro('testStep', function (string $stepClass, array $state = [], array $params = []) {
             return Livewire::test(static::class, array_merge(['initialState' => $state], $params))
-                ->testStep($step, $state);
+                ->testStep($stepClass, $state);
         });
 
         Testable::macro('testStep', function (string $step, array $state = []) {
-            $wizard = $this->invade();
+            $stepName = app('livewire.finder')->normalizeName($step);
+            $wizard = $this->instance();
+            $state = array_merge($wizard->getCurrentStepState()['allStepsState'], $state);
             $wizard->allStepState = [];
-            $wizard->mountMountsWizard($step, $state);
+            $wizard->mountMountsWizard($stepName, $state);
 
-            return Livewire::test($step, $wizard->getCurrentStepState($step))
+            $this->set([
+                'allStepState' => $wizard->allStepState,
+                'currentStepName' => $wizard->currentStepName,
+            ]);
+
+            return Livewire::test($step, $this->instance()->getCurrentStepState($stepName))
                 ->emitEvents()->in($this);
         });
 

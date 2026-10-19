@@ -53,6 +53,8 @@ expect(Order::count())->toBe(1);
 
 In the above test, we pass the state required by the confirm order step as an array, keyed by step name. In this case, it is the delivery address that the user entered in the previous step. We are then able to assert whether the text is displayed properly and call the `confirmOrder` method on the step to submit the order.
 
+`testStep()` preserves the wizard's existing state. State passed to it replaces the state of the specified steps. It also selects the tested step on the wizard, so events forwarded with `emitEvents()->in($wizard)` navigate from that step.
+
 ## Testing a wizard step with mount parameters
 If your wizard component accepts parameters in its `mount` method, pass them to `Livewire::test` as usual:
 
