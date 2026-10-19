@@ -15,7 +15,7 @@ new class extends StepComponent
     <p>sfc second step</p>
     <p>hello {{ $this->state()->forStep('sfc-first-step')['name'] ?? 'nobody' }}</p>
     <ul id="navigation">
-        @foreach ($steps as $step)
+        @foreach($steps as $step)
             <li>{{ $step->label }} is {{ $step->status->value }}</li>
         @endforeach
     </ul>

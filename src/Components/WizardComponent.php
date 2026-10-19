@@ -28,7 +28,7 @@ abstract class WizardComponent extends Component
     public ?array $initialState = null;
     public ?string $showStep = null;
 
-    /** @return list<class-string<StepComponent>|string> The step classes, or their Livewire component names */
+    /** @return list<string> Step classes or Livewire component names. */
     abstract public function steps(): array;
 
     public function initialState(): ?array
@@ -41,14 +41,14 @@ abstract class WizardComponent extends Component
         $steps = collect($this->steps())
             ->map(function (string $step) {
                 try {
-                    $class = $this->componentClass($step);
+                    $stepClass = $this->componentClass($step);
                 } catch (ComponentNotFoundException) {
                     throw class_exists($step)
                         ? InvalidStepComponent::doesNotExtendStepComponent(static::class, $step)
                         : InvalidStepComponent::notRegisteredWithLivewire(static::class, $step);
                 }
 
-                if (! is_a($class, StepComponent::class, true)) {
+                if (! is_a($stepClass, StepComponent::class, true)) {
                     throw InvalidStepComponent::doesNotExtendStepComponent(static::class, $step);
                 }
 
@@ -150,11 +150,11 @@ abstract class WizardComponent extends Component
     {
         $currentStepState = $this->getCurrentStepState();
 
-        if ($this->hasProvidedView()) {
-            return $this->getProvidedView()->with(compact('currentStepState'));
-        }
+        $view = $this->hasProvidedView()
+            ? $this->getProvidedView()
+            : view('livewire-wizard::wizard');
 
-        return view('livewire-wizard::wizard', compact('currentStepState'));
+        return $view->with('currentStepState', $currentStepState);
     }
 
     /** @return class-string<State> */
