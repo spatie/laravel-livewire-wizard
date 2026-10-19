@@ -2,6 +2,5 @@
 
 use Spatie\LivewireWizard\Components\StepComponent;
 
-new class extends StepComponent
-{
+new class () extends StepComponent {
 };

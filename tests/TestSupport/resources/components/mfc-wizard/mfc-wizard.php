@@ -2,8 +2,7 @@
 
 use Spatie\LivewireWizard\Components\WizardComponent;
 
-new class extends WizardComponent
-{
+new class () extends WizardComponent {
     public function steps(): array
     {
         return [
