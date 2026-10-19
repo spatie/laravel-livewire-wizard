@@ -2,6 +2,27 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.2.0 - 2026-10-19
+
+### What's Changed
+
+- Support Livewire 4 single-file and multi-file wizard and step components, including mixed class-based and compiled steps, by @clarkewing in https://github.com/spatie/laravel-livewire-wizard/pull/159.
+- Render compiled wizards' own Blade templates and custom layouts.
+- Add instance-based testStep() support, preserve mounted wizard state, and synchronize step navigation with Livewire's test snapshot.
+- Simplify state testing and view rendering, update documentation, and refresh PHP/Pest compatibility testing.
+
+### Requirements and Compatibility
+
+- Requires PHP 8.4+, Laravel 12 or 13, and Livewire 4.3.4+.
+- The wizardClassName step property now contains the wizard's Livewire component name rather than its PHP class name. Custom code inspecting that property should use it as a Livewire component name.
+- Existing class-based wizard usage and the static testStep(stepClass: ...) named argument remain supported.
+
+### Verification
+
+All eight PHP 8.4/8.5, Laravel 12/13, Linux/Windows matrix jobs and the styling check passed before merging. The test suite contains 50 passing tests and 130 assertions.
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/3.1.4...3.2.0
+
 ## 3.1.4 - 2026-08-07
 
 ### What's Changed
