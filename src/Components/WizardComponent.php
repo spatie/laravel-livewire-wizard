@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Drawer\Utils;
+use Livewire\Exceptions\ComponentNotFoundException;
 use Spatie\LivewireWizard\Components\Concerns\MountsWizard;
 use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
@@ -27,7 +28,7 @@ abstract class WizardComponent extends Component
     public ?array $initialState = null;
     public ?string $showStep = null;
 
-    /** @return list<class-string<StepComponent>> */
+    /** @return list<string> Step classes or Livewire component names. */
     abstract public function steps(): array;
 
     public function initialState(): ?array
@@ -38,19 +39,20 @@ abstract class WizardComponent extends Component
     public function stepNames(): Collection
     {
         $steps = collect($this->steps())
-            ->each(function (string $stepClassName) {
-                if (! is_a($stepClassName, StepComponent::class, true)) {
-                    throw InvalidStepComponent::doesNotExtendStepComponent(static::class, $stepClassName);
-                }
-            })
-            ->map(function (string $stepClassName) {
-                $alias = $this->componentName($stepClassName);
-
-                if (is_null($alias)) {
-                    throw InvalidStepComponent::notRegisteredWithLivewire(static::class, $stepClassName);
+            ->map(function (string $step) {
+                try {
+                    $stepClass = $this->componentClass($step);
+                } catch (ComponentNotFoundException) {
+                    throw class_exists($step)
+                        ? InvalidStepComponent::doesNotExtendStepComponent(static::class, $step)
+                        : InvalidStepComponent::notRegisteredWithLivewire(static::class, $step);
                 }
 
-                return $alias;
+                if (! is_a($stepClass, StepComponent::class, true)) {
+                    throw InvalidStepComponent::doesNotExtendStepComponent(static::class, $step);
+                }
+
+                return $this->componentName($step);
             });
 
         if ($steps->isEmpty()) {
@@ -139,7 +141,7 @@ abstract class WizardComponent extends Component
                 'allStepNames' => $this->stepNames()->toArray(),
                 'allStepsState' => $allStepsState,
                 'stateClassName' => $this->stateClass(),
-                'wizardClassName' => static::class,
+                'wizardClassName' => $this->getName(),
             ],
         );
     }
@@ -148,7 +150,11 @@ abstract class WizardComponent extends Component
     {
         $currentStepState = $this->getCurrentStepState();
 
-        return view('livewire-wizard::wizard', compact('currentStepState'));
+        $view = $this->hasProvidedView()
+            ? $this->getProvidedView()
+            : view('livewire-wizard::wizard');
+
+        return $view->with('currentStepState', $currentStepState);
     }
 
     /** @return class-string<State> */

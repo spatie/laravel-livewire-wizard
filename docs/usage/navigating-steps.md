@@ -49,13 +49,13 @@ To show any step, call `showStep` and pass it the component name of the step you
 ```php
 // somewhere in your step component
 
-$this->showStep('confirm-order-step');
+$this->showStep('checkout.confirm-order-step');
 ```
 
 You can also call it in your view.
 
 ```blade
-<div wire:click="showStep('confirm-order-step')">
+<div wire:click="showStep('checkout.confirm-order-step')">
     Go to the confirm order step
 </div>
 ```
@@ -72,5 +72,5 @@ $this->hasPreviousStep();
 If you want the wizard to display a specific step when it is rendered first, you can pass the step name to the `show-step` property.
 
 ```blade
-<livewire:checkout-wizard show-step="delivery-address-step" />
+<livewire:checkout-wizard show-step="checkout.delivery-address-step" />
 ```

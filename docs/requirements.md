@@ -3,4 +3,4 @@ title: Requirements
 weight: 3
 ---
 
-The laravel-livewire-wizard package requires **PHP 8.2+**,  **Laravel 10+**, and **Livewire 3**. 
+The laravel-livewire-wizard package requires **PHP 8.4+**, **Laravel 12+**, and **Livewire 4.3.4+**.
