@@ -31,9 +31,9 @@
     "require-dev": {
         "ext-dom": "*",
         "nunomaduro/collision": "^8.0",
-        "orchestra/testbench": "^10.0|^11.0",
-        "pestphp/pest": "^4.7|^5.3",
-        "pestphp/pest-plugin-laravel": "^4.0|^5.0",
+        "orchestra/testbench": "^11.0",
+        "pestphp/pest": "^5.3",
+        "pestphp/pest-plugin-laravel": "^5.0",
         "spatie/laravel-ray": "^1.32.6",
         "spatie/pest-plugin-snapshots": "^2.4"
     },
