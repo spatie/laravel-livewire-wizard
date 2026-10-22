@@ -2,6 +2,31 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.2.1 - 2026-10-22
+
+### Security
+
+- Authenticate dehydrated wizard navigation state before Livewire reconstructs objects, rejecting unsigned or modified synthesized payloads. See https://github.com/spatie/laravel-livewire-wizard/pull/160.
+- Preserve plain-array navigation and legitimate nested state, including forms and enums.
+
+### Upgrade Notes
+
+- Reload wizard pages opened before deployment. In-flight navigation events using the old unsigned synthesized format are intentionally rejected.
+- Custom code that manually constructs synthesized navigation payloads should use the package's dehydration helper instead.
+- State authentication does not replace application authorization or prevent replay of previously issued state.
+- Runtime requirements are unchanged: PHP 8.4+, Laravel 12 or 13, and Livewire 4.3.4+.
+
+### Maintenance
+
+- Standardize development dependencies on Pest 5 and Testbench 11, with CI on Laravel 13, PHP 8.4/8.5, and Ubuntu/Windows.
+- Normalize HTML snapshot line endings to fix platform-dependent test failures.
+
+### Verification
+
+All four test matrix jobs and the styling check passed before merging. The merged code also passes all 75 tests locally (205 assertions).
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/3.2.0...3.2.1
+
 ## 3.2.0 - 2026-10-19
 
 ### What's Changed
