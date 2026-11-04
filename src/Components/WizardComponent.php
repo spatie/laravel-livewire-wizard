@@ -69,7 +69,7 @@ abstract class WizardComponent extends Component
             ->before(fn (string $step) => $step === $this->currentStepName);
 
         if (! $previousStep) {
-            throw NoPreviousStep::make(self::class, $this->currentStepName);
+            throw NoPreviousStep::make(static::class, $this->currentStepName);
         }
 
         $this->showStep($previousStep, $currentStepState);
@@ -82,7 +82,7 @@ abstract class WizardComponent extends Component
             ->after(fn (string $step) => $step === $this->currentStepName);
 
         if (! $nextStep) {
-            throw NoNextStep::make(self::class, $this->currentStepName);
+            throw NoNextStep::make(static::class, $this->currentStepName);
         }
 
         $this->showStep($nextStep, $currentStepState);
