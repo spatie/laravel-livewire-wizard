@@ -116,7 +116,10 @@ it('throws an exception when going to the previous step on the first step', func
         ->call('previousStep')
         ->assertDispatched('previousStep')
         ->emitEvents()->in($this->wizard);
-})->throws(NoPreviousStep::class);
+})->throws(
+    NoPreviousStep::class,
+    'The `first-step` step of wizard `' . MyWizardComponent::class . '` requested to go to the previous step, but there is no previous step.',
+);
 
 it('throws an exception when going to the next step on the last step', function () {
     $wizard = Livewire::test(MyWizardComponent::class, ['showStep' => 'fourth-step']);
@@ -125,7 +128,10 @@ it('throws an exception when going to the next step on the last step', function 
         ->call('nextStep')
         ->assertDispatched('nextStep')
         ->emitEvents()->in($wizard);
-})->throws(NoNextStep::class);
+})->throws(
+    NoNextStep::class,
+    'The `fourth-step` step of wizard `' . MyWizardComponent::class . '` requested to go to the next step, but there is no next step.',
+);
 
 it('can drive compiled steps from a class-based wizard', function () {
     $wizard = Livewire::test(WizardWithSfcSteps::class)
