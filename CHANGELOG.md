@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 3.2.2 - 2026-11-04
+
+### Fixed
+
+- Report the consuming wizard subclass in `NoPreviousStep` and `NoNextStep` exception messages instead of the package base component, by @CasEbb in https://github.com/spatie/laravel-livewire-wizard/pull/161.
+- Cover both navigation boundaries through a consuming wizard subclass with regression assertions for the exception messages.
+
+### Compatibility
+
+Navigation, exception types, public APIs, and runtime requirements are unchanged. PHP 8.4+, Laravel 12 or 13, and Livewire 4.3.4+ remain supported.
+
+### Verification
+
+All four PHP 8.4/8.5 Linux/Windows test jobs and formatting passed on the PR head and merged commit. All 75 tests pass locally (207 assertions). Both message regressions fail with the previous implementation and pass with the fix.
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/3.2.1...3.2.2
+
 ## 3.2.1 - 2026-10-22
 
 ### Security
